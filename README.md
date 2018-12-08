@@ -8,7 +8,7 @@ Within each content section, I've linked to a written tutorial, the HTML version
 - Working with R markdown and R projects ([tutorial](tutorials/projects.md), [slides](https://djnavarro.github.io/slides/projects.html))
 - Data wrangling in tidyverse ([tutorial](tutorials/wrangling.md), [slides](https://djnavarro.github.io/slides/wrangling.html))
 - Data visualisation in tidyverse ([tutorial](tutorials/visualisation.md), [slides](https://djnavarro.github.io/slides/visualisation.html))
-- Statistical modelling in R ([tutorial](tutorials/statistics.md), [slides](https://djnavarro.github.io/slides/git.html))
+- Statistical modelling in R ([tutorial](tutorials/statistics.md), [slides](https://djnavarro.github.io/slides/statistics.html))
 
 R packages used: `tidyverse`, `skimr`, `here`, `lme4`, `lsr`
 

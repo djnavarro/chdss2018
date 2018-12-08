@@ -1,5 +1,4 @@
 Linear models in R
-</div>
 ================
 Danielle Navarro
 11 December 2018

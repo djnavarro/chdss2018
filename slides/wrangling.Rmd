@@ -767,6 +767,18 @@ frames %>%
 ]]
 
 
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: center middle hide-slide-number
+
+.pad1[
+.font4[Wrangling Exercise #2]
+]
+
+
+
 <!-- *********** NEW SLIDE ************** -->
 ---
 
@@ -861,6 +873,14 @@ frames %>%
 ]]]
 ]]
 
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: center middle hide-slide-number
+
+.pad1[
+.font4[Wrangling Exercise #3]
+]
 
 
 <!-- *********** NEW SLIDE ************** -->
@@ -1018,6 +1038,16 @@ average_response_small
 
 ]]]
 ]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: center middle hide-slide-number
+
+.pad1[
+.font4[Wrangling Exercises #4 and #5]
+]
 
 
 <!-- *********** NEW SLIDE ************** -->

@@ -1,25 +1,13 @@
 ---
-title: '<div class="jumbotron"><h1 class="title toc-ignore display-3">RStudio Projects & R Markdown</h1></div>'
+title: 'Working with RStudio projects'
 author: "Danielle Navarro"
-date: "4 December 2018"
+date: "11 December 2018"
 output: github_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-<!--
-
-  html_document:
-    includes:
-      in_header: header.html
-    theme: flatly
-    highlight: textmate
-    css: mystyle.css
-
--->
-
 
 At this point in setting up our project, we have a git repository that can handle version control, help collaborate with others and (in the long run) allow other people to make use of our work. However, that's just background infrastructure. The next thing we need to take care of is how we're going to organise the files and *in* the project, and how we're going to structure our data analysis to be readable to others. This is where RStudio projects an R Markdown can both be helpful...
 

@@ -1,26 +1,13 @@
 ---
-title: '<div class="jumbotron"><h1 class="title toc-ignore display-3">Diving into the tdiyverse with dplyr</h1></div>'
+title: 'Data wrangling with dplyr'
 author: "Danielle Navarro"
-date: "4 December 2018"
+date: "11 December 2018"
 output: github_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-<!--
-
-  html_document:
-    includes:
-      in_header: header.html
-    theme: flatly
-    highlight: textmate
-    css: mystyle.css
-
--->
-
-
 
 ## The frames data
 
@@ -43,7 +30,7 @@ There's quite a bit going on in the data since it's a two within-subject and one
 
 Step 1 is making sure you have the packages:
 
-```{r}
+```{r packageload, message=FALSE}
 library(here)
 library(tidyverse)
 library(janitor)

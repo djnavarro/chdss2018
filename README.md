@@ -14,7 +14,7 @@ Within each content section, I've linked to a written tutorial, the HTML version
 - Working with R markdown and R projects ([tutorial](tutorials/projects.md), [slides](rproj-slides.html))
 - Data wrangling in tidyverse ([tutorial](tutorials/wrangling.md), [slides](dplyr-slides.html))
 - Data visualisation in tidyverse ([tutorial](tutorials/visualisation.md), [slides](ggplot-slides.html))
-- Statistical modelling in R ([tutorial](tutourals/statistics.md), [slides](stats-slides.html))
+- Statistical modelling in R ([tutorial](tutorials/statistics.md), [slides](stats-slides.html))
 
 R packages used today:
 

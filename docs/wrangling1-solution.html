@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Danielle J. Navarro" />
+
+<meta name="date" content="2018-11-12" />
+
+<title>Data Wrangling Exercise 1</title>
+
+<script src="site_libs/jquery/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<script src="site_libs/navigation/tabsets.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CHDSS2018</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="git.html">Git</a>
+</li>
+<li>
+  <a href="projects.html">Projects</a>
+</li>
+<li>
+  <a href="wrangling.html">Wrangling</a>
+</li>
+<li>
+  <a href="visualisation.html">Visualisation</a>
+</li>
+<li>
+  <a href="statistics.html">Statistics</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Data Wrangling Exercise 1</h1>
+<h4 class="author"><em>Danielle J. Navarro</em></h4>
+<h4 class="date"><em>11/12/2018</em></h4>
+
+</div>
+
+
+<p>For this DIY exercise, we have an R Markdown document with a number of errors in the code. You need to find every BROKEN-BIT and replace it with the right answer! Our data analysis relies on <code>tidyverse</code> and the <code>here</code> package. The first thing we need to do is load those packages:</p>
+<pre class="r"><code>library(tidyverse)
+library(here)
+library(skimr)</code></pre>
+<p>The second step in our data analysis is loading the data from a file. For this first exercise, we’ll use a simpler data set than the <code>frames</code> file, and instead load a <code>tidy_users.csv</code> data file that contains information about the number of people visiting Danielle’s website over a couple of months.</p>
+<pre class="r"><code>data_file &lt;- here(&quot;analysis&quot;, &quot;data&quot;, &quot;tidy_users.csv&quot;)
+tidy_users &lt;- read_csv(file = data_file)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Date = col_date(format = &quot;&quot;),
+##   Users = col_integer(),
+##   DayNum = col_integer(),
+##   Day = col_integer(),
+##   Month = col_integer(),
+##   Year = col_integer(),
+##   Weekday = col_character()
+## )</code></pre>
+<p>Now that we’ve loaded the data, we should take a look at it. In the tutorial we discussed how to do this either by printing the variable, or glimpsing it. The code below prints it but doesn’t glimpse. Fix it so that it uses glimpse instead:</p>
+<pre class="r"><code>glimpse(tidy_users)</code></pre>
+<pre><code>## Observations: 147
+## Variables: 7
+## $ Date    &lt;date&gt; 2018-03-18, 2018-03-19, 2018-03-20, 2018-03-21, 2018-...
+## $ Users   &lt;int&gt; 3, 2, 8, 6, 12, 5, 10, 24, 27, 41, 44, 53, 24, 9, 10, ...
+## $ DayNum  &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,...
+## $ Day     &lt;int&gt; 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31...
+## $ Month   &lt;int&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, ...
+## $ Year    &lt;int&gt; 2018, 2018, 2018, 2018, 2018, 2018, 2018, 2018, 2018, ...
+## $ Weekday &lt;chr&gt; &quot;Sunday&quot;, &quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thursday&quot;...</code></pre>
+<p>Finally, it’s probably a good idea to take a quick skim of the data set. Write a new code chunk below that uses the <code>skim</code> function from the <code>skimr</code> package to do this.</p>
+<pre class="r"><code>skim(tidy_users)</code></pre>
+<pre><code>## Skim summary statistics
+##  n obs: 147 
+##  n variables: 7 
+## 
+## ── Variable type:character ─────────────────────────────────────────────────────────────────────
+##  variable missing complete   n min max empty n_unique
+##   Weekday       0      147 147   6   9     0        7
+## 
+## ── Variable type:Date ──────────────────────────────────────────────────────────────────────────
+##  variable missing complete   n        min        max     median n_unique
+##      Date       0      147 147 2018-03-18 2018-08-11 2018-05-30      147
+## 
+## ── Variable type:integer ───────────────────────────────────────────────────────────────────────
+##  variable missing complete   n    mean    sd   p0    p25  p50    p75 p100
+##       Day       0      147 147   15.86  9.03    1    8     16   24     31
+##    DayNum       0      147 147   74    42.58    1   37.5   74  110.5  147
+##     Month       0      147 147    5.46  1.45    3    4      5    7      8
+##     Users       0      147 147   62.32 81.54    2   25     37   62    580
+##      Year       0      147 147 2018     0    2018 2018   2018 2018   2018
+##      hist
+##  ▇▇▇▆▆▇▇▇
+##  ▇▇▇▇▇▇▇▇
+##  ▃▇▁▇▇▁▇▃
+##  ▇▁▁▁▁▁▁▁
+##  ▁▁▁▇▁▁▁▁</code></pre>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

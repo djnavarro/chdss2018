@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Danielle Navarro" />
+
+<meta name="date" content="2018-12-11" />
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<!-- ###### start inserted header ##### -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115940772-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-115940772-1');
+</script>
+
+<!-- add the twitter card and open graph tags -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@djnavarro">
+<meta property="og:url" content="http://compcogscisydney.org/psyr/">
+<meta property="og:title" content="R for Psychological Science">
+<meta property="og:description" content="An introductory resource">
+<meta property="og:image" content="http://compcogscisydney.org/psyr/img/splash_turtle.png">
+
+<!-- ###### end inserted header ##### -->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="mystyle.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CHDSS2018</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="git.html">Git</a>
+</li>
+<li>
+  <a href="projects.html">Projects</a>
+</li>
+<li>
+  <a href="wrangling.html">Wrangling</a>
+</li>
+<li>
+  <a href="visualisation.html">Visualisation</a>
+</li>
+<li>
+  <a href="statistics.html">Statistics</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore"><div class="jumbotron">
+<h1 class="title toc-ignore display-3">
+Version control with git
+</h1>
+</div></h1>
+<h4 class="author"><em>Danielle Navarro</em></h4>
+<h4 class="date"><em>11 December 2018</em></h4>
+
+</div>
+
+
+<div id="installing-git" class="section level2">
+<h2>Installing git</h2>
+<p>The first thing we need to do is make sure you have a working version of git on your computer, which we’ll be referring to as the <em>local</em> machine thoughout this tutorial. Installing git on your local machine is (hopefully) not too difficult. There are several different ways you can do it, but the simplest ones are listed below:</p>
+<ul>
+<li>For Windows users, go to <a href="https://gitforwindows.org/" class="uri">https://gitforwindows.org/</a>. When installing, make sure you select the “Use Git from the Windows Command Prompt” option.</li>
+<li>For Mac users, you can install the “Xcode command line tools” from the App Store (you don’t need all of Xcode), which comes with git</li>
+</ul>
+<p>Once you’ve completed the installation, it’s a good idea to check that everything worked. For Windows users, open the Windows Command Prompt and type <code>git --version</code>. When I do this on my machine this is what I get:</p>
+<pre><code>&gt; git --version
+
+git version 2.19.1.windows.1</code></pre>
+<p>For Mac users it’s exactly the same except you open the Terminal. When I do this on my Mac it turns out I have a slightly dated version of git, and should probably update at some point:</p>
+<pre><code>&gt; git --version 
+
+git version 2.15.2 (Apple Git 101.1)</code></pre>
+<p>As long as you’re getting a message that tells you that git exists then you’re good to go.</p>
+</div>
+<div id="configuring-git" class="section level2">
+<h2>Configuring git</h2>
+<p>In a moment we’ll get you to sign up for an account with GitHub, but while we’re here at the command line, we might as well make a few settings. You can tell git who you are by using the <code>git config</code> command. For me, that means I do this:</p>
+<pre><code>git config --global user.name &#39;Danielle Navarro&#39;
+git config --global user.email &#39;d.navarro@unsw.edu.au&#39;</code></pre>
+<p>Jenny Bryan has some <a href="http://happygitwithr.com/hello-git.html#more-about-git-config">very good advice</a> about some important config settings you can play with. You can see more about what the various options are with this command:</p>
+<pre><code>git config --global --list</code></pre>
+</div>
+<div id="getting-a-github-account" class="section level2">
+<h2>Getting a GitHub account</h2>
+<p>The next step in the process is setting up an account with a service that hosts <em>remote</em> git repositories for you in the cloud. There are many different services, but we’ll use GitHub for this. Go to the GitHub website at <a href="https://github.com/" class="uri">https://github.com/</a> and follow the sign up instructions. Some notes:</p>
+<ul>
+<li>Pick a sensible username, because there’s a good chance it will follow you around for a long time. You can change your username, but bad things can happen.</li>
+<li>When you sign up for an account it <em>will</em> need to be associated with an email address. You should pick the address that makes sense for you (probably your university account)</li>
+<li>A nice feature if you have a university email address and are using GitHub for edication: youcan apply for a “developer” account (which are normally $7/month) for free You can apply for it by following the instructions <a href="https://help.github.com/articles/applying-for-an-academic-research-discount/">here</a>. It can take a few days, though mine was approved in minutes.</li>
+<li><strong>Important</strong>: the email address that you use for GitHub needs to be the same one that you listed in the <code>git config</code> command earlier.</li>
+</ul>
+</div>
+<div id="client-or-command-line" class="section level2">
+<h2>Client or command line?</h2>
+<p>There are several differnt ways you can use git, but maybe the biggest distinction is between using the <em>command line</em> tools (typing commands in at the Windows Command Prompt or the Mac Terminal) and using a <em>git client</em> (software that has a nice graphical user interface). In the long run it’s probably worthwhile exploring a few different git clients: as Jenny Bryan says, it will spare you the tediousness of <a href="http://www.pgbovine.net/command-line-bullshittery.htm">“command line bullshittery”</a>. <a href="https://www.gitkraken.com/">GitKraken</a> is a fairly popular option, but RStudio now has a nice git client built in, so you might want to explore that.</p>
+<p>That being said for our purposes we’re going to use the command line. That’s not because we want to be “hardcore” but because most git clients are built for people who already understand git, and so the user interface is designed to show you “everything at a glance”, and (for me at least) the visual complexity of it is overhwleming. Because this is just a “getting started” tutorial we’ll just stick to some simple commands.</p>
+</div>
+<div id="our-first-workflow-backing-up-your-work-to-github" class="section level2">
+<h2>Our first workflow: Backing up your work to GitHub</h2>
+<p>Git and GitHub can be used in lots of ways, but let’s start simple! Let’s suppose you’re about to start a new project that you’re going to call <code>summerschool</code>. What you’d like to do is keep all your work associated with this project in a folder called <code>summerschool</code>, and you want it to be backed up in the cloud (and ideally, to automatically keep track of the history, so you can go back to earlier versions if you want). That’s something you could do with a combination of Dropbox and Time Machine, but let’s do it with git and GitHub!</p>
+<div id="creating-the-repository-on-github" class="section level3">
+<h3>Creating the repository on GitHub</h3>
+<p>The way that git “thinks” of things is to imagine that the version of your work on the <em>remote machine</em> (GitHub) is the <em>origin</em> of the project, and the version on your <em>local machine</em> is your copy of that project, so let’s mirror that logic. Go to to your GitHub homepage (for me that’s <a href="https://github.com/djnavarro" class="uri">https://github.com/djnavarro</a>), and select <em>“new repository”</em> as shown below:</p>
+<div class="figure">
+<img src="images/new_repository1.jpg" />
+
+</div>
+<p>That will take you to a screen that asks you for some information about the repository.</p>
+<div class="figure">
+<img src="images/new_repository2.jpg" />
+
+</div>
+<p>Come up with a name for your repository, like oh I don’t know <em>summerschool</em>, check the “initialise with a README” option, write a description, and select R from the <em>.gitignore</em> menu.</p>
+<div class="figure">
+<img src="images/new_repository3.jpg" />
+
+</div>
+<p>When you click on the <em>create repository</em> option, GitHub now creates a homepage for your ne repository (e.g., <a href="https://github.com/djnavarro/summerschool" class="uri">https://github.com/djnavarro/summerschool</a>) and immediately redirects you to it. So you might be looking at something like this:</p>
+<div class="figure">
+<img src="images/new_repository4.jpg" />
+
+</div>
+<p>What you’ll immediately notice is that there are two files:</p>
+<ul>
+<li><code>README.md</code> is a plain text file (using markdown formatting) that provides a description of your project, and GitHub automatically displays that file for you</li>
+<li><code>.gitignore</code> is also a plain text file that lists various types of file that your git repository is going to “ignore”. We’ll talk a bit about that later.</li>
+</ul>
+<p>Your repository now exists on GitHub! Nice work!</p>
+</div>
+<div id="cloning-the-repository-to-your-local-machine" class="section level3">
+<h3>Cloning the repository to your local machine</h3>
+<p>Next step is to have a copy of it on your local machine! We’re going to do that at the command line. So, open the Windows Command Prompt or Mac Terminal. I keep all my git repositories in a single folder, so my first action is to use the <code>cd</code> command to “change directory” to the location where you want to copy your project. Windows version:</p>
+<pre><code>&gt; cd C:\Users\Dan\GitHub</code></pre>
+<p>Mac version:</p>
+<pre><code>&gt; cd /Users/Dan/GitHub</code></pre>
+<p>Now what we want to do is use a <code>git clone</code> command, which will make a copy (clone) of the repository on your local machine, like this:</p>
+<pre><code>&gt; git clone https://github.com/djnavarro/summerschool.git</code></pre>
+<p>You’ll see some output that looks like this:</p>
+<pre><code>Cloning into &#39;summerschool&#39;...
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 4 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (4/4), done.</code></pre>
+<p>If you then open up Explorer (on Windows) or Finder (on Mac) and take a look, you’ll see that there is a new folder called <code>summerschool</code> on your computer that contains the files. On Windows, you’re probably looking at something like this:</p>
+<div class="figure">
+<img src="images/clonedrepo.jpg" />
+
+</div>
+<p>On a Mac it should look similar <em>BUT</em> there’s a good chance that you can’t see the <code>.git</code> folder or the <code>.gitignore</code> file. They do exist, but by default on a Mac any file that starts with a dot is considered a “hidden file” so Finder won’t display it unless you change your settings. But that’s okay, we’re not going to bother with those for now.</p>
+<p><strong>Important</strong>: Never manually edit the <code>.git</code> folder. That’s where git does all it’s magic and if you tinker with anything it will cry. (Relatedly, as a warning, it’s best not to have your git repository inside a Dropbox folder - Dropbox and git don’t play well together. Besides, we’re using GitHub to backup and sync so we don’t actually need Dropbox)</p>
+</div>
+<div id="learning-about-our-new-git-repository" class="section level3">
+<h3>Learning about our new git repository</h3>
+<p>Right, so now we have a local copy. Before making any changes, let’s explore it a little. First off, let’s find out what our <code>git status</code> is. So let’s go back to the command line and type this:</p>
+<pre><code>&gt;git status</code></pre>
+<p>What you see is this:</p>
+<pre><code>On branch master
+Your branch is up to date with &#39;origin/master&#39;.
+
+nothing to commit, working tree clean</code></pre>
+<p>What this is telling you is:</p>
+<ul>
+<li>The name for the current “branch” (right now our project only has one branch) is <em>master</em></li>
+<li>Your copy of this branch is up to date (i.e., it’s the same as the <em>origin</em> on GitHub)</li>
+<li>You haven’t made any local changes, so you have nothing to <em>commit</em>.</li>
+</ul>
+<p>One really nice thing about having cloned from GitHub, is that your local repository already “knows” where the remote origin is! You can see that by typing:</p>
+<pre><code>&gt; git remote --verbose</code></pre>
+<p>What you see is this:</p>
+<pre><code>origin  https://github.com/djnavarro/summerschool.git (fetch)
+origin  https://github.com/djnavarro/summerschool.git (push)</code></pre>
+<p>What this is telling you is that your local git repository is treating the remote GitHub version as the <em>origin</em>, both for the purposes of pulling (or fetching) <em>from</em> the remote, and for pushing <em>to</em> the remote location.</p>
+</div>
+</div>
+<div id="making-local-changes" class="section level2">
+<h2>Making local changes…</h2>
+<p>Okay, next up, let’s make some changes. First, open up the <code>README.md</code> file on your computer. The <code>.md</code> file extension means that this is a “plain markdown” document - it’s just a text file, so you can open it in any text editor, but we’ll do it in RStudio. To do that, go <code>File &gt; Open File</code> in the menus, then select the <code>README.md</code> file. Here’s what I see:</p>
+<div class="figure">
+<img src="images/readme_rstudio.jpg" />
+
+</div>
+<p>If you click on the <code>Preview</code> button, RStudio will show you the pretty version that GitHub displays. So let’s now edit it. Maybe you want to make a nicer description of what your repository is about? This is a very good place to do it! What I did is write out a very quick tutorial on markdown:</p>
+<div class="figure">
+<img src="images/readme_rstudio2.jpg" />
+
+</div>
+<p>You can see the actual markdown on the left hand side, and the preview of the output on the right hand side.</p>
+<p>Make sure you save the document after you’ve made your changes!</p>
+</div>
+<div id="stage-and-commit-your-changes-locally" class="section level2">
+<h2>Stage and commit your changes locally…</h2>
+<p>At this point we’ve made some changes to the documents, but haven’t actually done anything with git. Nevertheless, git is “aware” that something has changed. To see this, let’s check the <code>git status</code>. Back at the command line:</p>
+<pre><code>&gt; git status</code></pre>
+<p>The output <em>starts</em> the same way as before…</p>
+<pre><code>On branch master
+Your branch is up to date with &#39;origin/master&#39;.</code></pre>
+<p>But now there’s something new content:</p>
+<pre><code>Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+        modified:   README.md
+
+Untracked files:
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+
+        README.html
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</code></pre>
+<p>What this is saying:</p>
+<ul>
+<li>Git knows you have <em>modified</em> one file (<code>README.md</code>)</li>
+<li>Git also knows you have created a new file (<code>README.html</code>)</li>
+</ul>
+<p>These changes haven’t been “committed” to your repository yet. So we should do that! One slightly counterintuitive thing about git is that making a commit is a two stage process. First you have to <em>stage</em> your changes (i.e., tell git what you’re going to commit), and then <em>commit</em> those changes (i.e., actually do it). Apparently there’s a good reason for this, but I can’t say I’ve ever found it helpful. But let’s do as the silly little thing asks.</p>
+<p>First, to stage our commits we use the <code>git add</code> command. We could add the files one by one, but I almost never do that. Instead, I do this:</p>
+<pre><code>&gt; git add --all</code></pre>
+<p>To see what this has done, let’s check our status again:</p>
+<pre><code>&gt; git status
+
+On branch master
+Your branch is up to date with &#39;origin/master&#39;.
+
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+        new file:   README.html
+        modified:   README.md</code></pre>
+<p>Now you can see that git has staged both of our changes. Sweet. Now it is time to <code>git commit</code>. Whenever you commit your changes, you have to write a <em>commit message</em>, which is a little note to yourself (or your collaborators) specifying what you’ve done. There’s quite a lot that’s been written about how to write good commit messages, and I’ll be honest I write terrible ones. Let’s not worry about that for now, and do a simple one:</p>
+<pre><code>&gt; git commit -m &quot;updated the readme.md document&quot;</code></pre>
+<p>Notice that we’ve used the <code>-m</code> flag to indicate that there will be a message, and then I’ve written <code>&quot;updated ...&quot;</code> as the actual message. When I hit enter, this happens:</p>
+<pre><code>[master 6c0b71c] updated the readme.md document
+ 2 files changed, 218 insertions(+), 2 deletions(-)
+ create mode 100644 README.html
+ rewrite README.md (100%)</code></pre>
+<p>Okay, stuff has happened. Good. Let’s check our status again:</p>
+<pre><code>&gt;git status
+
+On branch master
+Your branch is ahead of &#39;origin/master&#39; by 1 commit.
+  (use &quot;git push&quot; to publish your local commits)
+
+nothing to commit, working tree clean</code></pre>
+<p>Woohoo, we have successfully made a commit!</p>
+<div id="pushing-your-commit-to-github" class="section level3">
+<h3>Pushing your commit to GitHub</h3>
+<p>At the moment, all your changes are local. Notice the little part of the <code>git status</code> outout that says this:</p>
+<pre><code>Your branch is ahead of &#39;origin/master&#39; by 1 commit.</code></pre>
+<p>Git knows that your local version is now “ahead” of the remote version. We should probably <code>git push</code> that up to GitHub. This is really easy:</p>
+<pre><code>git push -u origin master</code></pre>
+<p>What this command is saying is push <em>to</em> the “origin” (GitHub), <em>from</em> your current local branch (which, as we were saying earlier, is called “master”). The <code>-u</code> part is short for “upstream” and it <a href="https://www.quora.com/What-does-the-u-tag-mean-in-git-push-u-origin-master">comes in handy</a> later. Frankly though, I just mindlessly include the <code>-u</code> every time for the sake of my sanity. Anyway, what you will see (probably after being asked for your username and password), is this:</p>
+<pre><code>Enumerating objects: 6, done.
+Counting objects: 100% (6/6), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 241.74 KiB | 6.53 MiB/s, done.
+Total 4 (delta 0), reused 0 (delta 0)
+To https://github.com/djnavarro/summerschool.git
+   7c55159..6c0b71c  master -&gt; master
+Branch &#39;master&#39; set up to track remote branch &#39;master&#39; from &#39;origin&#39;.</code></pre>
+<p>It’s now pushed to GitHub. If I go there and take a look, I can see that the GitHub page now has changes:</p>
+<div class="figure">
+<img src="images/updated_repository.jpg" />
+
+</div>
+<p>Excellent.</p>
+<p>You now have all the skills required to use GitHub as if it were a Dropbox folder. Any time you accidentally set fire to your computer, you can just <code>git clone</code> the repository from GitHub to another machine and keep working. Admittedly, you could probably have done all this in Dropbox, but the GitHub version looks cooler, doesn’t it? There are other <em>actual</em> advantages though. I promise! I wouldn’t force you to learn this if there weren’t!</p>
+</div>
+</div>
+<div id="our-second-workflow" class="section level2">
+<h2>Our second workflow</h2>
+<p>One of the appealing things about git and GitHub is that you can collaborate easily with other people, and share your work with them. Like anything in life, this can get messy in some situations, but the basics are actually pretty easy to get a handle on. In this scenario, I’m going to assume you’re working together with one other person, but at no point will you both be trying to edit the same document at the same time.</p>
+<div id="adding-a-contributor-on-github" class="section level3">
+<h3>Adding a contributor on GitHub</h3>
+<p>Let’s suppose I want to work with Matthew Ling and Emi Tanaka on this project. They’re both on GitHub, so I can go to the <em>Settings</em> tab on GitHub and then select <em>Collaborators</em> from the menu on the left. If I start typing in their names, it will search for them:</p>
+<div class="figure">
+<img src="images/addcontributor.jpg" />
+
+</div>
+<p>When I click on the <em>Add collaborator</em> button, it will send an email inviting them to join the repository. Once they accept, they’ll have the ability to push changes to the GitHub version. So while I’m writing this, I’m waiting for one of them to accept, this is what I can see…</p>
+<div class="figure">
+<img src="images/addcontributor2.jpg" />
+
+</div>
+</div>
+<div id="working-together" class="section level3">
+<h3>Working together</h3>
+<p>Eventually though, one of them will come and help me out. On their side, once they’ve accepted it’s exactly the same process as we followed when cloning it to the local machine! At their command line they’d type this…</p>
+<pre><code>&gt; git clone https://github.com/djnavarro/summerschool.git</code></pre>
+<p>Then they make their changes, commit them, and then use</p>
+<pre><code>&gt; git push -u origin master</code></pre>
+<p>to push them back to GitHub. Unfortunately, collaborators are just as human as you are, so these changes won’t happen instantaneously. Given that Emi and Mathew both have jobs and lives of their own, the fact that I asked them to help me out on Twitter doesn’t mean they’re going to drop everything to solve my problems (no matter how lovely they both are). Nevertheless, I’m working to a pretty tight deadline here, so I’m going to make some edits to <em>other</em> documents – not the one they’re going to play with – and make local commits. What I’ll do is create a new file, called <code>gitcheatcheet.md</code> that we can use to make notes, and commit those changes.</p>
+<p>While I’ve been doing this, it turns out that one of my collaborators has updated the README, and pushed some new commits to GitHub…</p>
+<div class="figure">
+<img src="images/collaboratorpush.jpg" />
+
+</div>
+<p>Okay, now let’s suppose I hadn’t actually noticed this, and tried to push <em>my</em> changes to the repository! Let’s see what happens:</p>
+<pre><code>&gt;git push -u origin master
+
+To https://github.com/djnavarro/summerschool.git
+ ! [rejected]        master -&gt; master (fetch first)
+error: failed to push some refs to &#39;https://github.com/djnavarro/summerschool.git&#39;
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., &#39;git pull ...&#39;) before pushing again.
+hint: See the &#39;Note about fast-forwards&#39; in &#39;git push --help&#39; for details.</code></pre>
+<p>Nope. Git is angry at me now, but at least it’s nice enough to tell me what the problem is. The remote branch (GitHub) has some commits that I haven’t incorporated locally. Eek. Now, the nice thing is that Mathew and I were working on different files, and our changes are completely compatible with each other (more precisely there are no <em>conflicts</em>). So it’s an easy fix. All I have to do is <code>git pull</code> from GitHub into my local version:</p>
+<pre><code>&gt; git pull
+
+remote: Enumerating objects: 7, done.
+remote: Counting objects: 100% (7/7), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 4 (delta 2), reused 4 (delta 2), pack-reused 0
+Unpacking objects: 100% (4/4), done.
+From https://github.com/djnavarro/summerschool
+   6c0b71c..9cf2b40  master     -&gt; origin/master
+Merge made by the &#39;recursive&#39; strategy.
+ README.html | 8 ++++++--
+ README.md   | 4 +++-
+ 2 files changed, 9 insertions(+), 3 deletions(-)</code></pre>
+<p>Yeah yeah, whatever. The main thing to notice here is that git has automatically <em>merged</em> the changes. What that means is that Mathew’s new edits have been added to my local repository, <em>without</em> overwriting mine!</p>
+<p>Now that I’ve used <code>git pull</code> to incorporate his changes into my local copy, I can push mine up:</p>
+<pre><code>&gt; git push -u origin master
+
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (5/5), 618 bytes | 618.00 KiB/s, done.
+Total 5 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To https://github.com/djnavarro/summerschool.git
+   9cf2b40..540dd43  master -&gt; master
+Branch &#39;master&#39; set up to track remote branch &#39;master&#39; from &#39;origin&#39;.</code></pre>
+<p>If I now click on the bit that says <em>5 commits</em>, GitHub will show me the commit history for this project:</p>
+<div class="figure">
+<img src="images/commithistory.jpg" />
+
+</div>
+<p>Better yet, if we then click on the <code>README.md</code> file on GitHub, and then click on the <em>Blame</em> tab. This will bring up a view like this:</p>
+<div class="figure">
+<img src="images/blame.jpg" />
+
+</div>
+<p>On the right hand side you can see the raw file, and on the left you can see who wrote each part, and displays the commit message that accompanies each edit.</p>
+</div>
+<div id="using-the-issue-tracker" class="section level3">
+<h3>Using the issue tracker</h3>
+<p>We saw earlier that the blame tab is useful for keeping track of <em>who</em> made each change to the document, as well as <em>when</em> and <em>why</em> they did it (assuming that they wrote useful commit messages!) This is a nice automatic collaboration feature. However, often when working on a project you’ll want to leave notes to yourself, have discussions with collaborators, flag issues that still need to be resolved and so on. This is where the GitHub issue tracker is useful:</p>
+<div class="figure">
+<img src="images/issuetracker.jpg" />
+
+</div>
+<p>Right now I have no idea what I want to do with this repository, but I do think it might be nice to have a decent cheat sheet, so I’ve created a new issue:</p>
+<div class="figure">
+<img src="images/issuetracker1.jpg" />
+
+</div>
+</div>
+</div>
+<div id="pull-requests" class="section level2">
+<h2>Pull requests!</h2>
+<p>The thing about having your code up in public is that other people can suggest changes. On the one hand, that’s terrifying because <em>everyone</em> feels insecure about their code, but on the other hand it’s awesome because people will fix your mistakes and be really helpful! In fact, while I’ve been playing around with the issue tracker, that’s exactly what happened:</p>
+<div class="figure">
+<img src="images/pullrequest.jpg" />
+
+</div>
+<p>Let’s click on the <em>pull requests</em> link and take a look:</p>
+<div class="figure">
+<img src="images/pullrequest2.jpg" />
+
+</div>
+<p>Looks like someone wants to add a GIF to the README. Let’s click on this and see if there are some more details:</p>
+<div class="figure">
+<img src="images/pullrequest3.jpg" />
+
+</div>
+<p>Yes, that is true. Everything is better with GIFs, so I agree with the spirit of this pull request. Still, before merging I should <em>probably</em> take a look and make sure everything is okay. I love GIFs and I do trust Emily, but still… let’s click on the <em>files changed</em> tab:</p>
+<div class="figure">
+<img src="images/pullrequest4.jpg" />
+
+</div>
+<p>Okay, that makes sense: the bits in green here show the lines she wants to add to the README. (If there were deletions they’d be shown in red). So I’ll click on the <em>Review changes</em>, write a polite review and then approve the changes:</p>
+<div class="figure">
+<img src="images/pullrequest5.jpg" />
+
+</div>
+<p>At this point I’ve reviewed and approved of the changes. So all I need to do is merge them…</p>
+<div class="figure">
+<img src="images/pullrequest6.jpg" />
+
+</div>
+<p>Ther are a few differnet options. I generally go with “merge commit”, which directly adds all of Emily’s commits to the project..</p>
+<div class="figure">
+<img src="images/pullrequest7.jpg" />
+
+</div>
+<p>GitHub asks me to confirm…</p>
+<div class="figure">
+<img src="images/pullrequest8.jpg" />
+
+</div>
+<p>And now if we go back can see that there are two new commits to the repository, Emily’s changes that added the GIF, and my merge that pulled her changes into the branch:</p>
+<div class="figure">
+<img src="images/pullrequest9.jpg" />
+
+</div>
+<p>And now if we look at the README it has an animated GIF in it!</p>
+</div>
+<div id="beyond-the-basics" class="section level2">
+<h2>Beyond the basics?</h2>
+<p>Once you’re comfortable, there’s more cool things you can do. Suppose you want to try out a really cool idea, but maybe it won’t work; you can create a new <em>branch</em> of the repository, which lets you make whatever changes you want. If it doesn’t work, you can switch back to the master branck. If it does, you can merge the new changes back in. You can zoom forward and backward in time, inspecting the repository at different stages of development. You can create your own <em>fork</em> of someone else’s repository, and if you want them to make some changes you can make a <em>pull request</em> which asks them to incorporate your code into their work. These workflows are all very cool, and a lot of them can all be done without having to leave RStudio, but we won’t cover those here. Instead I’ll suggest that when you’re ready, have a read through some of these resources…</p>
+<ul>
+<li><a href="https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf">Git cheat sheet</a> on the GitHub web page.</li>
+<li><a href="http://happygitwithr.com/">Happy Git and GitHub for the useR</a> by Jenny Bryan and Jim Hester</li>
+<li><a href="https://github.com/thisisnic/first-contributions">How to make your first pull request</a> by Nic Crane</li>
+<li><a href="https://github.com/MilesMcBain/git_4_sci">Git for Scientists</a> by Miles McBain.</li>
+<li><a href="https://lab.github.com/courses">More stuff</a> on the GitHub web page</li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

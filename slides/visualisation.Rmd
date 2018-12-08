@@ -1,6 +1,6 @@
 ---
 title: "Prettiness with ggplot2"
-subtitle: "Eventually, it becomes additive"
+subtitle: ""
 author: "<br><br>Danielle Navarro &nbsp;&nbsp;&nbsp;`r anicon::faa('twitter', animate='float', rtext=' @djnavarro')`"
 date: "11 December 2018"
 output:
@@ -753,6 +753,17 @@ frames_small %>%
   ylim(0,9)
 ```
 ]]
+]]
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: center middle hide-slide-number
+
+.pad1[
+.font4[
+Data visualisation exercise: <br>
+Explore the frames data with ggplot
 ]]
 
 

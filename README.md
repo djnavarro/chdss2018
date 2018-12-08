@@ -10,11 +10,11 @@ Assumed knowledge:
 
 Within each content section, I've linked to a written tutorial, the HTML version of my slides, and (TODO) a set of do-it-yourself exercises.
 
-- Working with git and GitHub ([tutorial](git-notes.md), [slides](git-slides.html))
-- Working with R markdown and R projects ([tutorial](rproj-notes.md), [slides](rproj-slides.html))
-- Data wrangling in tidyverse ([tutorial](dplyr-notes.md), [slides](dplyr-slides.html))
-- Data visualisation in tidyverse ([tutorial](ggplot-notes.md), [slides](ggplot-slides.html))
-- Statistical modelling in R ([tutorial](stats-notes.md), [slides](stats-slides.html))
+- Working with git and GitHub ([tutorial](tutorials/git.md), [slides](blah))
+- Working with R markdown and R projects ([tutorial](tutorials/projects.md), [slides](rproj-slides.html))
+- Data wrangling in tidyverse ([tutorial](tutorials/wrangling.md), [slides](dplyr-slides.html))
+- Data visualisation in tidyverse ([tutorial](tutorials/visualisation.md), [slides](ggplot-slides.html))
+- Statistical modelling in R ([tutorial](tutourals/statistics.md), [slides](stats-slides.html))
 
 R packages used today:
 

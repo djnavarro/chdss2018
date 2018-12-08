@@ -1,6 +1,7 @@
 ---
 title: '<div class="jumbotron"><h1 class="title toc-ignore display-3">CHDSS Day 2: Data Analysis in R</p></div>'
 author: "Danielle Navarro"
+date: "11 December 2018"
 output:
   html_document:
     includes:
@@ -15,8 +16,11 @@ pagetitle: Complex Human Data Summer School
 rm(list=objects()) # start with a clean workspace
 ```
 
+
+## Background
+
 Researchers from psychology and other disciplines are increasingly relying on computational analyses of large data sets to draw conclusions about human behaviour. This kind of research
-requires skills that are not often taught as part of the psychology curriculum, and the Melbourne School of Psychological Sciences is therefore pleased to announce the first annual [Complex Human Data summer school](http://chdsummerschool.com/).
+requires skills that are not often taught as part of the psychology curriculum, and the Melbourne School of Psychological Sciences is therefore pleased to announce the first annual [Complex Human Data summer school](http://chdsummerschool.com/). This page covers the resources for Day 2 of the summer school.
 
 ## Day 2
 
@@ -33,15 +37,23 @@ Within each content section, there is a written tutorial linked to below (with v
 Each section has an interactive component, but it's a little different for each section:
 
 - For the git and projects sections, the goal will be to create your own repository and initialise an RStudio project within it. The repository that I created is the [summerschool](https://github.com/djnavarro/summerschool) repo.
-- For the data wrangling section, there is a structure sequence of exercises that you can work through in parallel with the session (the slides have explicit break points
-- For the data visualisation, it's freeform. The way this session will run is that I'll give a very brief lecture, and then you should feel free to explore ggplot to your hearts content!
-- For the statistical modelling section ???
-
-R packages used: `tidyverse`, `skimr`, `here`, `lme4`, `lsr`
+- For the data wrangling section, there is a structured sequence of six exercises that you can work through in parallel with the session (the slides have explicit break points). Each exercise is an R Markdown file that you'll need to make changes to. You can download zip files with all [exercises](wrangling-exercises.zip) and [solutions](wrangling-solutions.zip). In addition to the [frames](/analysis/data/frames_ex2.csv) data the exercises use the [tidy_users](/analysis/data/tidy_users.csv) data and the [tidy_nails](/analysis/data/tidy_nails.csv) data. 
+- For the data visualisation, the DIY section is entirely freeform. The way this session will run is that I'll give a very brief lecture on the grammar of graphics package, and then you should feel free to explore ggplot to your hearts content!
+- For the statistical modelling section TODO???
 
 Assumed knowledge:
 
 - Basic R programming, as per Day 0.
 - Mostly independent of Day 1.
 - Undergraduate level statistics
+
+Additionally, it may be handy to have the Day 0 introduction to R resources easily accessible so here they are:
+
+- PDFs: [Part 1](introtoR1-handout.pdf), [Part 2](introtoR2-handout.pdf), [Part 3](introtoR3-handout.pdf)
+- Keynote: [Part 1](introtoR1-handout.key), [Part 2](introtoR2-handout.kwy), [Part 3](introtoR3-handout.key)
+- The "[core toolkit](http://compcogscisydney.org/psyr/#core-toolkit)" sections in PSYR
+
+<!--
+R packages used: `tidyverse`, `skimr`, `here`, `lme4`, `lsr`
+-->
 

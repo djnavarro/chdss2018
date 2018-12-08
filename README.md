@@ -16,5 +16,5 @@ Assumed knowledge:
 
 - Basic R programming, as per Day 0.
 - Mostly independent of Day 1.
-- Undergraudat level statistics
+- Undergraduate level statistics
 

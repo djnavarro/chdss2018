@@ -59,6 +59,17 @@ output3 <- tidy_users %>%
 print(output3)
 ```
 
+## Problem 4...
+
+Take the results from `output3` and use `mutate()` to round the `mean_users` to the nearest whole number (there is a function called `round()`) 
+
+```{r problem4, error=TRUE}
+output4 <- output3 %>%
+  mutate(mean_users = round(mean_users))
+
+print(output4)
+```
+
 
 
 

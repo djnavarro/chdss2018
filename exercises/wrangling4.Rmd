@@ -60,4 +60,16 @@ print(output3)
 
 
 
+## Problem 4...
+
+Take the results from `output3` and use `mutate()` to round the `mean_users` to the nearest whole number (there is a function called `round()`) 
+
+```{r problem4, error=TRUE}
+output4 <- output3 %>%
+  YOUR_CODE_HERE
+
+print(output4)
+```
+
+
 

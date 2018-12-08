@@ -1,6 +1,6 @@
 ---
 title: "Data wrangling with dplyr"
-subtitle: "I can't think of a subtitle"
+subtitle: ""
 author: "<br><br>Danielle Navarro &nbsp;&nbsp;&nbsp;`r anicon::faa('twitter', animate='float', rtext=' @djnavarro')`"
 date: "11 December 2018"
 output:
@@ -44,9 +44,9 @@ class: split-two bg-main1
 
 .pull.left[.pad1[
 
-### .orange[**What?**] 
-### .orange[**Why?**] 
-### .orange[**How?**] 
+### .orange[**What?**] Manipulate data
+### .orange[**Why?**] Because data are messy
+### .orange[**How?**] With tidyverse!
 
 ]]
 
@@ -61,37 +61,6 @@ class: split-two bg-main1
 
 ]]
 
-
-
-<!-- *********** NEW SLIDE ************** -->
----
-class: split-two bg-main1
-
-.column.bg-main1[.content.vmiddle.center[
-
-# Structure of this section
-
-<br>
-
-.pull.left[.pad1[
-
-### This is interactive: don't just listen, code!
-### Tutorial located at XXXX
-### Slide structure mirrors the tutorial
-### Goal is to deal with real data
-
-]]
-
-]]
-
-.column.bg-main3[.content.vmiddle.center[
-
-<img src="images/horst_dplyr.png", width="70%">
-
-[@allison_horst](https://twitter.com/allison_horst)
-
-
-]]
 
 
 
@@ -598,6 +567,18 @@ class: split-40 bg-main1
 <img src="images/explore5.png" width = "90%">
 
 ]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: center middle hide-slide-number
+
+.pad1[
+.font4[Wrangling Exercise #1]
+]
+
 
 
 

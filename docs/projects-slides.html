@@ -4,7 +4,6 @@
     <title>Projects &amp; R Markdown</title>
     <meta charset="utf-8">
     <meta name="author" content="  Danielle Navarro    <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt; @djnavarro</span>" />
-    <meta name="date" content="2018-12-11" />
     <link href="site_libs/remark-css/kunoichi.css" rel="stylesheet" />
     <link href="site_libs/remark-css/ninjutsu.css" rel="stylesheet" />
     <link href="site_libs/font-awesome-animation/font-awesome-animation-emi.css" rel="stylesheet" />
@@ -19,7 +18,7 @@ class: center, middle, inverse, title-slide
 # Projects &amp; R Markdown
 ## You’ll thank yourself later
 ### <br><br>Danielle Navarro    <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt; @djnavarro</span>
-### 11 December 2018
+### <a href="https://djnavarro.github.io/chdss2018/" class="uri">https://djnavarro.github.io/chdss2018/</a><br><br>11 December 2018
 
 ---
 
@@ -79,6 +78,7 @@ class: split-two bg-main1
 - Create in the same folder as the git repo
 - Drop down list of projects in the menu
 
+As usual, the details are in [the tutorial](https://djnavarro.github.io/chdss2018/projects.html)
 ]]]
 ]]
 
@@ -98,6 +98,38 @@ class: bg-main1 center middle
 &lt;br&gt;
 &lt;img src="images/new_rstudio_project4.jpg", width="100%"&gt;
 &lt;br&gt;
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# One benefit to projects...
+
+
+.pull.left[.pad1[
+.font2[
+- Close RStudio. Reopen by clicking .Rproj file
+- R is automatically in the "correct" folder
+- Switch between projects using the menu
+]
+
+]]
+]]
+
+--
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/fireworks.gif" width="90%"&gt;
+
+
+]]
 
 
 
@@ -135,7 +167,7 @@ class: bg-main1
 .pad2[
 .pull.left[.font2[
 - The "here" package is better than a laptop fire
-- Detects the RStudio project file (or a .here file)
+- Detects the .Rproj file (or a .here file if you have one)
 - Tells you where the project root is:
 ]
 
@@ -149,7 +181,8 @@ library(here)
 ]
 
 ```r
-here("analysis","data","mydatafile.csv")
+location &lt;- here("analysis","data","mydatafile.csv")
+print(location)
 ```
 
 ```
@@ -157,21 +190,39 @@ here("analysis","data","mydatafile.csv")
 ```
 ]]
 
+
+
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
+
 class: split-two bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
 
+# git + projects + here 
+
+.pull.left[.pad1[
+.font2[
+Your code... 
+- is portable across operating systems
+- is easy for other people to download
+- stills works if you move the folder
+- doesn't produce "mysterious" fires
+]
+
+]]
 ]]
 
+--
 .column.bg-main3[.content.vmiddle.center[
 
-&lt;img src="images/horst_here.png", width="70%"&gt;
+&lt;img src="images/fireworks.gif" width="90%"&gt;
 
-[@allison_horst](https://twitter.com/allison_horst)
 
 ]]
+
+
+
 
 
 
@@ -216,9 +267,9 @@ class: split-two bg-main1
 
 class: bg-main1 center middle
 
-# The result is a pretty HTML file
+# The result is a nice HTML file and a short R Markdown tutorial.&lt;br&gt;Before the next part, try writing something with R Markdown
 &lt;br&gt;
-&lt;img src="images/knittedmarkdown.png", width="80%"&gt;
+&lt;img src="images/knittedmarkdown.png", width="70%"&gt;
 &lt;br&gt;
 
 

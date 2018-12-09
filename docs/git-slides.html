@@ -1,593 +1,784 @@
 <!DOCTYPE html>
+<html>
+  <head>
+    <title>Version control with git</title>
+    <meta charset="utf-8">
+    <meta name="author" content="  Danielle Navarro    <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt; @djnavarro</span>" />
+    <link href="site_libs/remark-css/kunoichi.css" rel="stylesheet" />
+    <link href="site_libs/remark-css/ninjutsu.css" rel="stylesheet" />
+    <link href="site_libs/font-awesome-animation/font-awesome-animation-emi.css" rel="stylesheet" />
+    <script src="site_libs/fontawesome/js/fontawesome-all.min.js"></script>
+    <link rel="stylesheet" href="assets/ninpo.css" type="text/css" />
+    <link rel="stylesheet" href="assets/danielle.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+# Version control with git
+## Slightly more fun than setting your laptop on fire
+### <br><br>Danielle Navarro    <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt; @djnavarro</span>
+### <a href="https://djnavarro.github.io/chdss2018/" class="uri">https://djnavarro.github.io/chdss2018/</a><br><br>11 December 2018
 
-<head>
-
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
-
-
-<meta name="author" content="  Danielle Navarro    <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt; @djnavarro</span>" />
-
-<meta name="date" content="2018-12-11" />
-
-<title>Version control with git</title>
-
-<script src="site_libs/jquery/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap/shim/respond.min.js"></script>
-<script src="site_libs/navigation/tabsets.js"></script>
-<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs/highlight.js"></script>
-<link href="site_libs/font-awesome-animation/font-awesome-animation-emi.css" rel="stylesheet" />
-<script src="site_libs/fontawesome/js/fontawesome-all.min.js"></script>
-
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
-
-
-
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
-
-
-</head>
-
-<body>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
-
-
-<style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-</style>
-
-<script>
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
-
-  // mark it active
-  menuAnchor.parent().addClass('active');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
-});
-</script>
-
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
+---
 
 
 
 
 
+class: split-60 bg-main1
 
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html">CHDSS2018</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li>
-  <a href="git.html">Git</a>
-</li>
-<li>
-  <a href="projects.html">Projects</a>
-</li>
-<li>
-  <a href="wrangling.html">Wrangling</a>
-</li>
-<li>
-  <a href="visualisation.html">Visualisation</a>
-</li>
-<li>
-  <a href="statistics.html">Statistics</a>
-</li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
+.column.bg-main1[.content.vmiddle.center[
 
-<div class="fluid-row" id="header">
+# What? Why? How?
+
+.pull.left[.pad1[
+.font2[
+- .orange[**What?**] Version control, collaboration, back up
+- .orange[**Why?**] Everyone has a laptop fire one day
+- .orange[**How?**] No-one really knows.
+]]]
+
+]]
+
+--
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/git_2x.png", width="70%"&gt;
+
+]]
 
 
 
-<h1 class="title toc-ignore">Version control with git</h1>
-<h3 class="subtitle"><em>Slightly more fun than setting your laptop on fire</em></h3>
-<h4 class="author"><em><br><br>Danielle Navarro    <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt; @djnavarro</span></em></h4>
-<h4 class="date"><em>11 December 2018</em></h4>
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-60 bg-main1
 
-</div>
+.column.bg-main1[.content.vmiddle.center[
+
+# Structure of this section
+
+.pull.left[.pad1[
+.font2[
+- This is interactive: don't just listen, code!
+- Slide structure mirrors the tutorial:
+- https://djnavarro.github.io/chdss2018/git.html
+- Goal is to build a repository that we'll use later
+]]]
+
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/git_2x.png", width="70%"&gt;
+
+]]
 
 
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4<a href="#why-learn-git">Why learn git?</a>]]</p>
-<div id="section" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-60 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-<div id="why-learn-git" class="section level1">
-<h1>Why learn git?</h1>
-<p>.pull.left[.pad1[ .font2[ - .orange[<strong>What?</strong>] Version control, collaboration, back up - .orange[<strong>Why?</strong>] Everyone has a laptop fire one day - .orange[<strong>How?</strong>] No-one really knows.]]]</p>
-<p>]]</p>
-<table style="width:3%;">
-<colgroup>
-<col width="2%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>.column.bg-main3[.content.vmiddle.center[</td>
-</tr>
-<tr class="even">
-<td><img src="images/git_2x.png", width="70%"></td>
-</tr>
-<tr class="odd">
-<td>]]</td>
-</tr>
-<tr class="even">
-<td><!-- *********** NEW SLIDE ************** --></td>
-</tr>
-</tbody>
-</table>
-<p>class: split-60 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-<div id="structure-of-this-section" class="section level1">
-<h1>Structure of this section</h1>
-<p>.pull.left[.pad1[ .font2[ - This is interactive: don’t just listen, code! - Slide structure mirrors the tutorial - Goal is to build a repository that we’ll use later]]]</p>
-<p>]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[</p>
-<p><img src="images/git_2x.png", width="70%"></p>
-<p>]]</p>
-<div id="section-1" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4[Installing git]]]</p>
-</div>
-<div id="section-2" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-two bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="how-to-install" class="section level1">
-<h1>How to install</h1>
-<p><br></p>
-<p>.pull.left[.pad1[</p>
-<div id="windows-users" class="section level3">
-<h3>Windows users:</h3>
-</div>
-<div id="httpsgitforwindows.org" class="section level3">
-<h3><a href="https://gitforwindows.org/" class="uri">https://gitforwindows.org/</a></h3>
-<p><br> ### Mac users: ### Install Xcode from App Store (warning: 6Gb)</p>
-<p>]]</p>
-<p>]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[</p>
-<p><img src="images/gfw.png", width="70%"></p>
-<p>]]</p>
-</div>
-<div id="section-3" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4[Configuring git]]]</p>
-</div>
-<div id="section-4" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1</p>
-<p>.pad2[ .font3[Configuring git] .pull.left[.font2[ - Git (&amp; later, GitHub) needs to know your name and email - Choose wisely! GitHub has educational discounts - From the Windows command prompt / Mac terminal:]</p>
-<pre><code>git config --global user.name &#39;Danielle Navarro&#39;
-git config --global user.email &#39;d.navarro@unsw.edu.au&#39;</code></pre>
-</div>
-<div id="section-5" class="section level2">
-<h2>]]</h2>
-<p>.pad2[.pull.left[.font2[ - Other configurable things:]</p>
-<pre><code>git config --list</code></pre>
-<p>]]</p>
-</div>
-<div id="section-6" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4<a href="#get-a-github-account">Get a GitHub account</a>]]</p>
-</div>
-<div id="section-7" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-two bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="get-a-github-account" class="section level1">
-<h1>Get a GitHub account</h1>
-<p><br></p>
-<p>.pull.left[.pad1[</p>
-<div id="httpsgithub.com" class="section level3">
-<h3><a href="https://github.com/" class="uri">https://github.com/</a></h3>
-</div>
-<div id="github-will-host-repositories-for-you" class="section level3">
-<h3>GitHub will host repositories for you</h3>
-</div>
-<div id="allows-proper-version-control" class="section level3">
-<h3>Allows proper version control</h3>
-</div>
-<div id="ideal-for-collaborative-coding" class="section level3">
-<h3>Ideal for collaborative coding</h3>
-<p>]]</p>
-<p>]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[</p>
-<p><img src="images/github.png", width="70%"></p>
-<p>]]</p>
-</div>
-<div id="section-8" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4[Creating a repository on GitHub]]]</p>
-</div>
-<div id="section-9" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-two bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="how-to-create-a-repo" class="section level1">
-<h1>How to create a repo</h1>
-<p><br></p>
-<p>.pull.left[.pad1[</p>
-<div id="select-new-repository-the-in-the-top-right" class="section level3">
-<h3>Select new repository (The + in the top right)</h3>
-</div>
-<div id="fill-out-details-see-adjacent-panel" class="section level3">
-<h3>Fill out details (See adjacent panel)</h3>
-</div>
-<div id="celebrate-see-notes-for-extras" class="section level3">
-<h3>Celebrate! (See notes for extras)</h3>
-<p>]]</p>
-<p>]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[</p>
-<p><img src="images/new_repository3.jpg", width="70%"></p>
-<p>]]</p>
-</div>
-<div id="section-10" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4[Clone to your local machine]]]</p>
-</div>
-<div id="section-11" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-two bg-main1</p>
-<p>.row.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="at-the-windows-command-prompt" class="section level1">
-<h1>At the Windows Command Prompt</h1>
-<p>.pull.left[.pad2[</p>
-<pre><code>cd C:\Users\Dan\GitHub
-git clone https://github.com/djnavarro/summerschool.git</code></pre>
-<p>]] ]]</p>
-<p>–</p>
-<p>.row.bg-main3[.content.vmiddle.center[</p>
-</div>
-<div id="at-the-mac-os-terminal" class="section level1">
-<h1>At the Mac OS Terminal</h1>
-<p>.pull.left[.pad2[</p>
-<pre><code>cd /Users/Dan/GitHub
-git clone https://github.com/djnavarro/summerschool.git</code></pre>
-<p>]] ]]</p>
-<div id="section-12" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle</p>
-</div>
-</div>
-<div id="the-result-is-a-local-copy-of-the-repository" class="section level1">
-<h1>The result is a local copy of the repository</h1>
-<p><br> <img src="images/clonedrepo.jpg", width="70%"> <br></p>
-<div id="section-13" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4[Learning about your repository]]]</p>
-</div>
-<div id="section-14" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-70 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="how-do-you-feel" class="section level1">
-<h1>How do you feel?</h1>
-<p>.pull.left[.pad1[</p>
-<pre><code>git status</code></pre>
-<pre><code>On branch master
-Your branch is up to date with &#39;origin/master&#39;.
 
-nothing to commit, working tree clean</code></pre>
-<p>]] ]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[</p>
-<p>]]</p>
-<div id="section-15" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-70 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="where-is-your-home" class="section level1">
-<h1>Where is your home?</h1>
-<p>.pull.left[.pad1[</p>
-<pre><code>git remote --verbose</code></pre>
-<pre><code>origin  https://github.com/djnavarro/summerschool.git (fetch)
-origin  https://github.com/djnavarro/summerschool.git (push)</code></pre>
-<p>]] ]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[</p>
-<p><img src="images/github1.png", width="70%"></p>
-<p>]]</p>
-<div id="section-16" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4[Making local changes]]]</p>
-</div>
-<div id="section-17" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle</p>
-</div>
-</div>
-<div id="lets-suppose-we-want-to-edit-the-readme.md-file" class="section level1">
-<h1>Let’s suppose we want to edit the README.md file</h1>
-<p><br> <img src="images/readme_rstudio.jpg", width="50%"> <br></p>
-<div id="section-18" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle</p>
-<p><br> <img src="images/quinn_typing.gif", width="50%"> <br></p>
-</div>
-<div id="section-19" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle</p>
-<p><br> <img src="images/readme_rstudio2.jpg", width="90%"> <br></p>
-</div>
-<div id="section-20" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4[Making a local commit]]]</p>
-</div>
-<div id="section-21" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-two bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-<p>.pull.left[.pad1[</p>
-<p>.font2[It’s a “simple” three-step process…] .font2[ - check the status - add (stage) the changes - commit the changes]</p>
-<pre><code>git status
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Installing git]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# How to install
+
+&lt;br&gt;
+
+.pull.left[.pad1[
+
+### Windows users:
+### https://gitforwindows.org/
+&lt;br&gt;
+### Mac users:
+### Install Xcode from App Store (warning: 6Gb)
+
+
+]]
+
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/gfw.png", width="70%"&gt;
+
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# How to install
+
+&lt;br&gt;
+
+.pull.left[.pad1[
+
+### Windows users:
+### https://gitforwindows.org/
+&lt;br&gt;
+### Mac users:
+### Install Xcode from App Store (warning: 6Gb)
+
+
+]]
+
+]]
+
+.column.bg-main1[.content.vmiddle.center[
+
+&lt;img src="images/gitcommand.png", width="100%"&gt;
+
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Configuring git]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1
+
+.pad2[
+.font3[Configuring git]
+.pull.left[.font2[
+- Git (&amp; later, GitHub) needs to know your name and email
+- Choose wisely! GitHub has educational discounts
+- From the Windows command prompt / Mac terminal:
+]
+```{}
+git config --global user.name 'Danielle Navarro'
+git config --global user.email 'd.navarro@unsw.edu.au'
+```
+]]
+--
+.pad2[.pull.left[.font2[
+- Other configurable things:
+]
+```{}
+git config --list
+```
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Get a GitHub account]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# Get a GitHub account
+
+&lt;br&gt;
+
+.pull.left[.pad1[
+
+### https://github.com/
+### GitHub will host repositories for you
+### Allows proper version control 
+### Ideal for collaborative coding
+
+]]
+
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/github.png", width="70%"&gt;
+
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Creating a repository on GitHub]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# How to create a repo
+
+&lt;br&gt;
+
+.pull.left[.pad1[
+
+### Select new repository (The + in the top right)
+### Fill out details (See adjacent panel)
+### Celebrate! (See notes for extras)
+
+]]
+
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/new_repository3.jpg", width="70%"&gt;
+
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Clone to your local machine]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-two bg-main1
+
+.row.bg-main1[.content.vmiddle.center[
+
+# At the Windows Command Prompt
+
+.pull.left[.pad1[
+```{}
+cd C:\Users\Dan\GitHub
+git clone https://github.com/YOURUSERNAME/summerschool.git
+```
+]]
+]]
+
+--
+
+.row.bg-main3[.content.vmiddle.center[
+
+# At the Mac OS Terminal
+
+.pull.left[.pad1[
+```{}
+cd /Users/Dan/GitHub
+git clone https://github.com/YOURUSERNAME/summerschool.git
+```
+
+]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle
+
+# The result is a local copy of the repository 
+&lt;br&gt;
+&lt;img src="images/clonedrepo.jpg", width="70%"&gt;
+&lt;br&gt;
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Learning about your repository]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-60 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# How do you feel?
+
+.pull.left[.pad1[
+```{}
+git status
+```
+```{}
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+```
+]]
+]]
+
+--
+.column.bg-main1[.content.vmiddle.center[
+
+&lt;img src="images/gitstatus.png" width="100%"&gt;
+
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-70 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# Where is your home?
+
+.pull.left[.pad1[
+```{}
+git remote --verbose
+```
+```{}
+origin  https://github.com/djnavarro/summerschool.git (fetch)
+origin  https://github.com/djnavarro/summerschool.git (push)
+```
+]]
+]]
+
+--
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/github1.png", width="70%"&gt;
+
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Making local changes]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle
+
+# Let's open the README.md file in RStudio 
+
+&lt;br&gt;
+&lt;img src="images/readme_rstudio.jpg", width="50%"&gt;
+&lt;br&gt;
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-two bg-main3
+
+.column.bg-main3[.content.vmiddle.center[
+
+# Edit the file...
+
+&lt;br&gt;
+&lt;img src="images/quinn_typing.gif", width="100%"&gt;
+&lt;br&gt;
+
+]]
+]]
+
+--
+.column.bg-main1[.content.vmiddle.center[
+
+.pull.left[.pad1[.font2[
+- Suggestion... take a look at what I did
+- The .md file is written using "markdown"
+- We'll use markdown for documents later!
+]]]
+
+.pull.left[.pad1[.font2[
+Illustration:
+- This is the [raw markdown](https://raw.githubusercontent.com/djnavarro/summerschool/master/README.md)
+- This is the [rendered markdown](https://github.com/djnavarro/summerschool/blob/master/README.md)
+]]]
+
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 split-two
+
+.column[
+
+]
+
+.column[
+
+]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle
+
+# Click the preview button...
+
+&lt;br&gt;
+&lt;img src="images/readme_rstudio2.jpg", width="90%"&gt;
+&lt;br&gt;
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Making a local commit]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+.pull.left[.pad1[
+
+.font2[It's a "simple" three-step process...]
+.font2[
+- check the status
+- add (stage) the changes
+- commit the changes
+]
+```{}
+git status
 git add --all
-git commit -m &quot;YOUR MESSAGE HERE&quot;</code></pre>
-<p>.font2[… see tutorial for details] ]] ]]</p>
-<table style="width:3%;">
-<colgroup>
-<col width="2%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>.column.bg-main3[.content.vmiddle.center[</td>
-</tr>
-<tr class="even">
-<td><img src="images/fireworks.gif" width="90%"></td>
-</tr>
-<tr class="odd">
-<td>]]</td>
-</tr>
-<tr class="even">
-<td><!-- *********** NEW SLIDE ************** --></td>
-</tr>
-</tbody>
-</table>
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4[Pushing your commits to GitHub]]]</p>
-</div>
-<div id="section-22" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-two bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-<p>.pull.left[.pad1[</p>
-<p>.font2[Pushing to GitHub actually <strong>is</strong> easy!]</p>
-<pre><code>git push -u origin master</code></pre>
-<p>]] ]]</p>
-<p>–</p>
-<p>.column.bg-main3[.content.vmiddle.center[</p>
-<p><img src="images/updated_repository.jpg" width="90%"></p>
-<p>]]</p>
-</div>
-<div id="section-23" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4[Adding collaborators]]]</p>
-</div>
-<div id="section-24" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle</p>
-</div>
-</div>
-<div id="to-add-a-collaborator-on-github" class="section level1">
-<h1>To add a collaborator on GitHub</h1>
-<p><br> <img src="images/addcontributor.jpg", width="90%"> <br></p>
-<div id="section-25" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-two bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="collaborators-can-work-on-it-too" class="section level1">
-<h1>Collaborators can work on it too…</h1>
-<p>.pull.left[.font2[.pad1[ - Try it: invite someone and have them - Clone your repo - Commit some changes - Push up to GitHub]]] ]] – .column.bg-main3[.content.vmiddle.center[</p>
-</div>
-<div id="how-do-you-get-their-changes" class="section level1">
-<h1>How do you get their changes?</h1>
-<p>.pull.left[.pad1[.font2[</p>
-<pre><code>git pull</code></pre>
-<p>]]] ]]</p>
-<div id="section-26" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-two bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="you-can-work-simultaneously" class="section level1">
-<h1>You can work simultaneously</h1>
-<p>.pull.left[.font2[.pad1[ - If you’re not editing the same thing - Make local commits whenever you like - Remember to pull before you push!]]] ]] – .column.bg-main3[.content.vmiddle.center[</p>
-</div>
-<div id="but-beware-of-merge-conflicts" class="section level1">
-<h1>But beware… of merge conflicts</h1>
-<p><img src="images/daria_burning.gif" width = "90%"> <!--<img src="https://media.giphy.com/media/10Iu43S5QuBTMc/giphy.gif" width = "90%">--></p>
-<p>]]</p>
-<div id="section-27" class="section level2">
-<h2><!-- DONE --></h2>
-<p>class: bg-main1 middle center</p>
-</div>
-<div id="thank-u-next" class="section level2">
-<h2>thank u, next</h2>
-</div>
-</div>
+git commit -m "YOUR MESSAGE HERE"
+```
+.font2[... see [the tutorial](https://djnavarro.github.io/chdss2018/git.html) for details]
+]]
+]]
+
+--
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/fireworks.gif" width="90%"&gt;
+
+
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Pushing your commits to GitHub]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+.pull.left[.pad1[
+
+.font2[Pushing your changes to GitHub]
+
+```{}
+git push -u origin master
+```
+
+]]
+]]
+
+--
+
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/updated_repository.jpg" width="90%"&gt;
+
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+## .orange[Skills learned so far?]
+
+.pull.left[.pad1[.font2[
+- Creating a git repository
+- Making changes and commiting them
+- Pushing changes to GitHub
+]]]
+
+## .orange[What does this buy us?]
+
+.pull.left[.pad1[.font2[
+- Backing up files on GitHub
+- Sharing code with public repositories
+- Transparency: git commits leave trails
+]]]
+
+]]
+
+--
+
+.column.bg-main3[.content.vmiddle.center[
+
+## Is that all? Really?
+&lt;img src="https://media.giphy.com/media/hiu4RJvbEBUVq/giphy.gif" width="90%"&gt;
+
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Collaboration via GitHub]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle
+
+# To add a collaborator on GitHub
+
+&lt;br&gt;
+&lt;img src="images/addcontributor.jpg", width="90%"&gt;
+&lt;br&gt;
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# Collaborators can work on it too...
+
+.pull.left[.font2[.pad1[
+- Try it: invite someone and have them
+- Clone your repo
+- Commit some changes 
+- Push up to GitHub
+]]]
+]]
+--
+.column.bg-main3[.content.vmiddle.center[
+
+# How do you get their changes?
+
+.pull.left[.pad1[.font2[
+```{}
+git pull
+```
+]]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# You can work simultaneously
+
+.pull.left[.font2[.pad1[
+- If you're not editing the same thing
+- Make local commits whenever you like
+- Remember to pull before you push!
+]]]
+]]
+--
+.column.bg-main3[.content.vmiddle.center[
+
+# But beware... of merge conflicts 
+
+&lt;img src="images/daria_burning.gif" width = "90%"&gt;
+&lt;!--&lt;img src="https://media.giphy.com/media/10Iu43S5QuBTMc/giphy.gif" width = "90%"&gt;--&gt;
+
+]]
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[The pay off!]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle
+
+# You can code together with many people...
+
+&lt;br&gt;
+&lt;img src="images/learngganimate.png", width="100%"&gt;
+&lt;br&gt;
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle
+
+&lt;br&gt;
+&lt;img src="images/team.jpg", width="60%"&gt;
+&lt;br&gt;
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle
+
+# Collaborative coding can be pretty!
+
+&lt;br&gt;
+&lt;img src="images/wake8-1.gif", width="50%"&gt;
+&lt;br&gt;
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle
+
+# Or fabulously absurd!
+
+&lt;br&gt;
+&lt;img src="images/rupaulgif-1.gif", width="50%"&gt;
+&lt;br&gt;
 
 
 
 
-</div>
+&lt;!-- DONE --&gt;
+---
+
+class: bg-main1 middle center
+
+## thank u, next
+    </textarea>
+<script src="libs/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
 
 <script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
 </script>
-
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
 </script>
-
-</body>
+  </body>
 </html>

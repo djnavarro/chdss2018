@@ -2,7 +2,7 @@
 title: "Version control with git"
 subtitle: "Slightly more fun than setting your laptop on fire"
 author: "<br><br>Danielle Navarro &nbsp;&nbsp;&nbsp;`r anicon::faa('twitter', animate='float', rtext=' @djnavarro')`"
-date: "11 December 2018"
+date: "https://djnavarro.github.io/chdss2018/<br><br>11 December 2018"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -21,20 +21,11 @@ options(htmltools.dir.version = FALSE)
 ```
 
 
-class: bg-main1 center middle hide-slide-number
-
-.reveal-text.bg-main2[.pad1[
-.font4[Why learn git?]
-]]
-
-
-<!-- *********** NEW SLIDE ************** -->
----
 class: split-60 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
 
-# Why learn git?
+# What? Why? How?
 
 .pull.left[.pad1[
 .font2[
@@ -65,7 +56,8 @@ class: split-60 bg-main1
 .pull.left[.pad1[
 .font2[
 - This is interactive: don't just listen, code!
-- Slide structure mirrors the tutorial
+- Slide structure mirrors the tutorial:
+- https://djnavarro.github.io/chdss2018/git.html
 - Goal is to build a repository that we'll use later
 ]]]
 
@@ -117,6 +109,39 @@ class: split-two bg-main1
 .column.bg-main3[.content.vmiddle.center[
 
 <img src="images/gfw.png", width="70%">
+
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# How to install
+
+<br>
+
+.pull.left[.pad1[
+
+### Windows users:
+### https://gitforwindows.org/
+<br>
+### Mac users:
+### Install Xcode from App Store (warning: 6Gb)
+
+
+]]
+
+]]
+
+.column.bg-main1[.content.vmiddle.center[
+
+<img src="images/gitcommand.png", width="100%">
 
 ]]
 
@@ -254,10 +279,10 @@ class: split-two bg-main1
 
 # At the Windows Command Prompt
 
-.pull.left[.pad2[
+.pull.left[.pad1[
 ```{}
 cd C:\Users\Dan\GitHub
-git clone https://github.com/djnavarro/summerschool.git
+git clone https://github.com/YOURUSERNAME/summerschool.git
 ```
 ]]
 ]]
@@ -268,10 +293,10 @@ git clone https://github.com/djnavarro/summerschool.git
 
 # At the Mac OS Terminal
 
-.pull.left[.pad2[
+.pull.left[.pad1[
 ```{}
 cd /Users/Dan/GitHub
-git clone https://github.com/djnavarro/summerschool.git
+git clone https://github.com/YOURUSERNAME/summerschool.git
 ```
 
 ]]
@@ -303,7 +328,7 @@ class: bg-main1 center middle hide-slide-number
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-70 bg-main1
+class: split-60 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
 
@@ -322,9 +347,10 @@ nothing to commit, working tree clean
 ]]
 ]]
 
+--
+.column.bg-main1[.content.vmiddle.center[
 
-.column.bg-main3[.content.vmiddle.center[
-
+<img src="images/gitstatus.png" width="100%">
 
 ]]
 
@@ -348,7 +374,7 @@ origin  https://github.com/djnavarro/summerschool.git (push)
 ]]
 ]]
 
-
+--
 .column.bg-main3[.content.vmiddle.center[
 
 <img src="images/github1.png", width="70%">
@@ -372,7 +398,7 @@ class: bg-main1 center middle hide-slide-number
 
 class: bg-main1 center middle
 
-# Let's suppose we want to edit the README.md file 
+# Let's open the README.md file in RStudio 
 
 <br>
 <img src="images/readme_rstudio.jpg", width="50%">
@@ -384,6 +410,8 @@ class: bg-main1 center middle
 
 class: bg-main1 center middle
 
+# Edit the file...
+
 <br>
 <img src="images/quinn_typing.gif", width="50%">
 <br>
@@ -394,6 +422,8 @@ class: bg-main1 center middle
 ---
 
 class: bg-main1 center middle
+
+# Click the preview button...
 
 <br>
 <img src="images/readme_rstudio2.jpg", width="90%">
@@ -433,7 +463,7 @@ git status
 git add --all
 git commit -m "YOUR MESSAGE HERE"
 ```
-.font2[... see tutorial for details]
+.font2[... see [the tutorial](https://djnavarro.github.io/chdss2018/git.html) for details]
 ]]
 ]]
 
@@ -466,7 +496,7 @@ class: split-two bg-main1
 
 .pull.left[.pad1[
 
-.font2[Pushing to GitHub actually **is** easy!]
+.font2[Pushing your changes to GitHub]
 
 ```{}
 git push -u origin master
@@ -487,10 +517,46 @@ git push -u origin master
 <!-- *********** NEW SLIDE ************** -->
 ---
 
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+## .orange[Skills learned so far?]
+
+.pull.left[.pad1[.font2[
+- Creating a git repository
+- Making changes and commiting them
+- Pushing changes to GitHub
+]]]
+
+## .orange[What does this buy us?]
+
+.pull.left[.pad1[.font2[
+- Backing up files on GitHub
+- Sharing code with public repositories
+- Transparency: git commits leave trails
+]]]
+
+]]
+
+--
+
+.column.bg-main3[.content.vmiddle.center[
+
+## Is that all? Really?
+<img src="https://media.giphy.com/media/hiu4RJvbEBUVq/giphy.gif" width="90%">
+
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
 class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
-.font4[Adding collaborators]
+.font4[Collaboration via GitHub]
 ]]
 
 
@@ -559,6 +625,61 @@ class: split-two bg-main1
 <!--<img src="https://media.giphy.com/media/10Iu43S5QuBTMc/giphy.gif" width = "90%">-->
 
 ]]
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[The pay off!]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle
+
+# You can code together with many people...
+
+<br>
+<img src="images/learngganimate.png", width="100%">
+<br>
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle
+
+<br>
+<img src="images/team.jpg", width="60%">
+<br>
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle
+
+# Collaborative coding can be pretty!
+
+<br>
+<img src="images/wake8-1.gif", width="50%">
+<br>
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle
+
+# Or fabulously absurd!
+
+<br>
+<img src="images/rupaulgif-1.gif", width="50%">
+<br>
 
 
 

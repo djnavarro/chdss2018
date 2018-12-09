@@ -41,6 +41,12 @@ git version 2.15.2 (Apple Git 101.1)
 As long as you're getting a message that tells you that git exists then you're good to go.
 
 
+## Client or command line?
+
+There are several methods for using git, but maybe the biggest distinction is between using the *command line* tools (typing commands in at the Windows Command Prompt or the Mac Terminal) and using a *git client* (software that has a nice graphical user interface). In the long run it's probably worth using a git client: as Jenny Bryan says, it will spare you the tediousness of ["command line bullshittery"](http://www.pgbovine.net/command-line-bullshittery.htm). [GitKraken](https://www.gitkraken.com/) is a fairly popular option, but RStudio now has a nice git client built in, so you might want to explore that.
+
+That being said for our purposes we're going to use the command line. That's not because we want to be "hardcore" but because most git clients are built for people who already understand git, and so the user interface is designed to show you "everything at a glance", and (for me at least) the visual complexity of it is overhwleming. Because this is just a "getting started" tutorial we'll just stick to some simple commands.
+
 ## Configuring git
 
 In a moment we'll get you to sign up for an account with GitHub, but while we're here at the command line, we might as well make a few settings. You can tell git who you are by using the `git config` command. For me, that means I do this:
@@ -65,13 +71,6 @@ The next step in the process is setting up an account with a service that hosts 
 - When you sign up for an account it *will* need to be associated with an email address. You should pick the address that makes sense for you (probably your university account)
 - A nice feature if you have a university email address and are using GitHub for edication: youcan  apply for a "developer" account (which are normally $7/month) for free You can apply for it by following the instructions [here](https://help.github.com/articles/applying-for-an-academic-research-discount/). It can take a few days, though mine was approved in minutes. 
 - **Important**: the email address that you use for GitHub needs to be the same one that you listed in the `git config` command earlier.
-
-## Client or command line?
-
-There are several differnt ways you can use git, but maybe the biggest distinction is between using the *command line* tools (typing commands in at the Windows Command Prompt or the Mac Terminal) and using a *git client* (software that has a nice graphical user interface). In the long run it's probably worthwhile exploring a few different git clients: 
-as Jenny Bryan says, it will spare you the tediousness of ["command line bullshittery"](http://www.pgbovine.net/command-line-bullshittery.htm). [GitKraken](https://www.gitkraken.com/) is a fairly popular option, but RStudio now has a nice git client built in, so you might want to explore that.
-
-That being said for our purposes we're going to use the command line. That's not because we want to be "hardcore" but because most git clients are built for people who already understand git, and so the user interface is designed to show you "everything at a glance", and (for me at least) the visual complexity of it is overhwleming. Because this is just a "getting started" tutorial we'll just stick to some simple commands.
 
 
 ## Our first workflow: Backing up your work to GitHub

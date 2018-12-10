@@ -28,6 +28,7 @@ The goal in Day 2 is to cover topics relevant to data analysis with R. The cover
 
 Within each content section, there is a written tutorial linked to below and as well as the HTML slides that I'll be presenting from. Eventually the intention is to have the tutorials go into more detail on topics, but at the moment they're a bit hit and miss!
 
+- Brief introduction: [intro-slides.html](intro-slides.html)
 - Working with git and GitHub: [git.html](git.html), [git-slides.html](git-slides.html)
 - Working with R markdown and R projects: [projects.html](projects.html), [projects-slides.html](projects-slides.html)
 - Data wrangling in tidyverse: [wrangling.html](wrangling.html), [wrangling-slides.html](wrangling-slides.html)

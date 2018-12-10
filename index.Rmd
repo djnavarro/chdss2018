@@ -26,7 +26,7 @@ requires skills that are not often taught as part of the psychology curriculum, 
 
 The goal in Day 2 is to cover topics relevant to data analysis with R. The coverage is somewhat eclectic: there are sections that discuss tools that will help you with your workflow (e.g., git, R Markdown, etc), sections that discuss how to manipulate and visualise data (e.g., tidyverse), and a section that discusses statistical modelling in R (e.g., linear models, mixed models). Given the breadth of coverage, we won't go into much detail on any topic. You should think of each section as an initial introduction to something that is itself a much larger topic.
 
-Within each content section, there is a written tutorial linked to below (with varying levels of detail!) and as well as the HTML slides. 
+Within each content section, there is a written tutorial linked to below and as well as the HTML slides that I'll be presenting from. Eventually the intention is to have the tutorials go into more detail on topics, but at the moment they're a bit hit and miss!
 
 - Working with git and GitHub: [git.html](git.html), [git-slides.html](git-slides.html)
 - Working with R markdown and R projects: [projects.html](projects.html), [projects-slides.html](projects-slides.html)
@@ -34,12 +34,12 @@ Within each content section, there is a written tutorial linked to below (with v
 - Data visualisation in tidyverse: [visualisation.html](visualisation.html), [visualisation-slides.html](visualisation-slides.html)
 - Statistical modelling in R: [statistics.html](statistics.html), [statistics-slides.html](statistics-slides.html)
 
-Each section has an interactive component, but it's a little different for each section:
+The interactive components to each section:
 
 - For the git and projects sections, the goal will be to create your own repository and initialise an RStudio project within it. The repository that I created is the [summerschool](https://github.com/djnavarro/summerschool) repo.
 - For the data wrangling section, there is a structured sequence of six exercises that you can work through in parallel with the session (the slides have explicit break points). Each exercise is an R Markdown file that you'll need to make changes to. You can download zip files with all [exercises](wrangling-exercises.zip) and [solutions](wrangling-solutions.zip). In addition to the [frames](/analysis/data/frames_ex2.csv) data the exercises use the [tidy_users](/analysis/data/tidy_users.csv) data and the [tidy_nails](/analysis/data/tidy_nails.csv) data. 
 - For the data visualisation, the DIY section is entirely freeform. The way this session will run is that I'll give a very brief lecture on the grammar of graphics package, and then you should feel free to explore ggplot to your hearts content!
-- For the statistical modelling section TODO???
+- For the statistical modelling section... oh, let's be honest. By this point in the day we'll all need a break so it's probably easiest to do this one lecture style!
 
 Assumed knowledge:
 
@@ -53,7 +53,5 @@ Additionally, it may be handy to have the Day 0 introduction to R resources easi
 - Keynote: [Part 1](introtoR1-handout.key), [Part 2](introtoR2-handout.kwy), [Part 3](introtoR3-handout.key)
 - The "[core toolkit](http://compcogscisydney.org/psyr/#core-toolkit)" sections in PSYR
 
-<!--
-R packages used: `tidyverse`, `skimr`, `here`, `lme4`, `lsr`
--->
+R packages used: `tidyverse`, `skimr`, `here`, `lme4`, `lsr`, `BayesFactor`
 

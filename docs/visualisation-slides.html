@@ -4,11 +4,10 @@
     <title>Prettiness with ggplot2</title>
     <meta charset="utf-8">
     <meta name="author" content="  Danielle Navarro    <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt; @djnavarro</span>" />
-    <meta name="date" content="2018-12-11" />
-    <link href="site_libs/remark-css/kunoichi.css" rel="stylesheet" />
-    <link href="site_libs/remark-css/ninjutsu.css" rel="stylesheet" />
-    <link href="site_libs/font-awesome-animation/font-awesome-animation-emi.css" rel="stylesheet" />
-    <script src="site_libs/fontawesome/js/fontawesome-all.min.js"></script>
+    <link href="libs/remark-css/kunoichi.css" rel="stylesheet" />
+    <link href="libs/remark-css/ninjutsu.css" rel="stylesheet" />
+    <link href="libs/font-awesome-animation/font-awesome-animation-emi.css" rel="stylesheet" />
+    <script src="libs/fontawesome/js/fontawesome-all.min.js"></script>
     <link rel="stylesheet" href="assets/ninpo.css" type="text/css" />
     <link rel="stylesheet" href="assets/danielle.css" type="text/css" />
   </head>
@@ -18,23 +17,13 @@ class: center, middle, inverse, title-slide
 
 # Prettiness with ggplot2
 ### <br><br>Danielle Navarro    <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt; @djnavarro</span>
-### 11 December 2018
+### <a href="https://djnavarro.github.io/chdss2018/" class="uri">https://djnavarro.github.io/chdss2018/</a><br><br>11 December 2018
 
 ---
 
 
 
 
-
-class: bg-main1 center middle hide-slide-number
-
-.reveal-text.bg-main2[.pad1[
-.font4[Data visualisation]
-]]
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
 class: split-two bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
@@ -45,15 +34,14 @@ class: split-two bg-main1
 
 .pull.left[.pad1[
 
-### .orange[**What?**] 
-### .orange[**Why?**] 
-### .orange[**How?**] 
+### .orange[**What?**] Drawing pictures
+### .orange[**Why?**] Understand your data
+### .orange[**How?**] Using tidyverse (ggplot2)
 
 ]]
 
 ]]
 
---
 .column.bg-main3[.content.vmiddle.center[
 
 &lt;img src="images/horst_ggplot.png", width="70%"&gt;
@@ -71,6 +59,7 @@ class: split-40 bg-main1
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
+# Start simple:
 
 ```r
 frames_small &lt;- frames %&gt;%
@@ -89,6 +78,7 @@ frames_small
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
+# The data:
 
 ```
 ## # A tibble: 225 x 5
@@ -133,12 +123,15 @@ class: split-40 bg-main1
 frames_small %&gt;%
   ggplot()
 ```
+
+- Start with blank canvas
 ]]]
 ]]
-
+--
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](visualisation-slides_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+![](visualisation-slides_files/figure-html/blankplot-1.png)&lt;!-- --&gt;
+
 ]]
 ]]
 
@@ -152,14 +145,24 @@ class: split-40 bg-main1
 
 ```r
 frames_small %&gt;%
-  ggplot(aes(x = age))
+  ggplot(
+*   aes(x = age)
+  ) 
 ```
+
+- aes() adds an *aesthetic*: things that can represent data&lt;br&gt;&lt;br&gt;
+- x-axis location
+- y-axis location
+- colour of marker
+- fill of a marker
+- shape of a marker
 ]]]
 ]]
-
+--
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](visualisation-slides_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+![](visualisation-slides_files/figure-html/addaes-1.png)&lt;!-- --&gt;
+
 ]]
 ]]
 
@@ -175,14 +178,18 @@ class: split-40 bg-main1
 ```r
 frames_small %&gt;%
   ggplot(aes(x = age)) +
-  geom_histogram()
+* geom_histogram()
 ```
+
+- add "geometries": functions that represent data on the plot&lt;br&gt;&lt;br&gt;
+- **NOTE**: use `+` not `%&gt;%`
+- (historical artifact)
 ]]]
 ]]
-
+--
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](visualisation-slides_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+![](visualisation-slides_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -212,10 +219,10 @@ frames_small %&gt;%
 ```
 ]]]
 ]]
-
+--
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](visualisation-slides_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](visualisation-slides_files/figure-html/blank2-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -230,17 +237,22 @@ class: split-40 bg-main1
 
 ```r
 frames_small %&gt;%
-  ggplot(mapping = aes(
-    x = age, 
-    y = response
-  ))
+  ggplot(
+    mapping = aes(
+*     x = age,
+*     y = response
+    )
+  )
 ```
+
+- Different plots use different aesthetics!
+- Geoms "understand" some aesthetics and not others
 ]]]
 ]]
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](visualisation-slides_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](visualisation-slides_files/figure-html/aes2-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -255,45 +267,53 @@ class: split-40 bg-main1
 
 ```r
 frames_small %&gt;%
-  ggplot(mapping = aes(
-    x = age, 
-    y = response
+  ggplot(
+    mapping = aes(
+      x = age, 
+      y = response
+  )) + 
+* geom_point()
+```
+
+- the "point" geom draws...points
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](visualisation-slides_files/figure-html/geompoint-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+
+```r
+frames_small %&gt;%
+  ggplot(
+    mapping = aes(
+      x = age, 
+      y = response,
+*     colour = condition
   )) + 
   geom_point()
 ```
+
+
+- the "point" geom draws...points
+- you can use colour nicely
 ]]]
 ]]
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](visualisation-slides_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
-]]
-]]
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-class: split-40 bg-main1
-
-.column.bg-main1[.content.vtop.center[
-
-.pull.left[.pad1[.font2[
-
-```r
-frames_small %&gt;%
-  ggplot(mapping = aes(
-    x = age, 
-    y = response,
-    colour = condition
-  )) + 
-  geom_point()
-```
-]]]
-]]
-
-.column.bg-main3[.content.vtop.center[
-.pad1[.font2[
-![](visualisation-slides_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+![](visualisation-slides_files/figure-html/colourpoint-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -310,22 +330,104 @@ class: split-40 bg-main1
 
 ```r
 frames_small %&gt;%
-  ggplot(mapping = aes(
-    x = age, 
-    y = response,
-    colour = condition
+  ggplot(
+    mapping = aes(
+      x = age, 
+      y = response,
+      colour = condition
   )) + 
   geom_point() + 
-  geom_rug()
+* geom_rug()
 ```
+
+- the "point" geom draws...points
+- you can use colour nicely
+- you can **layer** geoms
 ]]]
 ]]
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](visualisation-slides_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+![](visualisation-slides_files/figure-html/addrug-1.png)&lt;!-- --&gt;
 ]]
 ]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+
+```r
+frames_small %&gt;%
+  ggplot(
+    mapping = aes(
+      x = age, 
+      y = response,
+      colour = condition
+  )) + 
+  geom_point() + 
+  geom_rug() +
+* facet_wrap(~condition)
+```
+
+- the "point" geom draws...points
+- you can use colour nicely
+- you can **layer** geoms
+- you can add **facets**
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](visualisation-slides_files/figure-html/addfacet-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+
+```r
+frames_small %&gt;%
+  ggplot(
+    mapping = aes(
+      x = age, 
+      y = response,
+      colour = condition
+  )) + 
+  geom_point() + 
+  geom_rug() +
+  facet_wrap(~condition) + 
+* theme_bw()
+```
+
+- the "point" geom draws...points
+- you can use colour nicely
+- you can **layer** geoms
+- you can add **facets**
+- and **themes**
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](visualisation-slides_files/figure-html/addtheme-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
 
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
@@ -352,14 +454,17 @@ class: split-40 bg-main1
 frames_small %&gt;%
   ggplot(aes(x = gender)) +  
   facet_wrap(~condition) +   
-  geom_bar()                 
+* geom_bar()
 ```
+
+- It does bar plots, but
+- ... this is so boring
 ]]]
 ]]
-
+--
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](visualisation-slides_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+![](visualisation-slides_files/figure-html/barplot-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -378,15 +483,19 @@ class: split-40 bg-main1
 frames_small %&gt;%
   ggplot(aes(
     x = condition,
-    y = response)) + 
-  geom_boxplot()             
+    y = response
+  )) + 
+* geom_boxplot()
 ```
+
+- Boxplots use Tukey's "five number summary" to represent distribution of responses
+- Median, interquartile range, range
 ]]]
 ]]
-
+--
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](visualisation-slides_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+![](visualisation-slides_files/figure-html/boxplot-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -404,15 +513,21 @@ class: split-40 bg-main1
 frames_small %&gt;%
   ggplot(aes(
     x = condition,
-    y = response)) + 
-  geom_violin()             
+    y = response
+  )) + 
+* geom_violin()
 ```
+
+- Violin plots are a modern take
+- Width of the violin is a "kernel density estimate"
+- (it's a smoothing of your data)
+
 ]]]
 ]]
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](visualisation-slides_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](visualisation-slides_files/figure-html/geomviolin-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -430,16 +545,19 @@ class: split-40 bg-main1
 frames_small %&gt;%
   ggplot(aes(
     x = condition,
-    y = response)) + 
+    y = response
+  )) + 
   geom_violin() +
-  geom_jitter()          
+* geom_jitter()
 ```
+
+- "Jittered" points highlights this
 ]]]
 ]]
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](visualisation-slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+![](visualisation-slides_files/figure-html/addjitter-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -450,7 +568,7 @@ frames_small %&gt;%
 class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
-.font4[Examples 6: Bubbles]
+.font4[Examples 6: Getting fancy?]
 ]]
 
 
@@ -469,14 +587,18 @@ frames %&gt;%
     x = test_item, 
     y = response
   )) + 
-  geom_count()
+* geom_count()
 ```
+
+- "count" scales size with frequency
+
 ]]]
 ]]
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](visualisation-slides_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+![](visualisation-slides_files/figure-html/bubble1-1.png)&lt;!-- --&gt;
+
 ]]
 ]]
 
@@ -497,16 +619,19 @@ frames %&gt;%
     y = response
   )) + 
   geom_count() + 
-  facet_grid(
-    condition ~ sample_size
-  )
+* facet_grid(
+*   condition ~ sample_size) +
+* theme_bw()
 ```
+
+- let's facet in a grid
+- and switch to a light theme
 ]]]
 ]]
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](visualisation-slides_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+![](visualisation-slides_files/figure-html/bubble2-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -524,21 +649,23 @@ class: split-40 bg-main1
 frames %&gt;%
   ggplot(mapping = aes(
     x = test_item, 
-    y = response
+    y = response,
+*   colour = condition
   )) + 
-  geom_count(
-    mapping = aes(colour = ..n..)
-  ) + 
-  facet_grid(
-    condition ~ sample_size
-  )
+  geom_count() + 
+  facet_grid( 
+    condition ~ sample_size) + 
+  theme_bw()
 ```
+- play around!
+- see [the tutorial](https://djnavarro.github.io/chdss2018/visualisation.html) for more 
+
 ]]]
 ]]
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](visualisation-slides_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+![](visualisation-slides_files/figure-html/bubble3-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -551,14 +678,14 @@ frames %&gt;%
 class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
-.font4[Example 7: Error bars]
+.font4[Example 7: Error bars. Blegh!]
 ]]
 
 
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: split-50 bg-main1
+class: split-40 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
@@ -569,19 +696,26 @@ library(lsr)
 
 frames_mean &lt;- frames %&gt;%
   group_by(
-    condition, sample_size, test_item
+    condition, 
+    sample_size, 
+    test_item
   ) %&gt;%
   summarise(
     resp = mean(response),
-    lower = ciMean(response)[1],
-    upper = ciMean(response)[2]
+*   lower = ciMean(response)[1],
+*   upper = ciMean(response)[2]
   )
 
 frames_mean
 ```
+
+- use dplyr to add to the data
+- use lsr::ciMean to get a CI95
+- use dplyr to add to the data
+
 ]]]
 ]]
-
+--
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
 
@@ -613,27 +747,30 @@ frames_mean
 class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
-
 .pull.left[.pad1[.font2[
 
 ```r
 frames_mean %&gt;%
   ggplot(aes(
-    x = test_item, y = resp, colour = condition
-  )) +
+    x = test_item, 
+    y = resp, 
+    colour = condition)) +
   geom_point() +
   geom_line() +
-  geom_errorbar(aes(
-    ymin = lower, ymax = upper
-  )) +
+* geom_errorbar(aes(
+*   ymin = lower, ymax = upper)) +
   facet_wrap(~sample_size)
 ```
+
+- "errorbar" geom draws error bars
+- just remember to be cautious!
+- confidence intervals hide *a lot*
 ]]]
 ]]
-
+--
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](visualisation-slides_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+![](visualisation-slides_files/figure-html/errorbarpic-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -644,7 +781,7 @@ frames_mean %&gt;%
 class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
-.font4[Example 8: Contours]
+.font4[Example 8: But wait there's more!]
 ]]
 
 
@@ -667,7 +804,7 @@ frames_small %&gt;%
     colour = condition)) +
   geom_point() + 
   theme_bw() +
-  geom_density_2d() +
+* geom_density_2d() +
   facet_wrap(~condition) +
   ylim(0,9)
 ```
@@ -676,7 +813,7 @@ frames_small %&gt;%
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](visualisation-slides_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
+![](visualisation-slides_files/figure-html/countour-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -688,7 +825,8 @@ class: center middle hide-slide-number
 .pad1[
 .font4[
 Data visualisation exercise: &lt;br&gt;
-Explore the frames data with ggplot
+Explore the frames data with ggplot&lt;br&gt;
+https://djnavarro.github.io/chdss2018/
 ]]
 
 

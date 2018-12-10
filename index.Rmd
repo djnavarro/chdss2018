@@ -41,6 +41,8 @@ The interactive components to each section:
 - For the data visualisation, the DIY section is entirely freeform. The way this session will run is that I'll give a very brief lecture on the grammar of graphics package, and then you should feel free to explore ggplot to your hearts content!
 - For the statistical modelling section... oh, let's be honest. By this point in the day we'll all need a break so it's probably easiest to do this one lecture style!
 
+## Other information
+
 Assumed knowledge:
 
 - Basic R programming, as per Day 0.
@@ -53,5 +55,17 @@ Additionally, it may be handy to have the Day 0 introduction to R resources easi
 - Keynote: [Part 1](introtoR1-handout.key), [Part 2](introtoR2-handout.kwy), [Part 3](introtoR3-handout.key)
 - The "[core toolkit](http://compcogscisydney.org/psyr/#core-toolkit)" sections in PSYR
 
-R packages used: `tidyverse`, `skimr`, `here`, `lme4`, `lsr`, `BayesFactor`
+R packages used in the tutorials: `tidyverse`, `skimr`, `here`, `lme4`, `lsr`, `BayesFactor`
 
+## Finally...
+
+One goal we had when putting all this together was to try to provide you with a sense of the extent to which the tools in this Summer School can be adapted to many different purposes. One hint to that is to look at how the resources for Day 2 have been constructed. 
+
+- Obviously, we use R for the analyses, for drawing the images, etc.
+- Everything is hosted on GitHub, https://github.com/djnavarro/chdss2018
+- The website and tutorials is written in R Markdown, and updates on GitHub are automatically made live on this site
+- The slides are written using `xaringan`, an R package that provides an interface between R Markdown and some neat javascript libraries.
+- The graphic for the t-shirt were generated in R: https://github.com/djnavarro/asciify
+- So was animated GIF that we used to advertise: https://github.com/djnavarro/chdss-logo (using an in-development package called `gganimate` that extends the functionality of `ggplot2` to allow animation)
+
+Once you start feeling comfortable in R, it's remarkable what fun things you can find to do with it!

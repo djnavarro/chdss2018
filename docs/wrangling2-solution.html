@@ -221,21 +221,21 @@ $(document).ready(function () {
 <pre class="r"><code>N &lt;- 100</code></pre>
 <p>Here is the nonpiped version of the code:</p>
 <pre class="r"><code>mean(rnorm(N))</code></pre>
-<pre><code>## [1] 0.1010849</code></pre>
+<pre><code>## [1] 0.04562274</code></pre>
 <p>In the code chunk below, write a piped version of the same thing:</p>
 <pre class="r"><code>N %&gt;% rnorm() %&gt;% mean()</code></pre>
-<pre><code>## [1] -0.04879045</code></pre>
+<pre><code>## [1] 0.04047191</code></pre>
 <p>By default, the pipe operator assumes that the inpit takes the place of the <em>first</em> argument in the function. So let’s suppose I want to calculate the 20% trimmed mean, of normally distributed numbers with mean 100 and standard deviation 15. Here’s the traditional version:</p>
 <pre class="r"><code>mean(
   rnorm(N, mean = 100, sd = 15),
   trim = .2
   )</code></pre>
-<pre><code>## [1] 99.60624</code></pre>
+<pre><code>## [1] 97.4918</code></pre>
 <p>Can you rewrite this in piped form? What do you notice?</p>
 <pre class="r"><code>N  %&gt;% 
   rnorm(mean = 100, sd = 15) %&gt;% 
   mean(trim = .2)</code></pre>
-<pre><code>## [1] 99.09328</code></pre>
+<pre><code>## [1] 99.61738</code></pre>
 <p>It’s cleaner, right? It’s visually clearer how the different arguments are related to each other</p>
 
 

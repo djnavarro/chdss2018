@@ -77,7 +77,7 @@ tinyframes
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE}
+```{r maketinyframes, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
 tinyframes <- frames %>%
   group_by(id, age, condition) %>%
   summarise(
@@ -99,7 +99,7 @@ class: split-40 bg-main1
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-```{r, eval=FALSE, message = FALSE}
+```{r eval=FALSE, message = FALSE}
 tinyframes %>%
   group_by(condition) %>%
   summarise(
@@ -113,7 +113,7 @@ tinyframes %>%
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE}
+```{r summarisetinyfrmaes, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
 tinyframes %>%
   group_by(condition) %>%
   summarise(
@@ -156,7 +156,7 @@ tinyframes %>%
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE}
+```{r plottinyfrmaes, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
 tinyframes %>%
   group_by(condition) %>%
   summarise(
@@ -198,7 +198,7 @@ t.test(
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE}
+```{r ttest, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
 t.test(
   formula = response ~ condition, 
   data = tinyframes, 
@@ -249,7 +249,7 @@ mod2
 
 .row.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE}
+```{r lmdemo, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
 mod1 <- lm(formula = response ~ 1, data = tinyframes) 
 mod2 <- lm(formula = response ~ condition, data = tinyframes)
 
@@ -278,7 +278,7 @@ anova(mod1, mod2)
 
 .row.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE}
+```{r lmanova, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
 mod1 <- lm(formula = response ~ 1, data = tinyframes) 
 mod2 <- lm(formula = response ~ condition, data = tinyframes)
 
@@ -309,7 +309,7 @@ anova(mod1, mod2, mod3)
 
 .row.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE}
+```{r anovalm2, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
 mod1 <- lm(formula = response ~ 1, data = tinyframes) 
 mod2 <- lm(formula = response ~ condition, data = tinyframes)
 mod3 <- lm(formula = response ~ condition + age, data = tinyframes)
@@ -341,7 +341,7 @@ AIC(mod1, mod2, mod3)
 
 .row.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE}
+```{r aiclm, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
 mod1 <- lm(formula = response ~ 1, data = tinyframes) 
 mod2 <- lm(formula = response ~ condition, data = tinyframes)
 mod3 <- lm(formula = response ~ condition + age, data = tinyframes)
@@ -359,7 +359,7 @@ class: split-40 bg-main1
 .row.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-```{r, eval=FALSE, message = FALSE}
+```{r eval=FALSE, message = FALSE}
 mod1 <- lm(formula = response ~ 1, data = tinyframes) 
 mod2 <- lm(formula = response ~ condition, data = tinyframes)
 mod3 <- lm(formula = response ~ condition + age, data = tinyframes)
@@ -371,7 +371,7 @@ BIC(mod1, mod2, mod3)
 
 .row.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE}
+```{r biclm, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
 mod1 <- lm(formula = response ~ 1, data = tinyframes) 
 mod2 <- lm(formula = response ~ condition, data = tinyframes)
 mod3 <- lm(formula = response ~ condition + age, data = tinyframes)
@@ -412,7 +412,7 @@ modestframes
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE}
+```{r modestframes, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
 modestframes <- frames %>% 
   group_by(id, age, condition, n_obs) %>%
   summarise(response = mean(response)) %>%
@@ -447,7 +447,7 @@ modestframes %>%
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE}
+```{r plotmodest, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
 whichids <- sample(unique(modestframes$id), 80)
 modestframes %>%
   filter(id %in% whichids) %>%
@@ -479,7 +479,7 @@ anova(modest1, modest2)
 
 .row.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+```{r anovamodest, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
 modest1 <- lmer(formula = response ~ 1 + (1|id), data = modestframes)
 modest2 <- lmer(formula = response ~ condition + n_obs + (1|id), data = modestframes)
 
@@ -532,7 +532,7 @@ summary(modest3)
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE, output.lines=1:10}
+```{r summarymodest, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, output.lines=1:10}
 summary(modest3)
 ```
 ]]]
@@ -554,7 +554,7 @@ summary(modest3)
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE, output.lines=11:23}
+```{r summarymodest3, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, output.lines=11:23}
 summary(modest3)
 ```
 ]]]
@@ -579,7 +579,7 @@ modestframes
 
 .row.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+```{r predictme, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
 modestframes$modelfit <- predict(modest3)
 modestframes
 ```
@@ -606,7 +606,7 @@ modestframes %>%
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+```{r plotmodest1, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
 modestframes %>% 
   ggplot(aes(x = modelfit, y = response)) + 
   geom_point()
@@ -640,7 +640,7 @@ modestframes %>%
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+```{r anothervis, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
 modestframes %>% 
   ggplot(aes(x = modelfit, y = response)) + 
   geom_point() + 
@@ -674,7 +674,7 @@ modestframes %>%
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+```{r mfplot, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
 modestframes %>%
   filter(id %in% whichids) %>%
   ggplot(aes(
@@ -727,7 +727,7 @@ frames %>%
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+```{r dispframes, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
 whichids <- sample(
   x = unique(frames$id), 
   size = 20) 
@@ -768,7 +768,7 @@ anova(linframes1, linframes2)
 
 .row.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+```{r lmer1, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
 linframes1 <- lmer(formula = response ~ condition + n_obs + (1 + n_obs|id), data = frames)
 linframes2 <- lmer(formula = response ~ condition + test_item + (1 + test_item + n_obs|id), data = frames)
 
@@ -812,7 +812,7 @@ linframes %>%
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+```{r plotlmer, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
 linframes <- frames
 linframes$modelfit <- predict(
   linframes2)

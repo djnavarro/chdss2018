@@ -2,11 +2,11 @@
 title: "Statistical modelling"
 subtitle: "A grossly inadequate introduction"
 author: "<br><br>Danielle Navarro &nbsp;&nbsp;&nbsp;`r anicon::faa('twitter', animate='float', rtext=' @djnavarro')`"
-date: "11 December 2018"
+date: "https://djnavarro.github.io/chdss2018/<br><br>11 December 2018"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    chakra: libs/remark-latest.min.js    
+    chakra: "libs/remark-latest.min.js"    
     css: ["kunoichi", "ninjutsu" , "assets/ninpo.css", "assets/danielle.css"]
     self_contained: false
     nature:
@@ -47,10 +47,36 @@ knit_hooks$set(output = function(x, options) {
 ```
 
 
-class: bg-main1 center middle hide-slide-number
+class: split-40 bg-main1
 
-.reveal-text.bg-main2[.pad1[
-.font4[Linear models]
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+tinyframes <- frames %>%
+  group_by(id, age, condition) %>%
+  summarise(
+    response = mean(response)
+    ) %>%
+  ungroup()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+
+# Simplified data set 
+
+- Average all responses by an individual
+- Ignores effect of number of observations
+- Each person provides one "average response"
+- Impoverished, but easy to analyse!
+
+
+]]]
 ]]
 
 
@@ -70,7 +96,7 @@ tinyframes <- frames %>%
     ) %>%
   ungroup()
 
-tinyframes
+tinyframes #<<
 ```
 ]]]
 ]]
@@ -100,17 +126,24 @@ class: split-40 bg-main1
 
 .pull.left[.pad1[.font2[
 ```{r eval=FALSE, message = FALSE}
+tinyframes <- frames %>%
+  group_by(id, age, condition) %>%
+  summarise(
+    response = mean(response)
+    ) %>%
+  ungroup()
+
 tinyframes %>%
   group_by(condition) %>%
   summarise(
-    mean_resp = mean(response), 
-    sd_resp = sd(response),
-    n = n()
+    mean_resp = mean(response), #<<
+    sd_resp = sd(response), #<<
+    n = n() #<<
   )
 ```
 ]]]
 ]]
-
+--
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
 ```{r summarisetinyfrmaes, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
@@ -135,44 +168,35 @@ class: split-40 bg-main1
 
 .pull.left[.pad1[.font2[
 ```{r, eval=FALSE, message = FALSE}
-tinyframes %>%
-  group_by(condition) %>%
-  summarise(
-    mean_resp = mean(response), 
-    sd_resp = sd(response),
-    n = n()
-  )
-
 tinyframes %>% 
   ggplot(aes(
     x = age, 
     y = response, 
     colour = condition)) + 
-  geom_smooth(method = "lm") + 
+  geom_smooth(method = "lm") + #<<
   geom_point()
 ```
+
+- Is this difference meaningful?
+- What tools do we use to assess it?
+
+
 ]]]
 ]]
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
 ```{r plottinyfrmaes, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
-tinyframes %>%
-  group_by(condition) %>%
-  summarise(
-    mean_resp = mean(response), 
-    sd_resp = sd(response),
-    n = n()
-  )
-
 tinyframes %>% 
   ggplot(aes(
-    x = age, 
-    y = response, 
-    colour = condition)) + 
+    x = age,  #<<
+    y = response, #<< 
+    colour = condition)) + #<< 
   geom_smooth(method = "lm") + 
   geom_point()
 ```
+
+
 ]]]
 ]]
 
@@ -193,19 +217,84 @@ t.test(
   var.equal = TRUE
 )
 ```
+
+- The answer we were taught.
+    - H0: same mean
+    - H1: different mean
+    - etc, etc
+
 ]]]
 ]]
-
+--
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r ttest, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+```{r ttest, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, highlight.output=5}
 t.test(
   formula = response ~ condition, 
   data = tinyframes, 
   var.equal = TRUE
 )
 ```
+
+- Yay the magic p<.05. Winning!
+
 ]]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+t.test(
+  formula = response ~ condition, 
+  data = tinyframes, 
+  var.equal = TRUE
+)
+```
+
+- The answer we were taught.
+    - H0: same mean
+    - H1: different mean
+    - etc, etc
+
+]]]
+]]
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r ttest2, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, highlight.output=8}
+t.test(
+  formula = response ~ condition, 
+  data = tinyframes, 
+  var.equal = TRUE
+)
+```
+
+- Effect size? 
+    - I'm not a fan of "standardised" effect size
+    - 95% CI for the difference in raw scores...
+    - ...it's about 1 point on the 9 point scale
+    - divide by std. dev if you want Cohen's d
+    
+]]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Linear models]
 ]]
 
 

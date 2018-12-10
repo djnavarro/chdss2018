@@ -4,13 +4,12 @@
     <title>Statistical modelling</title>
     <meta charset="utf-8">
     <meta name="author" content="  Danielle Navarro    <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt; @djnavarro</span>" />
-    <meta name="date" content="2018-12-11" />
     <link href="libs/remark-css/kunoichi.css" rel="stylesheet" />
     <link href="libs/remark-css/ninjutsu.css" rel="stylesheet" />
     <link href="libs/font-awesome-animation/font-awesome-animation-emi.css" rel="stylesheet" />
     <script src="libs/fontawesome/js/fontawesome-all.min.js"></script>
-    <link rel="stylesheet" href="assets/ninpo.css" type="text/css" />
-    <link rel="stylesheet" href="assets/danielle.css" type="text/css" />
+    <link rel="stylesheet" href="assets\ninpo.css" type="text/css" />
+    <link rel="stylesheet" href="assets\danielle.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -19,7 +18,7 @@ class: center, middle, inverse, title-slide
 # Statistical modelling
 ## A grossly inadequate introduction
 ### <br><br>Danielle Navarro    <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt; @djnavarro</span>
-### 11 December 2018
+### <a href="https://djnavarro.github.io/chdss2018/" class="uri">https://djnavarro.github.io/chdss2018/</a><br><br>11 December 2018
 
 ---
 
@@ -27,10 +26,37 @@ class: center, middle, inverse, title-slide
 
 
 
-class: bg-main1 center middle hide-slide-number
+class: split-40 bg-main1
 
-.reveal-text.bg-main2[.pad1[
-.font4[Linear models]
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+
+```r
+tinyframes &lt;- frames %&gt;%
+  group_by(id, age, condition) %&gt;%
+  summarise(
+    response = mean(response)
+    ) %&gt;%
+  ungroup()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+
+# Simplified data set 
+
+- Average all responses by an individual
+- Ignores effect of number of observations
+- Each person provides one "average response"
+- Impoverished, but easy to analyse!
+
+
+]]]
 ]]
 
 
@@ -51,7 +77,7 @@ tinyframes &lt;- frames %&gt;%
     ) %&gt;%
   ungroup()
 
-tinyframes
+*tinyframes
 ```
 ]]]
 ]]
@@ -89,17 +115,24 @@ class: split-40 bg-main1
 .pull.left[.pad1[.font2[
 
 ```r
+tinyframes &lt;- frames %&gt;%
+  group_by(id, age, condition) %&gt;%
+  summarise(
+    response = mean(response)
+    ) %&gt;%
+  ungroup()
+
 tinyframes %&gt;%
   group_by(condition) %&gt;%
   summarise(
-    mean_resp = mean(response), 
-    sd_resp = sd(response),
-    n = n()
+*   mean_resp = mean(response),
+*   sd_resp = sd(response),
+*   n = n()
   )
 ```
 ]]]
 ]]
-
+--
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
 
@@ -124,37 +157,27 @@ class: split-40 bg-main1
 .pull.left[.pad1[.font2[
 
 ```r
-tinyframes %&gt;%
-  group_by(condition) %&gt;%
-  summarise(
-    mean_resp = mean(response), 
-    sd_resp = sd(response),
-    n = n()
-  )
-
 tinyframes %&gt;% 
   ggplot(aes(
     x = age, 
     y = response, 
     colour = condition)) + 
-  geom_smooth(method = "lm") + 
+* geom_smooth(method = "lm") +
   geom_point()
 ```
+
+- Is this difference meaningful?
+- What tools do we use to assess it?
+
+
 ]]]
 ]]
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-
-```
-## # A tibble: 2 x 4
-##   condition mean_resp sd_resp     n
-##   &lt;chr&gt;         &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
-## 1 category       5.40    1.56   114
-## 2 property       4.39    1.37   111
-```
-
 ![](statistics-slides_files/figure-html/plottinyfrmaes-1.png)&lt;!-- --&gt;
+
+
 ]]]
 ]]
 
@@ -176,9 +199,64 @@ t.test(
   var.equal = TRUE
 )
 ```
+
+- The answer we were taught.
+    - H0: same mean
+    - H1: different mean
+    - etc, etc
+
+]]]
+]]
+--
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```
+## 
+## 	Two Sample t-test
+## 
+## data:  response by condition
+*## t = 5.1625, df = 223, p-value = 5.388e-07
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.6259535 1.3988834
+## sample estimates:
+## mean in group category mean in group property 
+##               5.397661               4.385242
+```
+
+- Yay the magic p&lt;.05. Winning!
+
 ]]]
 ]]
 
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+
+```r
+t.test(
+  formula = response ~ condition, 
+  data = tinyframes, 
+  var.equal = TRUE
+)
+```
+
+- The answer we were taught.
+    - H0: same mean
+    - H1: different mean
+    - etc, etc
+
+]]]
+]]
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
 
@@ -190,12 +268,30 @@ t.test(
 ## t = 5.1625, df = 223, p-value = 5.388e-07
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.6259535 1.3988834
+*##  0.6259535 1.3988834
 ## sample estimates:
 ## mean in group category mean in group property 
 ##               5.397661               4.385242
 ```
+
+- Effect size? 
+    - I'm not a fan of "standardised" effect size
+    - 95% CI for the difference in raw scores...
+    - ...it's about 1 point on the 9 point scale
+    - divide by std. dev if you want Cohen's d
+    
 ]]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Linear models]
 ]]
 
 

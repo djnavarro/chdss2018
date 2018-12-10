@@ -25,15 +25,6 @@ frames <- read_csv(here("analysis","data","frames_ex2.csv"))
 ```
 
 
-class: bg-main1 center middle hide-slide-number
-
-.reveal-text.bg-main2[.pad1[
-.font4[Data wrangling]
-]]
-
-
-<!-- *********** NEW SLIDE ************** -->
----
 class: split-two bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
@@ -52,7 +43,7 @@ class: split-two bg-main1
 
 ]]
 
---
+
 .column.bg-main3[.content.vmiddle.center[
 
 <img src="images/horst_dplyr.png", width="70%">
@@ -61,6 +52,31 @@ class: split-two bg-main1
 
 ]]
 
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# Tidyverse
+
+```{r, eval=FALSE}
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+]]
+
+
+.column.bg-main3[.content.vmiddle.center[
+
+<img src="images/tidyverse.jpg", width="70%">
+
+[tidyverse.org](https://www.tidyverse.org/)
+
+]]
 
 
 

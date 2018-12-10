@@ -2,7 +2,7 @@
 title: "Data wrangling with dplyr"
 subtitle: ""
 author: "<br><br>Danielle Navarro &nbsp;&nbsp;&nbsp;`r anicon::faa('twitter', animate='float', rtext=' @djnavarro')`"
-date: "11 December 2018"
+date: "https://djnavarro.github.io/chdss2018/<br><br>11 December 2018"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -148,40 +148,8 @@ class: bg-main1 center middle
 <img src="images/test8.jpg", width="70%">
 <br>
 
-
-<!-- *********** NEW SLIDE ************** -->
+<!-- NEW SLIDE -->
 ---
-class: split-60 bg-main1
-
-.column.bg-main1[.content.vmiddle.center[
-
-# If you don't have the data set...
-
-<br>
-
-.pull.left[.pad1[
-
-### Download it from here:
-### http://compcogscisydney.org/psyr/data/frames_ex2.csv
-<br>
-### Save it to here:
-### [your_project]/analysis/data/frames_ex2.csv
-
-
-]]
-
-]]
-
-.column.bg-main3[.content.vmiddle.center[
-
-
-]]
-
-
-
-<!-- *********** NEW SLIDE ************** -->
----
-
 class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
@@ -189,31 +157,54 @@ class: bg-main1 center middle hide-slide-number
 ]]
 
 
+
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-two bg-main1
+class: bg-main1
 
-.column.bg-main1[.content.vmiddle.center[
+# What do we need?
 
-# If you don't have the packages...
+<br>
 
+.pull.left[.pad1[.font2[
 
-.pull.left[.pad1[
-
+- General resources: https://djnavarro.github.io/chdss2018/
+- The data: http://compcogscisydney.org/psyr/data/frames_ex2.csv
+- Save data here: [your_project]/analysis/data/frames_ex2.csv
+- R packages:
 ```{r, eval=FALSE}
 install.packages("tidyverse")
 install.packages("skimr")
+install.packages("lsr")
 ```
+]]]
 
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.row.bg-main1[.content.vmiddle.center[
+
+# An R Markdown document!
+
+.pull.left[.pad1[.font2[
+- File > New File > R Markdown...
+- Save it: [your_project]/analysis/docs/analysis.Rmd
+]]]
 
 ]]
 
+.row.bg-main3[.content.vmiddle.center[
+
+<img src="images/new_rmarkdown.jpg" width = "30%">
+
+
+]]]
 ]]
 
-.column.bg-main3[.content.vmiddle.center[
 
-
-]]
 
 <!-- *********** NEW SLIDE ************** -->
 ---
@@ -221,7 +212,7 @@ class: split-40 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
 
-# New R Markdown
+# Delete everything except the top bit
 
 .pull.left[.pad1[.font2[
 - At the top is the YAML header
@@ -259,16 +250,17 @@ class: split-40 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
 
-# Write...
+# Start writing!
 
 .pull.left[.pad1[.font2[
 - Load packages in the first chunk
-- Write descriptions for humans!
+- Write **descriptions for humans!**
 - Document, document, document
 ]]]
 
 ]]
 
+--
 .column.bg-main3[.content.vmiddle.center[
 
 .pull.left[.pad1[.font2[
@@ -308,16 +300,13 @@ class: split-40 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
 
-# ... and knit!
+# Click the knit button!
 
 .pull.left[.pad1[.font2[
-- Note the output messages
-- Helpful the first time...
-- ... but eventually annoying
 ]]]
 
 ]]
-
+--
 .column.bg-main3[.content.vmiddle.center[
 
 <img src="images/explore1.png" width = "90%">
@@ -335,15 +324,14 @@ class: split-40 bg-main1
 # Tidy the code chunk
 
 .pull.left[.pad1[.font2[
+- Note the output messages
+- Helpful the first time...
+- ... but suppress if you like
 - Give it a name (like packageload)
-- Suppress messages if you want
 ]]]
-
 ]]
-
+--
 .column.bg-main3[.content.vmiddle.center[
-
-
 .pull.left[.pad1[.font2[
 ````
 ## Getting started
@@ -371,8 +359,11 @@ class: split-40 bg-main1
 # Tidy the code chunk
 
 .pull.left[.pad1[.font2[
+- Note the output messages
+- Helpful the first time...
+- ... but suppress if you like
 - Give it a name (like packageload)
-- Suppress messages if you want
+
 ]]]
 
 ]]
@@ -398,11 +389,10 @@ class: split-40 bg-main1
 - Specify the file location
 - Import data with read_csv()
 ]]]
-
 ]]
 
+--
 .column.bg-main3[.content.vmiddle.center[
-
 .pull.left[.pad1[.font2[
 
 ````
@@ -433,6 +423,7 @@ class: split-40 bg-main1
 - Verbal description
 - Specify the file location
 - Import data with read_csv()
+- And click "knit!"
 ]]]
 
 ]]
@@ -456,10 +447,10 @@ class: split-40 bg-main1
 # Inspect the data set
 
 .pull.left[.pad1[.font2[
-- The data is a tibble
+- Data as a "tibble" (data frame)
 - Printing it shows the structure
 - The glimpse() function is nice
-- Name each code chunk!
+- Name *every* code chunk!
 ]]]
 
 ]]
@@ -499,10 +490,10 @@ class: split-40 bg-main1
 # Inspect the data set
 
 .pull.left[.pad1[.font2[
-- The data is a tibble
+- Data as a "tibble" (data frame)
 - Printing it shows the structure
 - The glimpse() function is nice
-- Name each code chunk!
+- Name *every* code chunk!
 ]]]
 
 ]]
@@ -520,13 +511,12 @@ class: split-40 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
 
-# Skim over the data
+# "Skim" the data
 
 .pull.left[.pad1[.font2[
-- Gives means, std dev.
-- Gives quantiles
-- Even has little text histograms
-- (Not always useful though!)
+- Use skimr::skim
+- Means, std dev., quantiles
+- Also cute text histograms
 ]]]
 ]]
 
@@ -551,15 +541,13 @@ class: split-40 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
 
-# Skim over the data
+# "Skim" the data
 
 .pull.left[.pad1[.font2[
-- Gives means, std dev.
-- Gives quantiles
-- Even has little text histograms
-- (Not always useful though!)
+- Use skimr::skim
+- Means, std dev., quantiles
+- Also cute text histograms
 ]]]
-
 ]]
 
 .column.bg-main3[.content.vmiddle.center[
@@ -581,6 +569,81 @@ class: center middle hide-slide-number
 
 
 
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[A tiny warning about R]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+# R is tricksy
+
+- Suppose `x = 10`
+- Suppose I call `plot(x)`
+- What does R "pass" to `plot`? 
+- I said: the number `10`. But I lied.
+- It actually sends the "unevaluated expression" `x` that evaluates to the number `10`. 
+- Functions can capture & modify the expression *before* it gets evaluated 
+]]]
+]]
+--
+.column.bg-main3[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+```{r, eval=TRUE}
+# simple example
+textify <- function(...) {
+  y <- deparse(match.call())
+  return(y)
+}
+
+# let's try it
+txt <- textify(what,the,f**k)
+
+# hm.
+print(txt)
+```
+
+]]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# Tidyverse packages do it a lot
+
+.pull.left[.font2[.pad1[
+- dplyr
+- ggplot2
+- readr
+- tidyr
+- purrr
+- etc
+
+]]]
+]]
+--
+.column.bg-main3[.content.vmiddle.center[
+
+# Beware!
+
+<img src="images/daria_burning.gif" width = "90%">
+<!--<img src="https://media.giphy.com/media/10Iu43S5QuBTMc/giphy.gif" width = "90%">-->
+
+]]
 
 <!-- *********** NEW SLIDE ************** -->
 ---
@@ -588,7 +651,7 @@ class: center middle hide-slide-number
 class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
-.font4[Introducing the pipe]
+.font4[Introducing the pipe, %>%]
 ]]
 
 
@@ -763,6 +826,38 @@ frames %>%
   then_this()
 ```
 
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+<img src="images/ytho.png" width="80%">
+
+]]
+
+--
+.column.bg-main3[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+
+# Piping is a good abstraction
+
+```{}
+data %>% 
+  tidy() %>%
+  describe() %>%
+  visualise() %>%
+  analyse()
+```
+
+
+- We "pipe" our data through operations
+- The data set *flows* through our analysis
 ]]]
 ]]
 

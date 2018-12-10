@@ -46,7 +46,7 @@ class: split-two bg-main1
 
 ### .orange[**What?**] Manipulate data
 ### .orange[**Why?**] Because data are messy
-### .orange[**How?**] With tidyverse!
+### .orange[**How?**] With tidyverse! (esp. dplyr)
 
 ]]
 
@@ -884,13 +884,38 @@ class: bg-main1 center middle hide-slide-number
 ]]
 
 
-
 <!-- *********** NEW SLIDE ************** -->
 ---
 class: split-30 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
 
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE}
+frames %>%
+  group_by( GROUP ) %>%
+  summarise( EXPRESSION ) %>%
+  ungroup()
+```
+
+- use `group_by` to define groups
+- use `summarise` to... summarise
+- use `ungroup` to remove grouping
+
+]]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+## Group &
+## Summarise
 ]]
 
 .column.bg-main3[.content.vtop.center[
@@ -909,7 +934,8 @@ frames %>%
 class: split-30 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
-
+## Group &
+## Summarise
 ]]
 
 .column.bg-main3[.content.vtop.center[
@@ -928,7 +954,9 @@ frames %>%
 class: split-30 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
-
+## Group,
+## Summarise,
+## Ungroup 
 ]]
 
 .column.bg-main3[.content.vtop.center[
@@ -937,7 +965,7 @@ class: split-30 bg-main1
 frames %>%
   group_by(test_item, sample_size, n_obs, condition) %>%
   summarise(response = mean(response)) %>%
-  ungroup()
+  ungroup() #<<
 ```
 
 ]]]
@@ -949,7 +977,7 @@ frames %>%
 class: split-30 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
-
+# More summarise
 ]]
 
 .column.bg-main3[.content.vtop.center[
@@ -958,9 +986,9 @@ class: split-30 bg-main1
 frames %>% 
   group_by(test_item) %>%
   summarise(
-    mean_resp = mean(response),
-    sd_resp = sd(response),
-    count = n()
+    mean_resp = mean(response), #<<
+    sd_resp = sd(response), #<<
+    count = n() #<<
   ) %>%
   ungroup()
 ```
@@ -1005,6 +1033,29 @@ average_response <- frames %>%
   summarise(response = mean(response)) %>%
   ungroup()
 
+average_response %>% #<<
+  filter(sample_size == "small") #<<
+```
+
+- First section creates the summary tibble
+- Second section applies a filter...
+- ... only retains cases where sample_size = "small"
+
+]]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+## Filter
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r, eval=TRUE, highlight.output = c(4,5)}
 average_response %>%
   filter(sample_size == "small")
 ```
@@ -1018,34 +1069,15 @@ average_response %>%
 class: split-30 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
-
+## Arrange
 ]]
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE}
-average_response %>%
-  filter(sample_size == "small")
-```
-
-]]]
-]]
-
-
-<!-- *********** NEW SLIDE ************** -->
----
-class: split-30 bg-main1
-
-.column.bg-main1[.content.vmiddle.center[
-
-]]
-
-.column.bg-main3[.content.vtop.center[
-.pull.left[.pad1[.font2[
-```{r, eval=TRUE}
+```{r, eval=TRUE, highlight.output = 4:10}
 average_response %>%
   filter(sample_size == "small") %>%
-  arrange(condition)
+  arrange(condition) #<<
 ```
 
 ]]]
@@ -1057,7 +1089,7 @@ average_response %>%
 class: split-30 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
-
+## Select
 ]]
 
 .column.bg-main3[.content.vtop.center[
@@ -1066,7 +1098,7 @@ class: split-30 bg-main1
 average_response %>%
   filter(sample_size == "small") %>%
   arrange(condition) %>%
-  select(test_item, condition, response)
+  select(test_item, condition, response) #<<
 ```
 
 ]]]
@@ -1078,16 +1110,18 @@ average_response %>%
 class: split-30 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
-
+# Store output!
 ]]
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
 ```{r, eval=TRUE}
-average_response_small <- average_response %>%
+average_response_small <- average_response %>% #<<
   filter(sample_size == "small") %>%
   arrange(condition) %>%
   select(test_item, condition, response)
+
+average_response_small
 ```
 
 ]]]
@@ -1099,14 +1133,16 @@ average_response_small <- average_response %>%
 class: split-30 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
-
+# Mutate
 ]]
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
 ```{r, eval=TRUE}
 average_response_small <- average_response_small %>%
-  mutate(generalisation = response/9)
+  mutate(generalisation = response/9) #<<
+
+average_response_small
 ```
 
 ]]]
@@ -1118,7 +1154,7 @@ average_response_small <- average_response_small %>%
 class: split-30 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
-
+# Select
 ]]
 
 .column.bg-main3[.content.vtop.center[
@@ -1126,7 +1162,7 @@ class: split-30 bg-main1
 ```{r, eval=TRUE}
 average_response_small <- average_response_small %>%
   mutate(generalisation = response/9) %>%
-  select(-response)
+  select(-response) #<<
 
 average_response_small
 ```
@@ -1157,7 +1193,7 @@ class: bg-main1 center middle hide-slide-number
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-two bg-main1
+class: split-20 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
 
@@ -1165,27 +1201,25 @@ class: split-two bg-main1
 
 .column.bg-main3[.content.vmiddle.center[
 
-<img src="images/horst_tidyr.png", width="70%">
+<img src="images/horst_tidyr.png", width="50%">
 
 [@allison_horst](https://twitter.com/allison_horst)
 
 ]]
 
 
-
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-30 bg-main1
+class: split-20 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
-
+# Long
 ]]
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE}
-wide_avrs <- average_response_small %>%
-  spread(key = condition, value = generalisation)
+```{r, eval=TRUE, highlight.output=c(4,11)}
+average_response_small
 ```
 
 ]]]
@@ -1194,15 +1228,38 @@ wide_avrs <- average_response_small %>%
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-30 bg-main1
+class: split-20 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
-
+# Spread
+# to wide
 ]]
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
 ```{r, eval=TRUE}
+wide_avrs <- average_response_small %>%
+  spread(key = condition, value = generalisation) #<<
+```
+
+]]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-20 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+# Spread
+# to wide
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r, eval=TRUE, highlight.output=4}
 wide_avrs <- average_response_small %>%
   spread(key = condition, value = generalisation)
 
@@ -1216,18 +1273,18 @@ wide_avrs
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-30 bg-main1
+class: split-20 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
-
+# Gather
+# to long
 ]]
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r, eval=TRUE}
-wide_avrs %>% gather(
-  key = "condition", value = "generalisation", 
-  category, property)
+```{r, eval=FALSE}
+wide_avrs %>% 
+  gather(key = "condition", value = "generalisation", category, property) #<<
 ```
 
 ]]]
@@ -1237,10 +1294,52 @@ wide_avrs %>% gather(
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-30 bg-main1
+class: split-20 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
+# Gather
+# to long
+]]
 
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r, eval=TRUE}
+wide_avrs %>% 
+  gather(key = "condition", value = "generalisation", category, property) #<<
+```
+
+]]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-20 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+# Spread by
+# two cols?
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r, eval=TRUE}
+frames %>% 
+  group_by(test_item, sample_size, condition) %>%
+  summarise(response = mean(response))
+```
+
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-20 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+# Unite...
 ]]
 
 .column.bg-main3[.content.vtop.center[
@@ -1249,21 +1348,18 @@ class: split-30 bg-main1
 frames %>% 
   group_by(test_item, sample_size, condition) %>%
   summarise(response = mean(response)) %>%
-  unite(col = "cond_ss", condition, sample_size) 
+  unite(col = "cond_ss", condition, sample_size) #<<
 ```
 
 ]]]
 ]]
 
-
-
-
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-30 bg-main1
+class: split-20 bg-main1
 
 .column.bg-main1[.content.vmiddle.center[
-
+# Then spread
 ]]
 
 .column.bg-main3[.content.vtop.center[
@@ -1273,7 +1369,7 @@ frames %>%
   group_by(test_item, sample_size, condition) %>%
   summarise(response = mean(response)) %>%
   unite(col = "cond_ss", condition, sample_size) %>%
-  spread(key = "cond_ss", value = response)
+  spread(key = "cond_ss", value = response) #<<
 ```
 
 ]]]

@@ -587,6 +587,36 @@ BIC(mod1, mod2, mod3)
 ]]
 
 
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.row.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Bayes factors?
+```{r, eval=FALSE, message = FALSE}
+library(BayesFactor)
+tf <- as.data.frame(tinyframes)
+mod2b <- lmBF(formula = response ~ condition, data = tf)
+mod3b <- lmBF(formula = response ~ condition + age, data = tf)
+mod2b / mod3b #<<
+```
+]]]
+]]
+--
+.row.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r lmbf, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, highlight.output=3}
+library(BayesFactor)
+tf <- as.data.frame(tinyframes)
+mod2b <- lmBF(formula = response ~ condition, data = tf)
+mod3b <- lmBF(formula = response ~ condition + age, data = tf)
+mod2b / mod3b #<<
+```
+]]]
+]]
+
+
 
 <!-- *********** NEW SLIDE ************** -->
 ---
@@ -604,10 +634,32 @@ class: split-40 bg-main1
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-```{r, eval=FALSE, message = FALSE}
+```{r, eval=FALSE, message = FALSE, highlight.output = 7:9}
 modestframes <- frames %>% 
-  group_by(id, age, condition, n_obs) %>%
-  summarise(response = mean(response)) %>%
+  group_by(
+    id, age, condition, n_obs) %>%
+  summarise(
+    response = mean(response)) %>%
+  ungroup()
+
+modestframes
+```
+
+- But what if I care about how people adjust their beliefs as more data arrive? <br><br>
+- If so, I don't want to collaps "n_obs", I want to analyse it
+
+]]]
+]]
+
+--
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r modestframes, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE,  highlight.output = 7:9}
+modestframes <- frames %>% 
+  group_by(
+    id, age, condition, n_obs) %>%
+  summarise(
+    response = mean(response)) %>%
   ungroup()
 
 modestframes
@@ -615,15 +667,134 @@ modestframes
 ]]]
 ]]
 
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+whichids <- modestframes %>%
+  pull(id) %>%
+  unique() %>%
+  sample(size = 80)
+
+whichids
+```
+
+- Pick a random subset of 80 people...
+]]]
+]]
+
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r modestframes, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
-modestframes <- frames %>% 
-  group_by(id, age, condition, n_obs) %>%
-  summarise(response = mean(response)) %>%
-  ungroup()
+```{r showids, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+whichids <- modestframes %>%
+  pull(id) %>%
+  unique() %>%
+  sample(size = 80)
+  
+whichids
+```
+]]]
+]]
 
-modestframes
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+whichids <- modestframes %>%
+  pull(id) %>%
+  unique() %>%
+  sample(size = 80)
+
+modestframes %>%
+  filter(id %in% whichids) %>%
+  ggplot(aes(
+    x = n_obs, y = response, 
+    colour = factor(id))) +
+  geom_point(
+    show.legend = FALSE,
+    size = 8) + 
+  geom_line(
+    show.legend = FALSE, 
+    alpha = .3) + 
+  facet_wrap(~ condition)
+```
+
+
+- ...and plot their responses
+]]]
+]]
+
+
+--
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r plotmodest, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+modestframes %>%
+  filter(id %in% whichids) %>%
+  ggplot(aes(
+    x = n_obs, y = response, 
+    colour = factor(id))) +
+  geom_point(
+    show.legend = FALSE,
+    size = 4) + 
+  geom_line(
+    show.legend = FALSE, 
+    lwd = 2,
+    alpha = .3) + 
+  facet_wrap(~ condition)
+```
+]]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Thoughts:
+- Systematic trend?
+- Not the same in each condition?
+- Not homogenous across people?
+
+<br><br><br><br>
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r plotmodest2, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+modestframes %>%
+  filter(id %in% whichids) %>%
+  ggplot(aes(
+    x = n_obs, y = response, 
+    colour = factor(id))) +
+  geom_point(
+    show.legend = FALSE,
+    size = 4) + 
+  geom_line(
+    show.legend = FALSE, 
+    lwd = 2,
+    alpha = .3) + 
+  facet_wrap(~ condition)
 ```
 ]]]
 ]]
@@ -638,32 +809,39 @@ class: split-40 bg-main1
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-```{r, eval=FALSE, message = FALSE}
-whichids <- sample(unique(modestframes$id), 80)
-modestframes %>%
-  filter(id %in% whichids) %>%
-  ggplot(aes(x = n_obs, y = response, colour = factor(id))) +
-  geom_point(show.legend = FALSE) + 
-  geom_line(show.legend = FALSE, alpha = .3) + 
-  facet_wrap(~ condition)
-```
+Thoughts:
+- Systematic trend?
+- Not the same in each condition?
+- Not homogenous across people?
+
+Tools?
+- Repeated measures ANOVA?
+- MANOVA?
+- .orange[Linear mixed model]
+
 ]]]
 ]]
+
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r plotmodest, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
-whichids <- sample(unique(modestframes$id), 80)
+```{r plotmodest3, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
 modestframes %>%
   filter(id %in% whichids) %>%
-  ggplot(aes(x = n_obs, y = response, colour = factor(id))) +
-  geom_point(show.legend = FALSE) + 
-  geom_line(show.legend = FALSE, alpha = .3) + 
+  ggplot(aes(
+    x = n_obs, y = response, 
+    colour = factor(id))) +
+  geom_point(
+    show.legend = FALSE,
+    size = 4) + 
+  geom_line(
+    show.legend = FALSE, 
+    lwd = 2,
+    alpha = .3) + 
   facet_wrap(~ condition)
 ```
 ]]]
 ]]
-
 
 
 <!-- *********** NEW SLIDE ************** -->

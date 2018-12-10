@@ -13,3 +13,5 @@ Matrix
 lme4
 knitr
 bindrcpp
+coda
+BayesFactor

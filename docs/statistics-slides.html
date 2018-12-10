@@ -594,6 +594,41 @@ mod3 &lt;- lm(formula = response ~ condition + age, data = tinyframes)
 ]]
 
 
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.row.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Bayes factors?
+
+```r
+library(BayesFactor)
+tf &lt;- as.data.frame(tinyframes)
+mod2b &lt;- lmBF(formula = response ~ condition, data = tf)
+mod3b &lt;- lmBF(formula = response ~ condition + age, data = tf)
+*mod2b / mod3b
+```
+]]]
+]]
+--
+.row.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```
+## Bayes factor analysis
+## --------------
+*## [1] condition : 4.266973 ±0.88%
+## 
+## Against denominator:
+##   response ~ condition + age 
+## ---
+## Bayes factor type: BFlinearModel, JZS
+```
+]]]
+]]
+
+
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
@@ -614,15 +649,22 @@ class: split-40 bg-main1
 
 ```r
 modestframes &lt;- frames %&gt;% 
-  group_by(id, age, condition, n_obs) %&gt;%
-  summarise(response = mean(response)) %&gt;%
+  group_by(
+    id, age, condition, n_obs) %&gt;%
+  summarise(
+    response = mean(response)) %&gt;%
   ungroup()
 
 modestframes
 ```
+
+- But what if I care about how people adjust their beliefs as more data arrive? &lt;br&gt;&lt;br&gt;
+- If so, I don't want to collaps "n_obs", I want to analyse it
+
 ]]]
 ]]
 
+--
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
 
@@ -633,15 +675,121 @@ modestframes
 ##  1     1    36 category      2     5.86
 ##  2     1    36 category      6     5.29
 ##  3     1    36 category     12     4.86
-##  4     2    46 category      2     5.29
-##  5     2    46 category      6     7.57
-##  6     2    46 category     12     8.29
+*##  4     2    46 category      2     5.29
+*##  5     2    46 category      6     7.57
+*##  6     2    46 category     12     8.29
 ##  7     3    33 property      2     5.43
 ##  8     3    33 property      6     4.86
 ##  9     3    33 property     12     4.29
 ## 10     4    71 property      2     4.57
 ## # ... with 665 more rows
 ```
+]]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+
+```r
+whichids &lt;- modestframes %&gt;%
+  pull(id) %&gt;%
+  unique() %&gt;%
+  sample(size = 80)
+
+whichids
+```
+
+- Pick a random subset of 80 people...
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```
+##  [1]  59 200   4 104 137  34 151  83 182 102 176  12  73  16  19 133  55
+## [18]  24  80 195  47 131 113  91  65 224  40 119  35  27 188 192  70 138
+## [35]  37 129 220 130  50  36 213 116  44 194  41 181  93  76 128 125 148
+## [52] 160  86   2 218 215  22  52   5  67  92 180  90  42 166 172  21 161
+## [69] 153 123 107   6 223  53  58 219   7 159 185  20
+```
+]]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+
+```r
+whichids &lt;- modestframes %&gt;%
+  pull(id) %&gt;%
+  unique() %&gt;%
+  sample(size = 80)
+
+modestframes %&gt;%
+  filter(id %in% whichids) %&gt;%
+  ggplot(aes(
+    x = n_obs, y = response, 
+    colour = factor(id))) +
+  geom_point(
+    show.legend = FALSE,
+    size = 8) + 
+  geom_line(
+    show.legend = FALSE, 
+    alpha = .3) + 
+  facet_wrap(~ condition)
+```
+
+
+- ...and plot their responses
+]]]
+]]
+
+
+--
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+![](statistics-slides_files/figure-html/plotmodest-1.png)&lt;!-- --&gt;
+]]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Thoughts:
+- Systematic trend?
+- Not the same in each condition?
+- Not homogenous across people?
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+![](statistics-slides_files/figure-html/plotmodest2-1.png)&lt;!-- --&gt;
 ]]]
 ]]
 
@@ -655,25 +803,25 @@ class: split-40 bg-main1
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
+Thoughts:
+- Systematic trend?
+- Not the same in each condition?
+- Not homogenous across people?
 
-```r
-whichids &lt;- sample(unique(modestframes$id), 80)
-modestframes %&gt;%
-  filter(id %in% whichids) %&gt;%
-  ggplot(aes(x = n_obs, y = response, colour = factor(id))) +
-  geom_point(show.legend = FALSE) + 
-  geom_line(show.legend = FALSE, alpha = .3) + 
-  facet_wrap(~ condition)
-```
+Tools?
+- Repeated measures ANOVA?
+- MANOVA?
+- .orange[Linear mixed model]
+
 ]]]
 ]]
+
 
 .column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-![](statistics-slides_files/figure-html/plotmodest-1.png)&lt;!-- --&gt;
+![](statistics-slides_files/figure-html/plotmodest3-1.png)&lt;!-- --&gt;
 ]]]
 ]]
-
 
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;

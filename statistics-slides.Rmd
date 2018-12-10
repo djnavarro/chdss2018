@@ -298,6 +298,7 @@ class: bg-main1 center middle hide-slide-number
 ]]
 
 
+
 <!-- *********** NEW SLIDE ************** -->
 ---
 class: split-40 bg-main1
@@ -305,6 +306,40 @@ class: split-40 bg-main1
 .row.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
+
+Linear models:
+
+$\mu_i = b_0 + b_1 X_1 + b_2 X_2 + ... + b_k X_k$ <br>
+$Y_i \sim \mbox{Normal}(\mu_i, \sigma)$
+
+
+]]]
+]]
+
+.row.bg-main3[.content.vtop.center[
+```{r, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, fig.width=5, fig.height=4}
+tinyframes %>% 
+  ggplot(aes(
+    x = age,  #<<
+    y = response, #<< 
+    colour = condition)) + #<< 
+  geom_smooth(method = "lm") + 
+  geom_point()
+```
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.row.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+Linear models in R:
+
 ```{r, eval=FALSE, message = FALSE}
 mod1 <- lm(formula = response ~ 1, data = tinyframes) 
 mod2 <- lm(formula = response ~ condition, data = tinyframes)
@@ -313,10 +348,15 @@ mod2 <- lm(formula = response ~ condition, data = tinyframes)
 ]]
 
 .row.bg-main3[.content.vtop.center[
-.pull.left[.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE}
+```{r, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, fig.width=5, fig.height=4}
+tinyframes %>% 
+  ggplot(aes(
+    x = age,  #<<
+    y = response, #<< 
+    colour = condition)) + #<< 
+  geom_smooth(method = "lm") + 
+  geom_point()
 ```
-]]]
 ]]
 
 
@@ -327,66 +367,82 @@ class: split-40 bg-main1
 .row.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
+Inspecting linear models in R:
+
 ```{r, eval=FALSE, message = FALSE}
 mod1 <- lm(formula = response ~ 1, data = tinyframes) 
 mod2 <- lm(formula = response ~ condition, data = tinyframes)
+mod2 
+```
+]]]
+]]
+--
+.row.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r lmdemo, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, highlight.output = 7}
+mod1 <- lm(formula = response ~ 1, data = tinyframes) 
+mod2 <- lm(formula = response ~ condition, data = tinyframes)
+mod2 #<<
+```
 
-mod2
+- Hey those numbers look familiar
+- Relationship to t.test?
+
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.row.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+
+Comparing linear models with F-tests:
+```{r, eval=FALSE, message = FALSE}
+mod1 <- lm(formula = response ~ 1, data = tinyframes) 
+mod2 <- lm(formula = response ~ condition, data = tinyframes)
+anova(mod1, mod2) #<<
+```
+]]]
+]]
+--
+.row.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```{r lmanova, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, highlight.output = 7}
+mod1 <- lm(formula = response ~ 1, data = tinyframes) 
+mod2 <- lm(formula = response ~ condition, data = tinyframes)
+anova(mod1, mod2) 
+```
+]]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.row.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Comparing several linear models with F-tests:
+```{r, eval=FALSE, message = FALSE}
+mod1 <- lm(formula = response ~ 1, data = tinyframes) 
+mod2 <- lm(formula = response ~ condition, data = tinyframes)
+mod3 <- lm(formula = response ~ condition + age, data = tinyframes) #<<
+anova(mod1, mod2, mod3) #<<
 ```
 ]]]
 ]]
 
 .row.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r lmdemo, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
-mod1 <- lm(formula = response ~ 1, data = tinyframes) 
-mod2 <- lm(formula = response ~ condition, data = tinyframes)
-
-mod2
-```
-]]]
-]]
-
-
-
-<!-- *********** NEW SLIDE ************** -->
----
-class: split-40 bg-main1
-
-.row.bg-main1[.content.vtop.center[
-
-.pull.left[.pad1[.font2[
-```{r, eval=FALSE, message = FALSE}
-mod1 <- lm(formula = response ~ 1, data = tinyframes) 
-mod2 <- lm(formula = response ~ condition, data = tinyframes)
-
-anova(mod1, mod2)
-```
-]]]
-]]
-
-.row.bg-main3[.content.vtop.center[
-.pull.left[.pad1[.font2[
-```{r lmanova, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
-mod1 <- lm(formula = response ~ 1, data = tinyframes) 
-mod2 <- lm(formula = response ~ condition, data = tinyframes)
-
-anova(mod1, mod2)
-```
-]]]
-]]
-
-
-
-
-<!-- *********** NEW SLIDE ************** -->
----
-class: split-40 bg-main1
-
-.row.bg-main1[.content.vtop.center[
-
-.pull.left[.pad1[.font2[
-```{r, eval=FALSE, message = FALSE}
+```{r anovalm2, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, highlight.output = 8:9}
 mod1 <- lm(formula = response ~ 1, data = tinyframes) 
 mod2 <- lm(formula = response ~ condition, data = tinyframes)
 mod3 <- lm(formula = response ~ condition + age, data = tinyframes)
@@ -396,18 +452,81 @@ anova(mod1, mod2, mod3)
 ]]]
 ]]
 
-.row.bg-main3[.content.vtop.center[
+---
+class: bg-main1 center middle hide-slide-number
+
+# Why do I care about F-tests again????
+<br><br>
+<img src="images/adaY.png" width="60%">
+
+
+---
+class: bg-main1 center middle 
+
 .pull.left[.pad1[.font2[
-```{r anovalm2, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
-mod1 <- lm(formula = response ~ 1, data = tinyframes) 
-mod2 <- lm(formula = response ~ condition, data = tinyframes)
-mod3 <- lm(formula = response ~ condition + age, data = tinyframes)
+# Eh. Let's skip the rant and jump to... TL;DR:
 
-anova(mod1, mod2, mod3)
-```
+What problem are you trying to solve?
+- Hypothesis testing vs estimation?
+- Bayesian inference vs frequentist?
+- Exploration vs confirmation?
+- Decision making vs learning?
+
+Different problems lead to different statistics<br>
+Orthodox null hypothesis tests are *specific* tools
 ]]]
-]]
 
+---
+class: bg-main1 center middle 
+
+.pull.left[.pad1[.font2[
+# Eh. Let's skip the rant and jump to... TL;DR:
+
+What problem are you trying to solve?
+- .orange[Hypothesis testing] vs estimation?
+- Bayesian inference vs .orange[frequentist]?
+- Exploration vs .orange[confirmation]?
+- .orange[Decision making] vs learning?
+
+Different problems lead to different statistics<br>
+.orange[Orthodox null hypothesis tests] are *specific* tools
+]]]
+
+
+
+---
+class: bg-main1 center middle 
+
+.pull.left[.pad1[.font2[
+# Eh. Let's skip the Bayesian rant and jump to... TL;DR:
+
+What problem are you trying to solve?
+- .blue[Hypothesis testing] vs estimation?
+- .blue[Bayesian inference] vs frequentist?
+- Exploration vs .blue[confirmation]?
+- Decision making vs learning.blue[???]
+
+Different problems lead to different statistics<br>
+.blue[Bayes factors] are *specific* tools
+]]]
+
+
+
+---
+class: bg-main1 center middle 
+
+.pull.left[.pad1[.font2[
+# Eh. Let's skip the Bayesian rant and jump to... TL;DR:
+
+What problem are you trying to solve?
+- Hypothesis testing vs .yellow[estimation]?
+- .yellow[Bayesian inference] vs frequentist?
+- .yellow[Exploration] vs confirmation?
+- Decision making vs .yellow[learning]
+
+Most of .yellow[my modelling problems] are this!<br>
+:-)
+]]]
 
 
 
@@ -416,21 +535,20 @@ anova(mod1, mod2, mod3)
 class: split-40 bg-main1
 
 .row.bg-main1[.content.vtop.center[
-
 .pull.left[.pad1[.font2[
+Akaike Information Criterion?
 ```{r, eval=FALSE, message = FALSE}
 mod1 <- lm(formula = response ~ 1, data = tinyframes) 
 mod2 <- lm(formula = response ~ condition, data = tinyframes)
 mod3 <- lm(formula = response ~ condition + age, data = tinyframes)
-
-AIC(mod1, mod2, mod3)
+AIC(mod1, mod2, mod3) #<<
 ```
 ]]]
 ]]
-
-.row.bg-main3[.content.vtop.center[
+--
+.row.bg-main1[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r aiclm, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+```{r aiclm, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, highlight.output=3}
 mod1 <- lm(formula = response ~ 1, data = tinyframes) 
 mod2 <- lm(formula = response ~ condition, data = tinyframes)
 mod3 <- lm(formula = response ~ condition + age, data = tinyframes)
@@ -443,28 +561,26 @@ AIC(mod1, mod2, mod3)
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-40 bg-main1
+class: split-40 bg-main3
 
-.row.bg-main1[.content.vtop.center[
-
+.row.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
+Bayesian information criterion?
 ```{r eval=FALSE, message = FALSE}
 mod1 <- lm(formula = response ~ 1, data = tinyframes) 
 mod2 <- lm(formula = response ~ condition, data = tinyframes)
 mod3 <- lm(formula = response ~ condition + age, data = tinyframes)
-
-BIC(mod1, mod2, mod3)
+BIC(mod1, mod2, mod3)#<<
 ```
 ]]]
 ]]
-
+--
 .row.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
-```{r biclm, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+```{r biclm, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, highlight.output=3}
 mod1 <- lm(formula = response ~ 1, data = tinyframes) 
 mod2 <- lm(formula = response ~ condition, data = tinyframes)
 mod3 <- lm(formula = response ~ condition + age, data = tinyframes)
-
 BIC(mod1, mod2, mod3)
 ```
 ]]]

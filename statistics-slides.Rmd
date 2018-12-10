@@ -1506,20 +1506,32 @@ class: bg-main1 center middle
 <img src="images/glmer.png", width="80%">
 <br>
 
+(GLMMs allow you to fit more complicated models that can capture the nonlinearities that are causing the systematic misfits. It is briefly discussed in [the tutorial](statistics.html))
 
 
-<!-- DONE -->
+
+<!-- *********** NEW SLIDE ************** -->
 ---
 
-class: bg-main1 middle center
+class: bg-main1 center middle
 
-## thank u
+.pad1[.font2[
+[Between the devil and the deep blue sea](https://link.springer.com/article/10.1007/s42113-018-0019-z)
+
+.pull.left[
+- .orange[Mice & tigers]. All models are *systematically* wrong. But when are they useful?
+- .orange[Hindsight bias]. Model fitting is not prediction, exploration is not confirmation
+- .orange[Psychometric fallacy]. Statistical modelling is not theory development...
+]
+]]
+
 
 <!-- DONE -->
 ---
 
 class: bg-main3 middle center
 
-## next!
+## thank you!
 
+<img src="images/bridge-of-eels.gif" width="70%">
 

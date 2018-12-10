@@ -295,6 +295,7 @@ class: bg-main1 center middle hide-slide-number
 ]]
 
 
+
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
 class: split-40 bg-main1
@@ -302,6 +303,32 @@ class: split-40 bg-main1
 .row.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
+
+Linear models:
+
+`\(\mu_i = b_0 + b_1 X_1 + b_2 X_2 + ... + b_k X_k\)` &lt;br&gt;
+`\(Y_i \sim \mbox{Normal}(\mu_i, \sigma)\)`
+
+
+]]]
+]]
+
+.row.bg-main3[.content.vtop.center[
+![](statistics-slides_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.row.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+Linear models in R:
+
 
 ```r
 mod1 &lt;- lm(formula = response ~ 1, data = tinyframes) 
@@ -311,9 +338,7 @@ mod2 &lt;- lm(formula = response ~ condition, data = tinyframes)
 ]]
 
 .row.bg-main3[.content.vtop.center[
-.pull.left[.pad1[.font2[
-
-]]]
+![](statistics-slides_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 ]]
 
 
@@ -324,16 +349,17 @@ class: split-40 bg-main1
 .row.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
+Inspecting linear models in R:
+
 
 ```r
 mod1 &lt;- lm(formula = response ~ 1, data = tinyframes) 
 mod2 &lt;- lm(formula = response ~ condition, data = tinyframes)
-
-mod2
+mod2 
 ```
 ]]]
 ]]
-
+--
 .row.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
 
@@ -344,8 +370,12 @@ mod2
 ## 
 ## Coefficients:
 ##       (Intercept)  conditionproperty  
-##             5.398             -1.012
+*##             5.398             -1.012
 ```
+
+- Hey those numbers look familiar
+- Relationship to t.test?
+
 ]]]
 ]]
 
@@ -359,17 +389,19 @@ class: split-40 bg-main1
 
 .pull.left[.pad1[.font2[
 
+Comparing linear models with F-tests:
+
 ```r
 mod1 &lt;- lm(formula = response ~ 1, data = tinyframes) 
 mod2 &lt;- lm(formula = response ~ condition, data = tinyframes)
-
-anova(mod1, mod2)
+*anova(mod1, mod2)
 ```
 ]]]
 ]]
-
+--
 .row.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
+
 
 ```
 ## Analysis of Variance Table
@@ -378,7 +410,7 @@ anova(mod1, mod2)
 ## Model 2: response ~ condition
 ##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
 ## 1    224 539.98                                  
-## 2    223 482.33  1    57.645 26.652 5.388e-07 ***
+*## 2    223 482.33  1    57.645 26.652 5.388e-07 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
@@ -393,15 +425,14 @@ anova(mod1, mod2)
 class: split-40 bg-main1
 
 .row.bg-main1[.content.vtop.center[
-
 .pull.left[.pad1[.font2[
+Comparing several linear models with F-tests:
 
 ```r
 mod1 &lt;- lm(formula = response ~ 1, data = tinyframes) 
 mod2 &lt;- lm(formula = response ~ condition, data = tinyframes)
-mod3 &lt;- lm(formula = response ~ condition + age, data = tinyframes)
-
-anova(mod1, mod2, mod3)
+*mod3 &lt;- lm(formula = response ~ condition + age, data = tinyframes)
+*anova(mod1, mod2, mod3)
 ```
 ]]]
 ]]
@@ -417,14 +448,89 @@ anova(mod1, mod2, mod3)
 ## Model 3: response ~ condition + age
 ##   Res.Df    RSS Df Sum of Sq       F    Pr(&gt;F)    
 ## 1    224 539.98                                   
-## 2    223 482.33  1    57.645 26.6544 5.399e-07 ***
-## 3    222 480.12  1     2.214  1.0238    0.3127    
+*## 2    223 482.33  1    57.645 26.6544 5.399e-07 ***
+*## 3    222 480.12  1     2.214  1.0238    0.3127    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 ]]]
 ]]
 
+---
+class: bg-main1 center middle hide-slide-number
+
+# Why do I care about F-tests again????
+&lt;br&gt;&lt;br&gt;
+&lt;img src="images/adaY.png" width="60%"&gt;
+
+
+---
+class: bg-main1 center middle 
+
+.pull.left[.pad1[.font2[
+# Eh. Let's skip the rant and jump to... TL;DR:
+
+What problem are you trying to solve?
+- Hypothesis testing vs estimation?
+- Bayesian inference vs frequentist?
+- Exploration vs confirmation?
+- Decision making vs learning?
+
+Different problems lead to different statistics&lt;br&gt;
+Orthodox null hypothesis tests are *specific* tools
+]]]
+
+---
+class: bg-main1 center middle 
+
+.pull.left[.pad1[.font2[
+# Eh. Let's skip the rant and jump to... TL;DR:
+
+What problem are you trying to solve?
+- .orange[Hypothesis testing] vs estimation?
+- Bayesian inference vs .orange[frequentist]?
+- Exploration vs .orange[confirmation]?
+- .orange[Decision making] vs learning?
+
+Different problems lead to different statistics&lt;br&gt;
+.orange[Orthodox null hypothesis tests] are *specific* tools
+]]]
+
+
+
+---
+class: bg-main1 center middle 
+
+.pull.left[.pad1[.font2[
+# Eh. Let's skip the Bayesian rant and jump to... TL;DR:
+
+What problem are you trying to solve?
+- .blue[Hypothesis testing] vs estimation?
+- .blue[Bayesian inference] vs frequentist?
+- Exploration vs .blue[confirmation]?
+- Decision making vs learning.blue[???]
+
+Different problems lead to different statistics&lt;br&gt;
+.blue[Bayes factors] are *specific* tools
+]]]
+
+
+
+---
+class: bg-main1 center middle 
+
+.pull.left[.pad1[.font2[
+# Eh. Let's skip the Bayesian rant and jump to... TL;DR:
+
+What problem are you trying to solve?
+- Hypothesis testing vs .yellow[estimation]?
+- .yellow[Bayesian inference] vs frequentist?
+- .yellow[Exploration] vs confirmation?
+- Decision making vs .yellow[learning]
+
+Most of .yellow[my modelling problems] are this!&lt;br&gt;
+:-)
+]]]
 
 
 
@@ -433,26 +539,25 @@ anova(mod1, mod2, mod3)
 class: split-40 bg-main1
 
 .row.bg-main1[.content.vtop.center[
-
 .pull.left[.pad1[.font2[
+Akaike Information Criterion?
 
 ```r
 mod1 &lt;- lm(formula = response ~ 1, data = tinyframes) 
 mod2 &lt;- lm(formula = response ~ condition, data = tinyframes)
 mod3 &lt;- lm(formula = response ~ condition + age, data = tinyframes)
-
-AIC(mod1, mod2, mod3)
+*AIC(mod1, mod2, mod3)
 ```
 ]]]
 ]]
-
-.row.bg-main3[.content.vtop.center[
+--
+.row.bg-main1[.content.vtop.center[
 .pull.left[.pad1[.font2[
 
 ```
 ##      df      AIC
 ## mod1  2 839.4940
-## mod2  3 816.0928
+*## mod2  3 816.0928
 ## mod3  4 817.0575
 ```
 ]]]
@@ -461,29 +566,28 @@ AIC(mod1, mod2, mod3)
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: split-40 bg-main1
+class: split-40 bg-main3
 
-.row.bg-main1[.content.vtop.center[
-
+.row.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
+Bayesian information criterion?
 
 ```r
 mod1 &lt;- lm(formula = response ~ 1, data = tinyframes) 
 mod2 &lt;- lm(formula = response ~ condition, data = tinyframes)
 mod3 &lt;- lm(formula = response ~ condition + age, data = tinyframes)
-
-BIC(mod1, mod2, mod3)
+*BIC(mod1, mod2, mod3)
 ```
 ]]]
 ]]
-
+--
 .row.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
 
 ```
 ##      df      BIC
 ## mod1  2 846.3262
-## mod2  3 826.3411
+*## mod2  3 826.3411
 ## mod3  4 830.7219
 ```
 ]]]

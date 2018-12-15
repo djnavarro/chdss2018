@@ -1,0 +1,46 @@
+---
+title: '<div class="jumbotron"><h1 class="title toc-ignore display-3">FAQ</h1></div>'
+output:
+  html_document:
+    includes:
+      in_header: header.html
+    theme: flatly
+    highlight: textmate
+    css: mystyle.css
+pagetitle: FAQ
+---
+
+```{r,echo=FALSE}
+rm(list=objects()) # start with a clean workspace
+```
+
+Q. What do I need to bring to the summer school?
+
+A. A laptop is essential, and you should have R installed and ready to go. Information about installing R is available  [here.](resources.html)
+
+
+&nbsp;
+
+Q. What programming background will be assumed for the summer school?
+
+A. We'll assume that you're familiar with the Core Toolkit from Danielle Navarro's 
+<A HREF= "https://compcogscisydney.org/psyr/"> R for Psychological Science.</A>
+If you don't have this background already please plan to come to the R bootcamp on December 9.
+
+&nbsp;
+    
+Q. Is it OK if I have a conflict with one of the sessions?
+
+A. The material is cumulative so you should plan to attend all of the sessions. In very rare cases we can make an exception -- e.g. if you have to miss an hour or so to attend your graduation! 
+
+&nbsp;
+    
+Q. Where are the rest of the FAQ?
+
+A. On the summer school [Piazza.]( https://piazza.com/class/jno0p5rg51n4or )
+
+
+
+
+
+

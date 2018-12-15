@@ -183,6 +183,24 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="program.html">program</a>
+</li>
+<li>
+  <a href="venue.html">venue</a>
+</li>
+<li>
+  <a href="participants.html">participants</a>
+</li>
+<li>
+  <a href="resources.html">resources</a>
+</li>
+<li>
+  <a href="coc.html">CoC</a>
+</li>
+<li>
+  <a href="faq.html">FAQ</a>
+</li>
+<li>
   <a href="git.html">Git</a>
 </li>
 <li>
@@ -221,7 +239,7 @@ $(document).ready(function () {
 <pre class="r"><code>N &lt;- 100</code></pre>
 <p>Here is the nonpiped version of the code:</p>
 <pre class="r"><code>mean(rnorm(N))</code></pre>
-<pre><code>## [1] -0.04276179</code></pre>
+<pre><code>## [1] -0.05343318</code></pre>
 <p>In the code chunk below, write a piped version of the same thing:</p>
 <pre class="r"><code># your code here</code></pre>
 <p>By default, the pipe operator assumes that the inpit takes the place of the <em>first</em> argument in the function. So let’s suppose I want to calculate the 20% trimmed mean, of normally distributed numbers with mean 100 and standard deviation 15. Here’s the traditional version:</p>
@@ -229,7 +247,7 @@ $(document).ready(function () {
   rnorm(N, mean = 100, sd = 15),
   trim = .2
   )</code></pre>
-<pre><code>## [1] 100.2817</code></pre>
+<pre><code>## [1] 99.10038</code></pre>
 <p>Can you rewrite this in piped form? What do you notice?</p>
 <pre class="r"><code># your code here</code></pre>
 

@@ -1,0 +1,42 @@
+---
+title: '<div class="jumbotron"><h1 class="title toc-ignore display-3">Code of Conduct</h1></div>'
+output:
+  html_document:
+    includes:
+      in_header: header.html
+    theme: flatly
+    highlight: textmate
+    css: mystyle.css
+pagetitle: Code of Conduct
+---
+
+```{r,echo=FALSE}
+rm(list=objects()) # start with a clean workspace
+```
+
+
+
+The organisers of the Complex Human Data Summer School (CHDSS) are committed to providing a welcoming and harassment-free experience for everyone, regardless of gender, gender identity and expression, age, sexual orientation, disability, physical appearance, body size, race, ethnicity, religion (or lack thereof), or technology choices. We do not tolerate harassment of conference participants in any form. Sexual language and imagery is not appropriate for any CHDSS venue, including presentations, workshops, partities, Twitter and other online media. Participants violating these rules may be sanctioned or expelled from the event at the discretion of the organizers.
+
+This Code of Conduct applies to all participants, including organisers and applies to all modes of interaction, both in-person and online, including through GitHub project repositories, the CHDSS Piazza, and Twitter. 
+
+CHDSS participants agree to:
+
+- Be considerate in speech and actions, and actively seek to acknowledge and respect the boundaries of fellow attendees.
+- Refrain from demeaning, discriminatory, or harassing behavior and speech. Harassment includes, but is not limited to: deliberate intimidation; stalking; unwanted photography or recording; sustained or willful disruption of talks or other events; inappropriate physical contact; use of sexual or discriminatory imagery, comments, or jokes; unwelcome sexual attention; deliberate 'outing' of any aspect of a person's identity without their consent; misgendering or use of 'dead' or rejected names; and publication of non-harassing private communication.
+- Take care of each other. Alert a member of the Committee if you notice a dangerous situation, someone in distress, or violations of this code of conduct, even if they seem inconsequential.
+
+## How to get in contact
+
+The CHDSS Code of Conduct Committee includes Danielle Navarro, Amy Perfors and Charles Kemp. If you experience or witness unacceptable behaviour, or have any other concerns, you can submit a report to us anonymously by posting an anonymous private message on the CHDSS Piazza. You may also email any of us individually, speak to us individually at any events, or use any other method (within reason!)  
+
+If any attendee engages in harassing behavior, the Committee may take any lawful action they deem appropriate, including but not limited to warning the offender or asking the offender to leave the summer school (If you feel you have been unfairly accused of violating this code of conduct, you should report it with a concise description of your grievance.)
+
+## Thanks
+
+We welcome your feedback on this and every other aspect of the CHDSS, and we thank you for working with us to make it a safe, enjoyable, and friendly experience for everyone who participates.
+
+Parts of above text is licensed CC BY-SA 4.0, and adapted from the CoC used at the 2018 rOpenSci OzUnconf. Credit to SRCCON. Also inspired by the Ada Initiative's "how to design a code of conduct for your community."
+
+
+

@@ -6,6 +6,18 @@ exclude:
 navbar:
   title: CHDSS2018
   left:
+  - text: program
+    href: program.html
+  - text: venue
+    href: venue.html
+  - text: participants
+    href: participants.html
+  - text: resources
+    href: resources.html
+  - text: CoC
+    href: coc.html
+  - text: FAQ
+    href: faq.html  
   - text: Git
     href: git.html
   - text: Projects

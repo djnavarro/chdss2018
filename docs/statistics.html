@@ -206,6 +206,24 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="program.html">program</a>
+</li>
+<li>
+  <a href="venue.html">venue</a>
+</li>
+<li>
+  <a href="participants.html">participants</a>
+</li>
+<li>
+  <a href="resources.html">resources</a>
+</li>
+<li>
+  <a href="coc.html">CoC</a>
+</li>
+<li>
+  <a href="faq.html">FAQ</a>
+</li>
+<li>
   <a href="git.html">Git</a>
 </li>
 <li>
@@ -634,8 +652,8 @@ linframes$residuals &lt;- residuals(linframes2)</code></pre>
   family = gaussian(link = &quot;logit&quot;), 
   data = glmerframes)</code></pre>
 <pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl =
-## control$checkConv, : Model failed to converge with max|grad| = 0.104818
-## (tol = 0.001, component 1)</code></pre>
+## control$checkConv, : Model failed to converge with max|grad| = 1.71494 (tol
+## = 0.001, component 1)</code></pre>
 <p>For comparison, lets fit this model with a linear link function (i.e., same model as last time, but using the rescaled data)</p>
 <pre class="r"><code>linearmod &lt;- lmer(
   formula = generalisation ~ condition + test_item + n_obs + (1 + test_item + n_obs|id), 
@@ -651,7 +669,7 @@ linframes$residuals &lt;- residuals(linframes2)</code></pre>
 ## logitmod:     n_obs | id)
 ##           Df     AIC     BIC  logLik deviance  Chisq Chi Df Pr(&gt;Chisq)    
 ## linearmod 11 -1237.9 -1166.9  629.96  -1259.9                             
-## logitmod  11 -2742.1 -2671.1 1382.06  -2764.1 1504.2      0  &lt; 2.2e-16 ***
+## logitmod  11 -2741.5 -2670.4 1381.73  -2763.5 1503.5      0  &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Again, all three criteria (AIC, BIC, <span class="math inline">\(p\)</span>-values if you absolutely must) lead to the same conclusion, namely that the nonlinear model provides the better account of people’s responses. As usual, we should take a good look at what the model is actually doing before we accept anything:</p>
@@ -676,36 +694,36 @@ glmerframes %&gt;%
 ##    Data: glmerframes
 ## 
 ##      AIC      BIC   logLik deviance df.resid 
-##  -2742.1  -2671.1   1382.1  -2764.1     4714 
+##  -2741.5  -2670.4   1381.7  -2763.5     4714 
 ## 
 ## Scaled residuals: 
 ##     Min      1Q  Median      3Q     Max 
-## -5.2928 -0.4225  0.0387  0.4941  3.4491 
+## -5.2697 -0.4241  0.0384  0.4929  3.4459 
 ## 
 ## Random effects:
 ##  Groups   Name        Variance Std.Dev. Corr       
-##  id       (Intercept) 2.454763 1.56677             
-##           test_item   0.157019 0.39626  -0.87      
-##           n_obs       0.008897 0.09433  -0.58  0.29
-##  Residual             0.033445 0.18288             
+##  id       (Intercept) 2.216628 1.48883             
+##           test_item   0.145355 0.38125  -0.86      
+##           n_obs       0.008568 0.09256  -0.56  0.25
+##  Residual             0.033600 0.18330             
 ## Number of obs: 4725, groups:  id, 225
 ## 
 ## Fixed effects:
 ##                   Estimate Std. Error t value Pr(&gt;|z|)    
-## (Intercept)        4.18820    0.32925  12.721  &lt; 2e-16 ***
-## conditionproperty -0.52669    0.18619  -2.829  0.00467 ** 
-## test_item         -1.02407    0.08645 -11.846  &lt; 2e-16 ***
-## n_obs             -0.01897    0.01607  -1.180  0.23793    
+## (Intercept)        4.01522    0.30558  13.140   &lt;2e-16 ***
+## conditionproperty -0.48466    0.18185  -2.665   0.0077 ** 
+## test_item         -0.99181    0.08175 -12.133   &lt;2e-16 ***
+## n_obs             -0.01351    0.01551  -0.871   0.3837    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Correlation of Fixed Effects:
 ##             (Intr) cndtnp tst_tm
-## cndtnprprty -0.336              
-## test_item   -0.859  0.020       
-## n_obs       -0.584  0.082  0.372
+## cndtnprprty -0.346              
+## test_item   -0.848  0.018       
+## n_obs       -0.556  0.081  0.332
 ## convergence code: 0
-## Model failed to converge with max|grad| = 0.104818 (tol = 0.001, component 1)</code></pre>
+## Model failed to converge with max|grad| = 1.71494 (tol = 0.001, component 1)</code></pre>
 <p>It’s taken us a while, but I think we’re now at the stage where we could reasonably claim that there are genuine effects of test item and sampling condition. It’s less clear whether there is an effect of sample size.</p>
 <div id="data-visualisation-it-matters" class="section level3">
 <h3>Data visualisation… it matters!</h3>
@@ -724,8 +742,10 @@ glmerframes %&gt;%
   formula = generalisation ~ condition * test_item * n_obs + (1 + test_item * n_obs|id), 
   family = gaussian(link = &quot;logit&quot;), 
   data = glmerframes)</code></pre>
+<pre><code>## Warning in (function (fn, par, lower = rep.int(-Inf, n), upper =
+## rep.int(Inf, : failure to converge in 10000 evaluations</code></pre>
 <pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl =
-## control$checkConv, : Model failed to converge with max|grad| = 1.47447 (tol
+## control$checkConv, : Model failed to converge with max|grad| = 1.05812 (tol
 ## = 0.001, component 1)</code></pre>
 <p>Yeah, this is not a happy place to be. Once your model gets this complicated, be prepared for bad things to happen. Nevertheless, let’s take a quick check and see if this model is better:</p>
 <pre class="r"><code>anova(logitmod, kitchensink)</code></pre>
@@ -736,8 +756,8 @@ glmerframes %&gt;%
 ## kitchensink: generalisation ~ condition * test_item * n_obs + (1 + test_item * 
 ## kitchensink:     n_obs | id)
 ##             Df     AIC     BIC logLik deviance  Chisq Chi Df Pr(&gt;Chisq)
-## logitmod    11 -2742.1 -2671.1 1382.1  -2764.1                         
-## kitchensink 19 -3950.5 -3827.7 1994.2  -3988.5 1224.4      8  &lt; 2.2e-16
+## logitmod    11 -2741.5 -2670.4 1381.7  -2763.5                         
+## kitchensink 19 -3950.7 -3828.0 1994.3  -3988.7 1225.2      8  &lt; 2.2e-16
 ##                
 ## logitmod       
 ## kitchensink ***
@@ -767,43 +787,43 @@ glmerframes2 %&gt;%
 ##    Data: glmerframes
 ## 
 ##      AIC      BIC   logLik deviance df.resid 
-##  -3950.5  -3827.7   1994.2  -3988.5     4706 
+##  -3950.7  -3828.0   1994.4  -3988.7     4706 
 ## 
 ## Scaled residuals: 
 ##     Min      1Q  Median      3Q     Max 
-## -5.8218 -0.3853  0.0559  0.4862  3.3479 
+## -5.8127 -0.3859  0.0558  0.4859  3.3474 
 ## 
 ## Random effects:
 ##  Groups   Name            Variance Std.Dev. Corr             
-##  id       (Intercept)     1.856479 1.36253                   
-##           test_item       0.128895 0.35902  -0.88            
-##           n_obs           0.045912 0.21427  -0.39  0.33      
-##           test_item:n_obs 0.004196 0.06477   0.18 -0.25 -0.87
-##  Residual                 0.026679 0.16334                   
+##  id       (Intercept)     1.859838 1.36376                   
+##           test_item       0.129752 0.36021  -0.88            
+##           n_obs           0.045449 0.21319  -0.40  0.34      
+##           test_item:n_obs 0.004104 0.06406   0.19 -0.25 -0.87
+##  Residual                 0.026721 0.16347                   
 ## Number of obs: 4725, groups:  id, 225
 ## 
 ## Fixed effects:
 ##                                   Estimate Std. Error t value Pr(&gt;|z|)    
-## (Intercept)                        1.85799    0.32121   5.784 7.28e-09 ***
-## conditionproperty                 -0.04914    0.40145  -0.122 0.902568    
-## test_item                         -0.41626    0.09177  -4.536 5.73e-06 ***
-## n_obs                              0.41097    0.05297   7.758 8.60e-15 ***
-## conditionproperty:test_item       -0.01809    0.11725  -0.154 0.877375    
-## conditionproperty:n_obs            0.10830    0.05760   1.880 0.060109 .  
-## test_item:n_obs                   -0.10789    0.01912  -5.642 1.68e-08 ***
-## conditionproperty:test_item:n_obs -0.07864    0.02132  -3.688 0.000226 ***
+## (Intercept)                        1.85672    0.32072   5.789 7.07e-09 ***
+## conditionproperty                 -0.01594    0.40223  -0.040 0.968380    
+## test_item                         -0.41441    0.09195  -4.507 6.57e-06 ***
+## n_obs                              0.40408    0.05207   7.761 8.43e-15 ***
+## conditionproperty:test_item       -0.03293    0.11816  -0.279 0.780497    
+## conditionproperty:n_obs            0.10659    0.05717   1.865 0.062251 .  
+## test_item:n_obs                   -0.10628    0.01871  -5.681 1.34e-08 ***
+## conditionproperty:test_item:n_obs -0.07719    0.02095  -3.685 0.000229 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Correlation of Fixed Effects:
 ##                (Intr) cndtnp tst_tm n_obs  cndtnprprty:t_ cndtnprprty:n_
-## cndtnprprty    -0.615                                                   
-## test_item      -0.898  0.559                                            
-## n_obs          -0.130 -0.014  0.091                                     
-## cndtnprprty:t_  0.546 -0.893 -0.619  0.046                              
-## cndtnprprty:n_  0.018 -0.135  0.008 -0.577  0.084                       
-## tst_tm:n_bs    -0.099  0.160  0.057 -0.888 -0.144          0.547        
-## cndtnpr:_:_     0.154 -0.116 -0.128  0.538  0.081         -0.857        
+## cndtnprprty    -0.613                                                   
+## test_item      -0.898  0.557                                            
+## n_obs          -0.140 -0.009  0.098                                     
+## cndtnprprty:t_  0.544 -0.893 -0.617  0.042                              
+## cndtnprprty:n_  0.023 -0.147  0.003 -0.576  0.094                       
+## tst_tm:n_bs    -0.095  0.159  0.054 -0.886 -0.142          0.544        
+## cndtnpr:_:_     0.151 -0.108 -0.124  0.536  0.073         -0.856        
 ##                tst_:_
 ## cndtnprprty          
 ## test_item            
@@ -811,9 +831,10 @@ glmerframes2 %&gt;%
 ## cndtnprprty:t_       
 ## cndtnprprty:n_       
 ## tst_tm:n_bs          
-## cndtnpr:_:_    -0.674
+## cndtnpr:_:_    -0.673
 ## convergence code: 0
-## Model failed to converge with max|grad| = 1.47447 (tol = 0.001, component 1)</code></pre>
+## Model failed to converge with max|grad| = 1.05812 (tol = 0.001, component 1)
+## failure to converge in 10000 evaluations</code></pre>
 <p>Uh huh. What the hell does any of this mean??!? I mean, it’s the same output we’ve seen at every previous step in the process, but now it just looks like an arbitrary collection of asterisks and numbers.</p>
 <p>To my mind, the only part of this output that matters is this one line, highlighting the fact that yes, once you put together a proper model that accounts for individual differences and can match the structure of the data reasonably well, there is indeed a three way interaction. Everything matters (except totally irrelevant stuff like age and the colour of the wallpaper) and everything interacts with everything else:</p>
 <pre><code>## conditionproperty:test_item:n_obs -0.07719    0.02095  -3.685 0.000229 ***</code></pre>

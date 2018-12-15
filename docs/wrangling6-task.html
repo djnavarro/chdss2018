@@ -183,6 +183,24 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="program.html">program</a>
+</li>
+<li>
+  <a href="venue.html">venue</a>
+</li>
+<li>
+  <a href="participants.html">participants</a>
+</li>
+<li>
+  <a href="resources.html">resources</a>
+</li>
+<li>
+  <a href="coc.html">CoC</a>
+</li>
+<li>
+  <a href="faq.html">FAQ</a>
+</li>
+<li>
   <a href="git.html">Git</a>
 </li>
 <li>
@@ -241,8 +259,7 @@ tidy_nails</code></pre>
 <pre class="r"><code>long_nails &lt;- tidy_nails %&gt;%
   gather( YOUR-CODE-HERE )  %&gt;% 
   arrange( YOUR-CODE-HERE )</code></pre>
-<pre><code>## Error: Must supply a symbol or a string as argument
-## [90mCall `rlang::last_error()` to see a backtrace[39m</code></pre>
+<pre><code>## Error in arrange_impl(.data, dots): Evaluation error: object &#39;YOUR&#39; not found.</code></pre>
 <pre class="r"><code>print(long_nails)</code></pre>
 <pre><code>## # A tibble: 204 x 6
 ##     year state   region population measure     count

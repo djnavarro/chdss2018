@@ -1,7 +1,5 @@
 ---
-title: '<div class="jumbotron"><h1 class="title toc-ignore display-3">CHDSS Day 2: Data Analysis in R</p></div>'
-author: "Danielle Navarro"
-date: "11 December 2018"
+title: '<div class="jumbotron"><h1 class="title toc-ignore display-3">Complex Human Data Summer School</h1><p class="lead">Melbourne, Australia. December 9-14, 2018</p></div>'
 output:
   html_document:
     includes:
@@ -16,57 +14,8 @@ pagetitle: Complex Human Data Summer School
 rm(list=objects()) # start with a clean workspace
 ```
 
-
-## Background
-
 Researchers from psychology and other disciplines are increasingly relying on computational analyses of large data sets to draw conclusions about human behaviour. This kind of research
-requires skills that are not often taught as part of the psychology curriculum, and the Melbourne School of Psychological Sciences is therefore pleased to announce the first annual [Complex Human Data summer school](http://chdsummerschool.com/). This page covers the resources for Day 2 of the summer school.
+requires skills that are not often taught as part of the psychology curriculum, and the Melbourne School of Psychological Sciences is therefore pleased to announce the first annual Complex Human Data summer school.
 
-## Day 2
+![Summer school participants](pdfs/chdss2018photo.jpg)
 
-The goal in Day 2 is to cover topics relevant to data analysis with R. The coverage is somewhat eclectic: there are sections that discuss tools that will help you with your workflow (e.g., git, R Markdown, etc), sections that discuss how to manipulate and visualise data (e.g., tidyverse), and a section that discusses statistical modelling in R (e.g., linear models, mixed models). Given the breadth of coverage, we won't go into much detail on any topic. You should think of each section as an initial introduction to something that is itself a much larger topic.
-
-Within each content section, there is a written tutorial linked to below and as well as the HTML slides that I'll be presenting from. Eventually the intention is to have the tutorials go into more detail on topics, but at the moment they're a bit hit and miss!
-
-- Brief introduction: [intro-slides.html](intro-slides.html)
-- Working with git and GitHub: [git.html](git.html), [git-slides.html](git-slides.html)
-- Working with R markdown and R projects: [projects.html](projects.html), [projects-slides.html](projects-slides.html)
-- Data wrangling in tidyverse: [wrangling.html](wrangling.html), [wrangling-slides.html](wrangling-slides.html)
-- Data visualisation in tidyverse: [visualisation.html](visualisation.html), [visualisation-slides.html](visualisation-slides.html)
-- Statistical modelling in R: [statistics.html](statistics.html), [statistics-slides.html](statistics-slides.html)
-
-The interactive components to each section:
-
-- For the git and projects sections, the goal will be to create your own repository and initialise an RStudio project within it. The repository that I created is the [summerschool](https://github.com/djnavarro/summerschool) repo.
-- For the data wrangling section, there is a structured sequence of six exercises that you can work through in parallel with the session (the slides have explicit break points). Each exercise is an R Markdown file that you'll need to make changes to. You can download zip files with all [exercises](wrangling-exercises.zip) and [solutions](wrangling-solutions.zip). In addition to the [frames](analysis/data/frames_ex2.csv) data the exercises use the [tidy_users](analysis/data/tidy_users.csv) data and the [tidy_nails](analysis/data/tidy_nails.csv) data. 
-- For the data visualisation, the DIY section is entirely freeform. The way this session will run is that I'll give a very brief lecture on the grammar of graphics package, and then you should feel free to explore ggplot to your hearts content!
-- For the statistical modelling section... oh, let's be honest. By this point in the day we'll all need a break so it's probably easiest to do this one lecture style!
-
-## Other information
-
-Assumed knowledge:
-
-- Basic R programming, as per Day 0.
-- Mostly independent of Day 1.
-- Undergraduate level statistics
-
-Additionally, it may be handy to have the Day 0 introduction to R resources easily accessible so here they are:
-
-- PDFs: [Part 1](introtoR1-handout.pdf), [Part 2](introtoR2-handout.pdf), [Part 3](introtoR3-handout.pdf)
-- Keynote: [Part 1](introtoR1-handout.key), [Part 2](introtoR2-handout.kwy), [Part 3](introtoR3-handout.key)
-- The "[core toolkit](http://compcogscisydney.org/psyr/#core-toolkit)" sections in PSYR
-
-R packages used in the tutorials: `tidyverse`, `skimr`, `here`, `lme4`, `lsr`, `BayesFactor`
-
-## Finally...
-
-One goal we had when putting all this together was to try to provide you with a sense of the extent to which the tools in this Summer School can be adapted to many different purposes. One hint to that is to look at how the resources for Day 2 have been constructed. 
-
-- Obviously, we use R for the analyses, for drawing the images, etc.
-- Everything is hosted on GitHub, https://github.com/djnavarro/chdss2018
-- The website and tutorials is written in R Markdown, and updates on GitHub are automatically made live on this site
-- The slides are written using `xaringan`, an R package that provides an interface between R Markdown and some neat javascript libraries.
-- The graphic for the t-shirt were generated in R: https://github.com/djnavarro/asciify
-- So was animated GIF that we used to advertise: https://github.com/djnavarro/chdss-logo (using an in-development package called `gganimate` that extends the functionality of `ggplot2` to allow animation)
-
-Once you start feeling comfortable in R, it's remarkable what fun things you can find to do with it!

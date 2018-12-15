@@ -1,524 +1,484 @@
 <!DOCTYPE html>
+<html>
+  <head>
+    <title>Data wrangling with dplyr</title>
+    <meta charset="utf-8">
+    <meta name="author" content="  Danielle Navarro    <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt; @djnavarro</span>" />
+    <link href="site_libs/remark-css/kunoichi.css" rel="stylesheet" />
+    <link href="site_libs/remark-css/ninjutsu.css" rel="stylesheet" />
+    <link href="site_libs/font-awesome-animation/font-awesome-animation-emi.css" rel="stylesheet" />
+    <script src="site_libs/fontawesome/js/fontawesome-all.min.js"></script>
+    <link rel="stylesheet" href="assets/ninpo.css" type="text/css" />
+    <link rel="stylesheet" href="assets/danielle.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+# Data wrangling with dplyr
+### <br><br>Danielle Navarro    <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt; @djnavarro</span>
+### <a href="https://djnavarro.github.io/chdss2018/" class="uri">https://djnavarro.github.io/chdss2018/</a><br><br>11 December 2018
 
-<head>
-
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
-
-
-<meta name="author" content="  Danielle Navarro    <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt; @djnavarro</span>" />
-
-
-<title>Data wrangling with dplyr</title>
-
-<script src="site_libs/jquery/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap/shim/respond.min.js"></script>
-<script src="site_libs/navigation/tabsets.js"></script>
-<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs/highlight.js"></script>
-<link href="site_libs/font-awesome-animation/font-awesome-animation-emi.css" rel="stylesheet" />
-<script src="site_libs/fontawesome/js/fontawesome-all.min.js"></script>
-
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
-
-
-
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
-
-
-</head>
-
-<body>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
-
-
-<style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-</style>
-
-<script>
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
-
-  // mark it active
-  menuAnchor.parent().addClass('active');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
-});
-</script>
-
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
+---
 
 
 
 
 
+class: split-two bg-main1
 
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html">CHDSS2018</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li>
-  <a href="git.html">Git</a>
-</li>
-<li>
-  <a href="projects.html">Projects</a>
-</li>
-<li>
-  <a href="wrangling.html">Wrangling</a>
-</li>
-<li>
-  <a href="visualisation.html">Visualisation</a>
-</li>
-<li>
-  <a href="statistics.html">Statistics</a>
-</li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
+.column.bg-main1[.content.vmiddle.center[
 
-<div class="fluid-row" id="header">
+# Data wrangling
+
+&lt;br&gt;
+
+.pull.left[.pad1[
+
+### .orange[**What?**] Manipulate data
+### .orange[**Why?**] Because data are messy
+### .orange[**How?**] With tidyverse! (esp. dplyr)
+
+]]
+
+]]
+
+
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/horst_dplyr.png", width="70%"&gt;
+
+[@allison_horst](https://twitter.com/allison_horst)
+
+]]
 
 
 
-<h1 class="title toc-ignore">Data wrangling with dplyr</h1>
-<h4 class="author"><em><br><br>Danielle Navarro    <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt; @djnavarro</span></em></h4>
-<h4 class="date"><em><a href="https://djnavarro.github.io/chdss2018/" class="uri">https://djnavarro.github.io/chdss2018/</a><br><br>11 December 2018</em></h4>
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-two bg-main1
 
-</div>
+.column.bg-main1[.content.vmiddle.center[
+
+# Tidyverse
 
 
-<p>class: split-two bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-<div id="data-wrangling" class="section level1">
-<h1>Data wrangling</h1>
-<p><br></p>
-<p>.pull.left[.pad1[</p>
-<div id="orangewhat-manipulate-data" class="section level3">
-<h3>.orange[<strong>What?</strong>] Manipulate data</h3>
-</div>
-<div id="orangewhy-because-data-are-messy" class="section level3">
-<h3>.orange[<strong>Why?</strong>] Because data are messy</h3>
-</div>
-<div id="orangehow-with-tidyverse-esp.-dplyr" class="section level3">
-<h3>.orange[<strong>How?</strong>] With tidyverse! (esp. dplyr)</h3>
-<p>]]</p>
-<p>]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[</p>
-<p><img src="images/horst_dplyr.png", width="70%"></p>
-<p><span class="citation">[@allison_horst]</span>(<a href="https://twitter.com/allison_horst" class="uri">https://twitter.com/allison_horst</a>)</p>
-<p>]]</p>
-</div>
-<div id="section" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-two bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="tidyverse" class="section level1">
-<h1>Tidyverse</h1>
-<pre class="r"><code>install.packages(&quot;tidyverse&quot;)
-library(tidyverse)</code></pre>
-<p>]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[</p>
-<p><img src="images/tidyverse.jpg", width="70%"></p>
-<p><a href="https://www.tidyverse.org/">tidyverse.org</a></p>
-<p>]]</p>
-<div id="section-1" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4[The “sampling frames” experiment]]]</p>
-</div>
-<div id="section-2" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle</p>
-</div>
-</div>
-<div id="property-sampling-the-robot-only-detects-plaxium-spheres" class="section level1">
-<h1>Property sampling: the robot only detects plaxium spheres</h1>
-<p><br> <img src="images/data10_property.jpg", width="70%"> <br></p>
-<div id="section-3" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle</p>
-</div>
-</div>
-<div id="category-sampling-the-robot-only-tests-small-spheres" class="section level1">
-<h1>Category sampling: the robot only tests small spheres</h1>
-<p><br> <img src="images/data10_category.jpg", width="70%"> <br></p>
-<div id="section-4" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle</p>
-</div>
-</div>
-<div id="small-sample-size-elicit-judgments-after-two-observations" class="section level1">
-<h1>Small sample size: Elicit judgments after two observations</h1>
-<p><br> <img src="images/data2_property.jpg", width="70%"> <br></p>
-<div id="section-5" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle</p>
-</div>
-</div>
-<div id="medium-sample-size-elicit-judgments-after-six-observations" class="section level1">
-<h1>Medium sample size: Elicit judgments after six observations</h1>
-<p><br> <img src="images/data6_property.jpg", width="70%"> <br></p>
-<div id="section-6" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle</p>
-</div>
-</div>
-<div id="large-sample-size-elicit-judgments-after-twelve-observations" class="section level1">
-<h1>Large sample size: Elicit judgments after twelve observations</h1>
-<p><br> <img src="images/data12_property.jpg", width="70%"> <br></p>
-<div id="section-7" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle</p>
-</div>
-</div>
-<div id="seven-test-items-that-vary-in-size-smallest" class="section level1">
-<h1>Seven test items that vary in size: Smallest…</h1>
-<p><br> <img src="images/test2.jpg", width="70%"> <br></p>
-<div id="section-8" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle</p>
-</div>
-</div>
-<div id="seven-test-items-that-vary-in-size-largest" class="section level1">
-<h1>Seven test items that vary in size: Largest…</h1>
-<p><br> <img src="images/test8.jpg", width="70%"> <br></p>
-<div id="section-9" class="section level2">
-<h2><!-- NEW SLIDE --></h2>
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4[Getting started]]]</p>
-</div>
-<div id="section-10" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1</p>
-</div>
-</div>
-<div id="what-do-we-need" class="section level1">
-<h1>What do we need?</h1>
-<p><br></p>
-<p>.pull.left[.pad1[.font2[</p>
-<ul>
-<li>General resources: <a href="https://djnavarro.github.io/chdss2018/" class="uri">https://djnavarro.github.io/chdss2018/</a></li>
-<li>The data: <a href="http://compcogscisydney.org/psyr/data/frames_ex2.csv" class="uri">http://compcogscisydney.org/psyr/data/frames_ex2.csv</a></li>
-<li>Save data here: [your_project]/analysis/data/frames_ex2.csv</li>
-<li>R packages:</li>
-</ul>
-<pre class="r"><code>install.packages(&quot;tidyverse&quot;)
-install.packages(&quot;skimr&quot;)
-install.packages(&quot;lsr&quot;)</code></pre>
-<p>]]]</p>
-<div id="section-11" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-40 bg-main1</p>
-<p>.row.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="an-r-markdown-document" class="section level1">
-<h1>An R Markdown document!</h1>
-<p>.pull.left[.pad1[.font2[ - File &gt; New File &gt; R Markdown… - Save it: [your_project]/analysis/docs/analysis.Rmd]]]</p>
-<p>]]</p>
-<p>.row.bg-main3[.content.vmiddle.center[</p>
-<p><img src="images/new_rmarkdown.jpg" width = "30%"></p>
-<p>]]] ]]</p>
-<div id="section-12" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-40 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="delete-everything-except-the-top-bit" class="section level1">
-<h1>Delete everything except the top bit</h1>
-<p>.pull.left[.pad1[.font2[ - At the top is the YAML header - Leave the knitr thing alone - This is the whole document…]]]</p>
-<p>]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[</p>
-<p>.pull.left[.pad1[.font2[</p>
-<pre><code>---
-title: &quot;Exploring the data&quot;
-author: &quot;Danielle Navarro&quot;
-date: &quot;4 December 2018&quot;
+```r
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+]]
+
+
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/tidyverse.jpg", width="70%"&gt;
+
+[tidyverse.org](https://www.tidyverse.org/)
+
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[The "sampling frames" experiment]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle
+
+# Property sampling: the robot only detects plaxium spheres
+&lt;br&gt;
+&lt;img src="images/data10_property.jpg", width="70%"&gt;
+&lt;br&gt;
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle
+
+# Category sampling: the robot only tests small spheres
+&lt;br&gt;
+&lt;img src="images/data10_category.jpg", width="70%"&gt;
+&lt;br&gt;
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle
+
+# Small sample size: Elicit judgments after two observations
+&lt;br&gt;
+&lt;img src="images/data2_property.jpg", width="70%"&gt;
+&lt;br&gt;
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle
+
+# Medium sample size: Elicit judgments after six observations
+&lt;br&gt;
+&lt;img src="images/data6_property.jpg", width="70%"&gt;
+&lt;br&gt;
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle
+
+# Large sample size: Elicit judgments after twelve observations
+&lt;br&gt;
+&lt;img src="images/data12_property.jpg", width="70%"&gt;
+&lt;br&gt;
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle
+
+# Seven test items that vary in size: Smallest...
+&lt;br&gt;
+&lt;img src="images/test2.jpg", width="70%"&gt;
+&lt;br&gt;
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle
+
+# Seven test items that vary in size: Largest...
+&lt;br&gt;
+&lt;img src="images/test8.jpg", width="70%"&gt;
+&lt;br&gt;
+
+&lt;!-- NEW SLIDE --&gt;
+---
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Getting started]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: bg-main1
+
+# What do we need?
+
+&lt;br&gt;
+
+.pull.left[.pad1[.font2[
+
+- General resources: https://djnavarro.github.io/chdss2018/
+- The data: http://compcogscisydney.org/psyr/data/frames_ex2.csv
+- Save data here: [your_project]/analysis/data/frames_ex2.csv
+- R packages:
+
+```r
+install.packages("tidyverse")
+install.packages("skimr")
+install.packages("lsr")
+```
+]]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.row.bg-main1[.content.vmiddle.center[
+
+# An R Markdown document!
+
+.pull.left[.pad1[.font2[
+- File &gt; New File &gt; R Markdown...
+- Save it: [your_project]/analysis/docs/analysis.Rmd
+]]]
+
+]]
+
+.row.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/new_rmarkdown.jpg" width = "30%"&gt;
+
+
+]]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# Delete everything except the top bit
+
+.pull.left[.pad1[.font2[
+- At the top is the YAML header
+- Leave the knitr thing alone
+- This is the whole document...
+]]]
+
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+
+.pull.left[.pad1[.font2[
+
+````
+---
+title: "Exploring the data"
+author: "Danielle Navarro"
+date: "4 December 2018"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-```</code></pre>
-<p>]]] ]]</p>
-<div id="section-13" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-40 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="start-writing" class="section level1">
-<h1>Start writing!</h1>
-<p>.pull.left[.pad1[.font2[ - Load packages in the first chunk - Write <strong>descriptions for humans!</strong> - Document, document, document]]]</p>
-<p>]]</p>
-<table style="width:3%;">
-<colgroup>
-<col width="2%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>.column.bg-main3[.content.vmiddle.center[</td>
-</tr>
-<tr class="even">
-<td>.pull.left[.pad1[.font2[</td>
-</tr>
-<tr class="odd">
-<td>```` ## Getting started</td>
-</tr>
-<tr class="even">
-<td>The first thing to do in our analysis is load the R packages that we’ll use to do the work:</td>
-</tr>
-<tr class="odd">
-<td><code>{r} library(here) library(tidyverse) library(skimr)</code></td>
-</tr>
-<tr class="even">
-<td>The next step is to load the data set itself. The data from the sampling frames experiment are stored in the “frames_ex2.csv” file:</td>
-</tr>
-<tr class="odd">
-<td><code>{r} loc &lt;- here(&quot;analysis&quot;,&quot;data&quot;,&quot;frames_ex2.csv&quot;) frames &lt;- read_csv(file = loc)</code> ````</td>
-</tr>
-<tr class="even">
-<td>]]] ]]</td>
-</tr>
-<tr class="odd">
-<td><!-- *********** NEW SLIDE ************** --></td>
-</tr>
-</tbody>
-</table>
-<p>class: split-40 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-<div id="click-the-knit-button" class="section level1">
-<h1>Click the knit button!</h1>
-<p>.pull.left[.pad1[.font2[]]]</p>
-<div id="section-14" class="section level2">
-<h2>]]</h2>
-<p>.column.bg-main3[.content.vmiddle.center[</p>
-<p><img src="images/explore1.png" width = "90%"></p>
-<p>]]</p>
-</div>
-<div id="section-15" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-40 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="tidy-the-code-chunk" class="section level1">
-<h1>Tidy the code chunk</h1>
-<p>.pull.left[.pad1[.font2[ - Note the output messages - Helpful the first time… - … but suppress if you like - Give it a name (like packageload)]]] ]] – .column.bg-main3[.content.vmiddle.center[ .pull.left[.pad1[.font2[</p>
-<pre><code>## Getting started
+```
+````
+
+]]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# Start writing!
+
+.pull.left[.pad1[.font2[
+- Load packages in the first chunk
+- Write **descriptions for humans!**
+- Document, document, document
+]]]
+
+]]
+
+--
+.column.bg-main3[.content.vmiddle.center[
+
+.pull.left[.pad1[.font2[
+
+````
+## Getting started
 
 The first thing to do in our analysis is load the R
-packages that we&#39;ll use to do the work:
+packages that we'll use to do the work:
+
+```{r}
+library(here)
+library(tidyverse)
+library(skimr)
+```
+
+The next step is to load the data set itself. The data 
+from the sampling frames experiment are stored in the 
+"frames_ex2.csv" file:
+
+```{r}
+loc &lt;- here("analysis","data","frames_ex2.csv")
+frames &lt;- read_csv(file = loc)
+```
+````
+
+]]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# Click the knit button!
+
+.pull.left[.pad1[.font2[
+]]]
+
+]]
+--
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/explore1.png" width = "90%"&gt;
+
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# Tidy the code chunk
+
+.pull.left[.pad1[.font2[
+- Note the output messages
+- Helpful the first time...
+- ... but suppress if you like
+- Give it a name (like packageload)
+]]]
+]]
+--
+.column.bg-main3[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+````
+## Getting started
+
+The first thing to do in our analysis is load the R
+packages that we'll use to do the work:
 
 ```{r packageload, message=FALSE}
 library(here)
 library(tidyverse)
 library(skimr)
-```</code></pre>
-<p>]]]</p>
-<p>]]</p>
-<div id="section-16" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-40 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="tidy-the-code-chunk-1" class="section level1">
-<h1>Tidy the code chunk</h1>
-<p>.pull.left[.pad1[.font2[ - Note the output messages - Helpful the first time… - … but suppress if you like - Give it a name (like packageload)</p>
-<p>]]]</p>
-<p>]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[</p>
-<p><img src="images/explore2.png" width = "90%"></p>
-<p>]]</p>
-<div id="section-17" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-40 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="import-the-data" class="section level1">
-<h1>Import the data</h1>
-<p>.pull.left[.pad1[.font2[ - Verbal description - Specify the file location - Import data with read_csv()]]] ]]</p>
-<table style="width:3%;">
-<colgroup>
-<col width="2%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>.column.bg-main3[.content.vmiddle.center[ .pull.left[.pad1[.font2[</td>
-</tr>
-<tr class="even">
-<td>```` The next step is to load the data set itself. The data from the sampling frames experiment are stored in the “frames_ex2.csv” file:</td>
-</tr>
-<tr class="odd">
-<td><code>{r dataimport} loc &lt;- here(&quot;analysis&quot;,&quot;data&quot;,&quot;frames_ex2.csv&quot;) frames &lt;- read_csv(file = loc)</code> ````</td>
-</tr>
-<tr class="even">
-<td>]]] ]]</td>
-</tr>
-<tr class="odd">
-<td><!-- *********** NEW SLIDE ************** --></td>
-</tr>
-</tbody>
-</table>
-<p>class: split-40 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-<div id="import-the-data-1" class="section level1">
-<h1>Import the data</h1>
-<p>.pull.left[.pad1[.font2[ - Verbal description - Specify the file location - Import data with read_csv() - And click “knit!”]]]</p>
-<p>]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[</p>
-<p><img src="images/explore3.png" width = "90%"></p>
-<p>]]</p>
-<div id="section-18" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-40 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="inspect-the-data-set" class="section level1">
-<h1>Inspect the data set</h1>
-<p>.pull.left[.pad1[.font2[ - Data as a “tibble” (data frame) - Printing it shows the structure - The glimpse() function is nice - Name <em>every</em> code chunk!]]]</p>
-<p>]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[</p>
-<p>.pull.left[.pad1[.font2[</p>
-<pre><code>The data set has been imported as a tibble. Let&#39;s take 
+```
+````
+]]]
+
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# Tidy the code chunk
+
+.pull.left[.pad1[.font2[
+- Note the output messages
+- Helpful the first time...
+- ... but suppress if you like
+- Give it a name (like packageload)
+
+]]]
+
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/explore2.png" width = "90%"&gt;
+
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# Import the data
+
+.pull.left[.pad1[.font2[
+- Verbal description
+- Specify the file location
+- Import data with read_csv()
+]]]
+]]
+
+--
+.column.bg-main3[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+
+````
+The next step is to load the data set itself. The data 
+from the sampling frames experiment are stored in the 
+"frames_ex2.csv" file:
+
+```{r dataimport}
+loc &lt;- here("analysis","data","frames_ex2.csv")
+frames &lt;- read_csv(file = loc)
+```
+````
+
+]]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# Import the data
+
+.pull.left[.pad1[.font2[
+- Verbal description
+- Specify the file location
+- Import data with read_csv()
+- And click "knit!"
+]]]
+
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+
+
+&lt;img src="images/explore3.png" width = "90%"&gt;
+
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# Inspect the data set
+
+.pull.left[.pad1[.font2[
+- Data as a "tibble" (data frame)
+- Printing it shows the structure
+- The glimpse() function is nice
+- Name *every* code chunk!
+]]]
+
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+
+.pull.left[.pad1[.font2[
+
+````
+The data set has been imported as a tibble. Let's take 
 a quick look at the data. Each row in the data set is
 a single response, and each column is a variable:
 
@@ -531,191 +491,338 @@ looks nicer is to use the `glimpse()` function:
 
 ```{r glimpseframes}
 glimpse(frames)
-```</code></pre>
-<p>]]] ]]</p>
-<div id="section-19" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-40 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="inspect-the-data-set-1" class="section level1">
-<h1>Inspect the data set</h1>
-<p>.pull.left[.pad1[.font2[ - Data as a “tibble” (data frame) - Printing it shows the structure - The glimpse() function is nice - Name <em>every</em> code chunk!]]]</p>
-<p>]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[</p>
-<p><img src="images/explore4.png" width = "90%"></p>
-<p>]]</p>
-<div id="section-20" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-40 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="skim-the-data" class="section level1">
-<h1>“Skim” the data</h1>
-<p>.pull.left[.pad1[.font2[ - Use skimr::skim - Means, std dev., quantiles - Also cute text histograms]]] ]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[ .pull.left[.pad1[.font2[</p>
-<pre><code>Finally, as a quick first pass, we can use the `skim()`
+```
+````
+
+]]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# Inspect the data set
+
+.pull.left[.pad1[.font2[
+- Data as a "tibble" (data frame)
+- Printing it shows the structure
+- The glimpse() function is nice
+- Name *every* code chunk!
+]]]
+
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/explore4.png" width = "90%"&gt;
+
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# "Skim" the data
+
+.pull.left[.pad1[.font2[
+- Use skimr::skim
+- Means, std dev., quantiles
+- Also cute text histograms
+]]]
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+````
+Finally, as a quick first pass, we can use the `skim()`
 function to get a simple overview of each variable:
 
 ```{r skimframes}
 skim(frames)
-```</code></pre>
-<p>]]] ]]</p>
-<div id="section-21" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-40 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="skim-the-data-1" class="section level1">
-<h1>“Skim” the data</h1>
-<p>.pull.left[.pad1[.font2[ - Use skimr::skim - Means, std dev., quantiles - Also cute text histograms]]] ]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[</p>
-<p><img src="images/explore5.png" width = "90%"></p>
-<p>]]</p>
-<div id="section-22" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: center middle hide-slide-number</p>
-<p>.pad1[ .font4[Wrangling Exercise #1]]</p>
-</div>
-<div id="section-23" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4[A tiny warning about R]]]</p>
-</div>
-<div id="section-24" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-40 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ .pull.left[.pad1[.font2[ # R is tricksy</p>
-<ul>
-<li>Suppose <code>x = 10</code></li>
-<li>Suppose I call <code>plot(x)</code></li>
-<li>What does R “pass” to <code>plot</code>?</li>
-<li>I said: the number <code>10</code>. But I lied.</li>
-<li>It actually sends the “unevaluated expression” <code>x</code> that evaluates to the number <code>10</code>.</li>
-<li>Functions can capture &amp; modify the expression <em>before</em> it gets evaluated ]]] ]] – .column.bg-main3[.content.vmiddle.center[ .pull.left[.pad1[.font2[</li>
-</ul>
-<pre class="r"><code># simple example
+```
+````
+
+]]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# "Skim" the data
+
+.pull.left[.pad1[.font2[
+- Use skimr::skim
+- Means, std dev., quantiles
+- Also cute text histograms
+]]]
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/explore5.png" width = "90%"&gt;
+
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: center middle hide-slide-number
+
+.pad1[
+.font4[Wrangling Exercise #1]
+]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[A tiny warning about R]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+# R is tricksy
+
+- Suppose `x = 10`
+- Suppose I call `plot(x)`
+- What does R "pass" to `plot`? 
+- I said: the number `10`. But I lied.
+- It actually sends the "unevaluated expression" `x` that evaluates to the number `10`. 
+- Functions can capture &amp; modify the expression *before* it gets evaluated 
+]]]
+]]
+--
+.column.bg-main3[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+
+```r
+# simple example
 textify &lt;- function(...) {
   y &lt;- deparse(match.call())
   return(y)
 }
 
-# let&#39;s try it
+# let's try it
 txt &lt;- textify(what,the,f**k)
 
 # hm.
-print(txt)</code></pre>
-<pre><code>## [1] &quot;textify(what, the, f^k)&quot;</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-25" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-two bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="tidyverse-packages-do-it-a-lot" class="section level1">
-<h1>Tidyverse packages do it a lot</h1>
-<p>.pull.left[.font2[.pad1[ - dplyr - ggplot2 - readr - tidyr - purrr - etc</p>
-<p>]]] ]] – .column.bg-main3[.content.vmiddle.center[</p>
-</div>
-<div id="beware" class="section level1">
-<h1>Beware!</h1>
-<p><img src="images/daria_burning.gif" width = "90%"> <!--<img src="https://media.giphy.com/media/10Iu43S5QuBTMc/giphy.gif" width = "90%">--></p>
-<p>]]</p>
-<div id="section-26" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4[Introducing the pipe, %&gt;%]]]</p>
-</div>
-<div id="section-27" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-40 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-</div>
-</div>
-<div id="the-pipe" class="section level1">
-<h1>The pipe, %&gt;%</h1>
-<p>.pull.left[.pad1[.font2[ - Take the frames data… - Do one thing… - Then another… - And then one more…]]] ]] – .column.bg-main3[.content.vmiddle.center[ .pull.left[.pad1[.font2[</p>
-<pre><code>frames %&gt;%
+print(txt)
+```
+
+```
+## [1] "textify(what, the, f^k)"
+```
+
+]]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# Tidyverse packages do it a lot
+
+.pull.left[.font2[.pad1[
+- dplyr
+- ggplot2
+- readr
+- tidyr
+- purrr
+- etc
+
+]]]
+]]
+--
+.column.bg-main3[.content.vmiddle.center[
+
+# Beware!
+
+&lt;img src="images/daria_burning.gif" width = "90%"&gt;
+&lt;!--&lt;img src="https://media.giphy.com/media/10Iu43S5QuBTMc/giphy.gif" width = "90%"&gt;--&gt;
+
+]]
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Introducing the pipe, %&gt;%]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# The pipe, %&gt;%
+
+.pull.left[.pad1[.font2[
+- Take the frames data...
+- Do one thing...
+- Then another...
+- And then one more...
+]]]
+]]
+--
+.column.bg-main3[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+```{}
+frames %&gt;%
   do_one_thing(.) %&gt;%
   then_another(.) %&gt;%
-  and_then_one_more(.)</code></pre>
-<p>]]] ]]</p>
-<div id="section-28" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-two bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ .pull.left[.pad1[.font2[</p>
-</div>
-</div>
-<div id="regular-code" class="section level1">
-<h1>Regular code</h1>
-<pre><code>do_one_thing(frames) </code></pre>
-<p>]]] ]] – .column.bg-main3[.content.vmiddle.center[ .pull.left[.pad1[.font2[</p>
-</div>
-<div id="the-piped-version" class="section level1">
-<h1>The piped version</h1>
-<pre><code>frames %&gt;% do_one_thing() </code></pre>
-<p>]]] ]]</p>
-<div id="section-29" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-two bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ .pull.left[.pad1[.font2[</p>
-</div>
-</div>
-<div id="regular-code-1" class="section level1">
-<h1>Regular code</h1>
-<pre><code>then_another(
+  and_then_one_more(.)
+```
+
+]]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+
+# Regular code
+
+```{}
+do_one_thing(frames) 
+```
+
+]]]
+]]
+--
+.column.bg-main3[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+
+# The piped version
+
+```{}
+frames %&gt;% do_one_thing() 
+```
+
+]]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+
+# Regular code
+
+```{}
+then_another(
   do_one_thing(
     frames
   ) 
-)</code></pre>
-<p>]]] ]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[ .pull.left[.pad1[.font2[</p>
-</div>
-<div id="the-piped-version-1" class="section level1">
-<h1>The piped version</h1>
-<pre><code>frames %&gt;% 
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+
+# The piped version
+
+```{}
+frames %&gt;% 
   do_one_thing() %&gt;%
-  then_another()</code></pre>
-<p>]]] ]]</p>
-<div id="section-30" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-two bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ .pull.left[.pad1[.font2[</p>
-</div>
-</div>
-<div id="regular-code-2" class="section level1">
-<h1>Regular code</h1>
-<pre><code>and_then_one_more(
+  then_another()
+```
+
+]]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+
+# Regular code
+
+```{}
+and_then_one_more(
   then_another(
     do_one_thing(
       frames
     ) 
   )
-)</code></pre>
-<p>]]] ]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[ .pull.left[.pad1[.font2[</p>
-</div>
-<div id="the-piped-version-2" class="section level1">
-<h1>The piped version</h1>
-<pre><code>frames %&gt;% 
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+
+# The piped version
+
+```{}
+frames %&gt;% 
   do_one_thing() %&gt;%
   then_another() %&gt;%
-  and_then_one_more()</code></pre>
-<p>]]] ]]</p>
-<div id="section-31" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-two bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ .pull.left[.pad1[.font2[</p>
-</div>
-</div>
-<div id="regular-code-3" class="section level1">
-<h1>Regular code</h1>
-<pre><code>then_this(
+  and_then_one_more()
+```
+
+]]]
+]]
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+
+# Regular code
+
+```{}
+then_this(
   and_then_one_more(
     then_another(
       do_one_thing(
@@ -723,90 +830,150 @@ print(txt)</code></pre>
       ) 
     )
   )
-)</code></pre>
-<p>]]] ]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[ .pull.left[.pad1[.font2[</p>
-</div>
-<div id="the-piped-version-3" class="section level1">
-<h1>The piped version</h1>
-<pre><code>frames %&gt;% 
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+
+# The piped version
+
+```{}
+frames %&gt;% 
   do_one_thing() %&gt;%
   then_another() %&gt;%
   and_then_one_more() %&gt;%
-  then_this()</code></pre>
-<p>]]] ]]</p>
-<div id="section-32" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-two bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-<p><img src="images/ytho.png" width="80%"></p>
-<p>]]</p>
-<table style="width:3%;">
-<colgroup>
-<col width="2%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>.column.bg-main3[.content.vmiddle.center[ .pull.left[.pad1[.font2[</td>
-</tr>
-<tr class="even">
-<td># Piping is a good abstraction</td>
-</tr>
-<tr class="odd">
-<td><code>{} data %&gt;% tidy() %&gt;% describe() %&gt;% visualise() %&gt;% analyse()</code></td>
-</tr>
-<tr class="even">
-<td>- We “pipe” our data through operations - The data set <em>flows</em> through our analysis ]]] ]]</td>
-</tr>
-<tr class="odd">
-<td><!-- *********** NEW SLIDE ************** --></td>
-</tr>
-</tbody>
-</table>
-<p>class: center middle hide-slide-number</p>
-<p>.pad1[ .font4[Wrangling Exercise #2]]</p>
-</div>
-<div id="section-33" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4[group_by, summarise, ungroup]]]</p>
-</div>
-<div id="section-34" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-30 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-<p>]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>frames %&gt;%
+  then_this()
+```
+
+]]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+&lt;img src="images/ytho.png" width="80%"&gt;
+
+]]
+
+--
+.column.bg-main3[.content.vmiddle.center[
+.pull.left[.pad1[.font2[
+
+# Piping is a good abstraction
+
+```{}
+data %&gt;% 
+  tidy() %&gt;%
+  describe() %&gt;%
+  visualise() %&gt;%
+  analyse()
+```
+
+
+- We "pipe" our data through operations
+- The data set *flows* through our analysis
+]]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: center middle hide-slide-number
+
+.pad1[
+.font4[Wrangling Exercise #2]
+]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[group_by, summarise, ungroup]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+frames %&gt;%
   group_by( GROUP ) %&gt;%
   summarise( EXPRESSION ) %&gt;%
-  ungroup()</code></pre>
-<ul>
-<li>use <code>group_by</code> to define groups</li>
-<li>use <code>summarise</code> to… summarise</li>
-<li>use <code>ungroup</code> to remove grouping</li>
-</ul>
-<p>]]] ]]</p>
-</div>
-<div id="section-35" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-30 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ ## Group &amp; ## Summarise]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>frames %&gt;%
+  ungroup()
+```
+
+- use `group_by` to define groups
+- use `summarise` to... summarise
+- use `ungroup` to remove grouping
+
+]]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+## Group &amp;
+## Summarise
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+frames %&gt;%
   group_by(test_item, sample_size, n_obs, condition) %&gt;%
-  summarise(response = mean(response))</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-36" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-30 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ ## Group &amp; ## Summarise]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>frames %&gt;%
+  summarise(response = mean(response))
+```
+
+]]]
+]]
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+## Group &amp;
+## Summarise
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+frames %&gt;%
   group_by(test_item, sample_size, n_obs, condition) %&gt;%
-  summarise(response = mean(response))</code></pre>
-<pre><code>## # A tibble: 42 x 5
+  summarise(response = mean(response))
+```
+
+```
+## # A tibble: 42 x 5
 ## # Groups:   test_item, sample_size, n_obs [?]
 ##    test_item sample_size n_obs condition response
 ##        &lt;int&gt; &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;
@@ -820,19 +987,34 @@ print(txt)</code></pre>
 ##  8         2 large          12 property      7.20
 ##  9         2 medium          6 category      7.17
 ## 10         2 medium          6 property      6.95
-## # ... with 32 more rows</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-37" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-30 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ ## Group, ## Summarise, ## Ungroup ]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>frames %&gt;%
+## # ... with 32 more rows
+```
+
+]]]
+]]
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+## Group,
+## Summarise,
+## Ungroup 
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+frames %&gt;%
   group_by(test_item, sample_size, n_obs, condition) %&gt;%
   summarise(response = mean(response)) %&gt;%
-  ungroup() #&lt;&lt;</code></pre>
-<pre><code>## # A tibble: 42 x 5
+* ungroup()
+```
+
+```
+## # A tibble: 42 x 5
 ##    test_item sample_size n_obs condition response
 ##        &lt;int&gt; &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;
 ##  1         1 large          12 category      7.60
@@ -845,23 +1027,37 @@ print(txt)</code></pre>
 ##  8         2 large          12 property      7.20
 ##  9         2 medium          6 category      7.17
 ## 10         2 medium          6 property      6.95
-## # ... with 32 more rows</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-38" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-30 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ # More summarise]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>frames %&gt;% 
+## # ... with 32 more rows
+```
+
+]]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+# More summarise
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+frames %&gt;% 
   group_by(test_item) %&gt;%
   summarise(
-    mean_resp = mean(response), #&lt;&lt;
-    sd_resp = sd(response), #&lt;&lt;
-    count = n() #&lt;&lt;
+*   mean_resp = mean(response),
+*   sd_resp = sd(response),
+*   count = n()
   ) %&gt;%
-  ungroup()</code></pre>
-<pre><code>## # A tibble: 7 x 4
+  ungroup()
+```
+
+```
+## # A tibble: 7 x 4
 ##   test_item mean_resp sd_resp count
 ##       &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
 ## 1         1      6.77    2.56   675
@@ -870,51 +1066,84 @@ print(txt)</code></pre>
 ## 4         4      4.48    2.68   675
 ## 5         5      3.76    2.81   675
 ## 6         6      3.43    2.99   675
-## 7         7      3.26    3.11   675</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-39" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: center middle hide-slide-number</p>
-<p>.pad1[ .font4[Wrangling Exercise #3]]</p>
-</div>
-<div id="section-40" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4[arrange, filter, select, mutate]]]</p>
-</div>
-<div id="section-41" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-30 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-<p>]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>average_response &lt;- frames %&gt;%
+## 7         7      3.26    3.11   675
+```
+
+]]]
+]]
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: center middle hide-slide-number
+
+.pad1[
+.font4[Wrangling Exercise #3]
+]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[arrange, filter, select, mutate]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+average_response &lt;- frames %&gt;%
   group_by(test_item, sample_size, n_obs, condition) %&gt;%
   summarise(response = mean(response)) %&gt;%
   ungroup()
 
-average_response %&gt;% #&lt;&lt;
-  filter(sample_size == &quot;small&quot;) #&lt;&lt;</code></pre>
-<ul>
-<li>First section creates the summary tibble</li>
-<li>Second section applies a filter…</li>
-<li>… only retains cases where sample_size = “small”</li>
-</ul>
-<p>]]] ]]</p>
-</div>
-<div id="section-42" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-30 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ ## Filter]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>average_response %&gt;%
-  filter(sample_size == &quot;small&quot;)</code></pre>
-<pre><code>## # A tibble: 14 x 5
+*average_response %&gt;%
+* filter(sample_size == "small")
+```
+
+- First section creates the summary tibble
+- Second section applies a filter...
+- ... only retains cases where sample_size = "small"
+
+]]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+## Filter
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+average_response %&gt;%
+  filter(sample_size == "small")
+```
+
+```
+## # A tibble: 14 x 5
 ##    test_item sample_size n_obs condition response
 ##        &lt;int&gt; &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;
-##  1         1 small           2 category      6.07
-##  2         1 small           2 property      5.78
+*##  1         1 small           2 category      6.07
+*##  2         1 small           2 property      5.78
 ##  3         2 small           2 category      6.26
 ##  4         2 small           2 property      6.21
 ##  5         3 small           2 category      5.87
@@ -926,46 +1155,74 @@ average_response %&gt;% #&lt;&lt;
 ## 11         6 small           2 category      4.16
 ## 12         6 small           2 property      3.68
 ## 13         7 small           2 category      3.98
-## 14         7 small           2 property      3.67</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-43" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-30 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ ## Arrange]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>average_response %&gt;%
-  filter(sample_size == &quot;small&quot;) %&gt;%
-  arrange(condition) #&lt;&lt;</code></pre>
-<pre><code>## # A tibble: 14 x 5
+## 14         7 small           2 property      3.67
+```
+
+]]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+## Arrange
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+average_response %&gt;%
+  filter(sample_size == "small") %&gt;%
+* arrange(condition)
+```
+
+```
+## # A tibble: 14 x 5
 ##    test_item sample_size n_obs condition response
 ##        &lt;int&gt; &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;
-##  1         1 small           2 category      6.07
-##  2         2 small           2 category      6.26
-##  3         3 small           2 category      5.87
-##  4         4 small           2 category      5.11
-##  5         5 small           2 category      4.55
-##  6         6 small           2 category      4.16
-##  7         7 small           2 category      3.98
+*##  1         1 small           2 category      6.07
+*##  2         2 small           2 category      6.26
+*##  3         3 small           2 category      5.87
+*##  4         4 small           2 category      5.11
+*##  5         5 small           2 category      4.55
+*##  6         6 small           2 category      4.16
+*##  7         7 small           2 category      3.98
 ##  8         1 small           2 property      5.78
 ##  9         2 small           2 property      6.21
 ## 10         3 small           2 property      5.24
 ## 11         4 small           2 property      4.68
 ## 12         5 small           2 property      3.99
 ## 13         6 small           2 property      3.68
-## 14         7 small           2 property      3.67</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-44" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-30 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ ## Select]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>average_response %&gt;%
-  filter(sample_size == &quot;small&quot;) %&gt;%
+## 14         7 small           2 property      3.67
+```
+
+]]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+## Select
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+average_response %&gt;%
+  filter(sample_size == "small") %&gt;%
   arrange(condition) %&gt;%
-  select(test_item, condition, response) #&lt;&lt;</code></pre>
-<pre><code>## # A tibble: 14 x 3
+* select(test_item, condition, response)
+```
+
+```
+## # A tibble: 14 x 3
 ##    test_item condition response
 ##        &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;
 ##  1         1 category      6.07
@@ -981,21 +1238,35 @@ average_response %&gt;% #&lt;&lt;
 ## 11         4 property      4.68
 ## 12         5 property      3.99
 ## 13         6 property      3.68
-## 14         7 property      3.67</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-45" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-30 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ # Store output!]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>average_response_small &lt;- average_response %&gt;% #&lt;&lt;
-  filter(sample_size == &quot;small&quot;) %&gt;%
+## 14         7 property      3.67
+```
+
+]]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+# Store output!
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+*average_response_small &lt;- average_response %&gt;%
+  filter(sample_size == "small") %&gt;%
   arrange(condition) %&gt;%
   select(test_item, condition, response)
 
-average_response_small</code></pre>
-<pre><code>## # A tibble: 14 x 3
+average_response_small
+```
+
+```
+## # A tibble: 14 x 3
 ##    test_item condition response
 ##        &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;
 ##  1         1 category      6.07
@@ -1011,19 +1282,33 @@ average_response_small</code></pre>
 ## 11         4 property      4.68
 ## 12         5 property      3.99
 ## 13         6 property      3.68
-## 14         7 property      3.67</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-46" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-30 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ # Mutate]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>average_response_small &lt;- average_response_small %&gt;%
-  mutate(generalisation = response/9) #&lt;&lt;
+## 14         7 property      3.67
+```
 
-average_response_small</code></pre>
-<pre><code>## # A tibble: 14 x 4
+]]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+# Mutate
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+average_response_small &lt;- average_response_small %&gt;%
+* mutate(generalisation = response/9)
+
+average_response_small
+```
+
+```
+## # A tibble: 14 x 4
 ##    test_item condition response generalisation
 ##        &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;          &lt;dbl&gt;
 ##  1         1 category      6.07          0.674
@@ -1039,20 +1324,34 @@ average_response_small</code></pre>
 ## 11         4 property      4.68          0.521
 ## 12         5 property      3.99          0.443
 ## 13         6 property      3.68          0.409
-## 14         7 property      3.67          0.407</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-47" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-30 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ # Select]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>average_response_small &lt;- average_response_small %&gt;%
-  mutate(generalisation = response/9) %&gt;%
-  select(-response) #&lt;&lt;
+## 14         7 property      3.67          0.407
+```
 
-average_response_small</code></pre>
-<pre><code>## # A tibble: 14 x 3
+]]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+# Select
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+average_response_small &lt;- average_response_small %&gt;%
+  mutate(generalisation = response/9) %&gt;%
+* select(-response)
+
+average_response_small
+```
+
+```
+## # A tibble: 14 x 3
 ##    test_item condition generalisation
 ##        &lt;int&gt; &lt;chr&gt;              &lt;dbl&gt;
 ##  1         1 category           0.674
@@ -1068,101 +1367,190 @@ average_response_small</code></pre>
 ## 11         4 property           0.521
 ## 12         5 property           0.443
 ## 13         6 property           0.409
-## 14         7 property           0.407</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-48" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: center middle hide-slide-number</p>
-<p>.pad1[ .font4[Wrangling Exercises #4 and #5]]</p>
-</div>
-<div id="section-49" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: bg-main1 center middle hide-slide-number</p>
-<p>.reveal-text.bg-main2[.pad1[ .font4[gather and spread]]]</p>
-</div>
-<div id="section-50" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-20 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[</p>
-<p>]]</p>
-<p>.column.bg-main3[.content.vmiddle.center[</p>
-<p><img src="images/horst_tidyr.png", width="50%"></p>
-<p><span class="citation">[@allison_horst]</span>(<a href="https://twitter.com/allison_horst" class="uri">https://twitter.com/allison_horst</a>)</p>
-<p>]]</p>
-</div>
-<div id="section-51" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-20 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ # Long]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>average_response_small</code></pre>
-<pre><code>## # A tibble: 14 x 3
+## 14         7 property           0.407
+```
+
+]]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: center middle hide-slide-number
+
+.pad1[
+.font4[Wrangling Exercises #4 and #5]
+]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[gather and spread]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-20 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/horst_tidyr.png", width="50%"&gt;
+
+[@allison_horst](https://twitter.com/allison_horst)
+
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-20 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+# Long
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+average_response_small
+```
+
+```
+## # A tibble: 14 x 3
 ##    test_item condition generalisation
 ##        &lt;int&gt; &lt;chr&gt;              &lt;dbl&gt;
-##  1         1 category           0.674
+*##  1         1 category           0.674
 ##  2         2 category           0.696
 ##  3         3 category           0.652
 ##  4         4 category           0.568
 ##  5         5 category           0.506
 ##  6         6 category           0.462
 ##  7         7 category           0.442
-##  8         1 property           0.643
+*##  8         1 property           0.643
 ##  9         2 property           0.690
 ## 10         3 property           0.583
 ## 11         4 property           0.521
 ## 12         5 property           0.443
 ## 13         6 property           0.409
-## 14         7 property           0.407</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-52" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-20 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ # Spread # to wide]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>wide_avrs &lt;- average_response_small %&gt;%
-  spread(key = condition, value = generalisation) #&lt;&lt;</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-53" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-20 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ # Spread # to wide]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>wide_avrs &lt;- average_response_small %&gt;%
+## 14         7 property           0.407
+```
+
+]]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-20 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+# Spread
+# to wide
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+wide_avrs &lt;- average_response_small %&gt;%
+* spread(key = condition, value = generalisation)
+```
+
+]]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-20 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+# Spread
+# to wide
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+wide_avrs &lt;- average_response_small %&gt;%
   spread(key = condition, value = generalisation)
 
-wide_avrs</code></pre>
-<pre><code>## # A tibble: 7 x 3
+wide_avrs
+```
+
+```
+## # A tibble: 7 x 3
 ##   test_item category property
 ##       &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1         1    0.674    0.643
+*## 1         1    0.674    0.643
 ## 2         2    0.696    0.690
 ## 3         3    0.652    0.583
 ## 4         4    0.568    0.521
 ## 5         5    0.506    0.443
 ## 6         6    0.462    0.409
-## 7         7    0.442    0.407</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-54" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-20 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ # Gather # to long]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>wide_avrs %&gt;% 
-  gather(key = &quot;condition&quot;, value = &quot;generalisation&quot;, category, property) #&lt;&lt;</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-55" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-20 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ # Gather # to long]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>wide_avrs %&gt;% 
-  gather(key = &quot;condition&quot;, value = &quot;generalisation&quot;, category, property) #&lt;&lt;</code></pre>
-<pre><code>## # A tibble: 14 x 3
+## 7         7    0.442    0.407
+```
+
+]]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-20 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+# Gather
+# to long
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+wide_avrs %&gt;% 
+* gather(key = "condition", value = "generalisation", category, property)
+```
+
+]]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-20 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+# Gather
+# to long
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+wide_avrs %&gt;% 
+* gather(key = "condition", value = "generalisation", category, property)
+```
+
+```
+## # A tibble: 14 x 3
 ##    test_item condition generalisation
 ##        &lt;int&gt; &lt;chr&gt;              &lt;dbl&gt;
 ##  1         1 category           0.674
@@ -1178,18 +1566,33 @@ wide_avrs</code></pre>
 ## 11         4 property           0.521
 ## 12         5 property           0.443
 ## 13         6 property           0.409
-## 14         7 property           0.407</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-56" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-20 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ # Spread by # two cols?]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>frames %&gt;% 
+## 14         7 property           0.407
+```
+
+]]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-20 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+# Spread by
+# two cols?
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+frames %&gt;% 
   group_by(test_item, sample_size, condition) %&gt;%
-  summarise(response = mean(response))</code></pre>
-<pre><code>## # A tibble: 42 x 4
+  summarise(response = mean(response))
+```
+
+```
+## # A tibble: 42 x 4
 ## # Groups:   test_item, sample_size [?]
 ##    test_item sample_size condition response
 ##        &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;        &lt;dbl&gt;
@@ -1203,19 +1606,34 @@ wide_avrs</code></pre>
 ##  8         2 large       property      7.20
 ##  9         2 medium      category      7.17
 ## 10         2 medium      property      6.95
-## # ... with 32 more rows</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-57" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-20 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ # Unite…]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>frames %&gt;% 
+## # ... with 32 more rows
+```
+
+]]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-20 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+# Unite...
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+frames %&gt;% 
   group_by(test_item, sample_size, condition) %&gt;%
   summarise(response = mean(response)) %&gt;%
-  unite(col = &quot;cond_ss&quot;, condition, sample_size) #&lt;&lt;</code></pre>
-<pre><code>## # A tibble: 42 x 3
+* unite(col = "cond_ss", condition, sample_size)
+```
+
+```
+## # A tibble: 42 x 3
 ## # Groups:   test_item [7]
 ##    test_item cond_ss         response
 ##        &lt;int&gt; &lt;chr&gt;              &lt;dbl&gt;
@@ -1229,20 +1647,33 @@ wide_avrs</code></pre>
 ##  8         2 property_large      7.20
 ##  9         2 category_medium     7.17
 ## 10         2 property_medium     6.95
-## # ... with 32 more rows</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-58" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: split-20 bg-main1</p>
-<p>.column.bg-main1[.content.vmiddle.center[ # Then spread]]</p>
-<p>.column.bg-main3[.content.vtop.center[ .pull.left[.pad1[.font2[</p>
-<pre class="r"><code>frames %&gt;% 
+## # ... with 32 more rows
+```
+
+]]]
+]]
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-20 bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+# Then spread
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```r
+frames %&gt;% 
   group_by(test_item, sample_size, condition) %&gt;%
   summarise(response = mean(response)) %&gt;%
-  unite(col = &quot;cond_ss&quot;, condition, sample_size) %&gt;%
-  spread(key = &quot;cond_ss&quot;, value = response) #&lt;&lt;</code></pre>
-<pre><code>## # A tibble: 7 x 7
+  unite(col = "cond_ss", condition, sample_size) %&gt;%
+* spread(key = "cond_ss", value = response)
+```
+
+```
+## # A tibble: 7 x 7
 ## # Groups:   test_item [7]
 ##   test_item category_large category_medium category_small property_large
 ##       &lt;int&gt;          &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
@@ -1253,50 +1684,76 @@ wide_avrs</code></pre>
 ## 5         5           4.72            4.22           4.55           2.26
 ## 6         6           4.43            3.85           4.16           1.91
 ## 7         7           4.18            3.61           3.98           1.90
-## # ... with 2 more variables: property_medium &lt;dbl&gt;, property_small &lt;dbl&gt;</code></pre>
-<p>]]] ]]</p>
-</div>
-<div id="section-59" class="section level2">
-<h2><!-- *********** NEW SLIDE ************** --></h2>
-<p>class: center middle hide-slide-number</p>
-<p>.pad1[ .font4[Wrangling Exercise #6]]</p>
-</div>
-<div id="section-60" class="section level2">
-<h2><!-- DONE --></h2>
-<p>class: bg-main1 middle center</p>
-</div>
-<div id="thank-u-next" class="section level2">
-<h2>thank u, next</h2>
-</div>
-</div>
+## # ... with 2 more variables: property_medium &lt;dbl&gt;, property_small &lt;dbl&gt;
+```
+
+]]]
+]]
 
 
 
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
 
-</div>
+class: center middle hide-slide-number
+
+.pad1[
+.font4[Wrangling Exercise #6]
+]
+
+
+&lt;!-- DONE --&gt;
+---
+
+class: bg-main1 middle center
+
+## thank u, next
+    </textarea>
+<script src="libs/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
 
 <script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
 </script>
-
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
 </script>
-
-</body>
+  </body>
 </html>

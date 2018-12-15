@@ -1,0 +1,80 @@
+---
+title: '<div class="jumbotron"><h1 class="title toc-ignore display-3">Resources</h1></div>'
+output:
+  html_document:
+    includes:
+      in_header: header.html
+    theme: flatly
+    highlight: textmate
+    css: mystyle.css
+pagetitle: Resources
+---
+```{r,echo=FALSE}
+rm(list=objects()) # start with a clean workspace
+```
+## Installing R and RStudio
+
+
+[Instructions for Windows](pdfs/installing-r-rstudio-windows.pdf)
+
+
+[Instructions for Mac](pdfs/installing-r-rstudio-mac.pdf)
+
+## Programming in R
+
+Danielle Navarro's <A HREF= "https://compcogscisydney.org/psyr/"> R for Psychological Science</A> is the recommended resource for the summer school. The core toolkit from this resource will be covered in the R bootcamp on December 9 .
+
+## Resources for Day 0 (R boot camp)
+
+We'll use this [csv file](pdfs/toydata.csv) and this [Rdata file](pdfs/toydata.Rdata)
+
+Boot camp slides are at the bottom of [this page](https://djnavarro.github.io/chdss2018/) 
+
+## Resources for Day 1 (Experiments)
+
+Before the session on December 10 you'll need to have Python 2.7 and the Google Cloud SDK installed. Instructions are [here.](pdfs/python-appengine-installation.pdf)
+
+Please also download [this zipfile]( https://drive.google.com/file/d/1uMdM_prLZiF8iZe2NzcQYwrShh1YbCoG/view?usp=sharing) and have it on your laptop before December 10.  The zipfile contains code for the experiment that will be discussed on that day.
+
+Other files for day 1:
+[demonstration.R](pdfs/demonstration.R),
+[temperature.html](pdfs/temperature.html),
+[sampleExpt.html](pdfs/sampleExpt.html),
+[JSON_parser_function.R](pdfs/JSON_parser_function.R)
+
+
+Slides for day 1:
+[slides 1](pdfs/1-replicability-handout.pdf),
+[slides 2](pdfs/2-workflow-and-experiment-design-handout.pdf),
+[slides 3](pdfs/3-coding-experiments-handout.pdf),
+[slides 4](pdfs/4-ethics-hosting-data-handout.pdf)
+
+
+Note: the files provided above do not contain what you need to download the data; we had to modify them slightly to do that. Here is a new [backend.py file]( pdfs/backend.py) and a new [index.html file](pdfs/index.html); both of these are slight modifications of the existing ones so go ahead and copy over the ones we gave you with them. (Then type gcloud init and gcloud app deploy to make sure that the new version in the gloud uses them). As explained in the slides, you can now download data by going to your url and adding on /info at the end. This should automatically download a file called results.csv. (If you want to test this, remember to do the experiment at least one time, otherwise you'll have no data to download!) Once you have the results.csv file, you will need to parse it with the [read.R](pdfs/read.R) script which will turn it into a tidyverse-friendly csv format. Note also that your experiment is still up! If you want to delete it or take it down, that can be done from cloud.google.com. 
+
+## Resources for Day 2 (Data analysis)
+
+Before the session on December 11 you'll need to have git installed on your computer. If you're using Windows you can install [Git for Windows](https://gitforwindows.org/). For Mac users, the easiest (but most wasteful) way to do it is to install Xcode from the App store. But that contains all the developer tools and it's 6Gb in size. Alternatively, it should be possible to install just the command line tools by following [these instructions](http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/) but we haven't tested them ourselves. For all other resources, see the Day 2 homepage:
+
+https://djnavarro.github.io/chdss2018/
+
+## Resources for Day 3 (Models)
+
+Please install [JAGS]( http://mcmc-jags.sourceforge.net/) before December 12.
+Slides, exercises, handout and other resources are in the `day3_probmodels/` subfolder of the  [chdss2018]( https://github.com/cskemp/chdss2018 ) repository.
+
+## Resources for Day 4 (Experience sampling)
+
+[Slides](pdfs/experiencesamplingslides.pdf)
+
+## Recommended practices for computational projects
+
+ <A HREF= "https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf">A guide to reproducible code in ecology and evolution</A> contains a lot of useful advice about folder organization, version control and other topics.
+
+
+
+
+
+
+
+

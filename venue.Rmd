@@ -1,0 +1,28 @@
+---
+title: '<div class="jumbotron"><h1 class="title toc-ignore display-3">Venue</h1></div>'
+output:
+  html_document:
+    includes:
+      in_header: header.html
+    theme: flatly
+    highlight: textmate
+    css: mystyle.css
+pagetitle: venue
+---
+
+```{r,echo=FALSE}
+rm(list=objects()) # start with a clean workspace
+```
+All sessions will be held in rooms 110 and 111 of the Stop 1 building on campus at the University of Melbourne. Directions from the college where many participants are staying are below.
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d3152.646810623326!2d144.96140706534715!3d-37.798316129755115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e2!4m5!1s0x6ad642d452951ae5%3A0x60c803908d0193ac!2sSt+Mary%E2%80%99s+College%2C+871+Swanston+St%2C+Parkville+VIC+3052!3m2!1d-37.796232499999995!2d144.9641679!4m5!1s0x6ad642d374de7735%3A0xc606447c888b14dd!2sStop+1+Parkville%2C+199%2C+757+Swanston+St%2C+Parkville+VIC+3010!3m2!1d-37.800182!2d144.96372!5e0!3m2!1sen!2sau!4v1543203335017" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+
+&nbsp;
+&nbsp;
+
+The dinner reception at 5:30 on December 10 will be in the foyer of the Melbourne School of Design.
+
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6305.381148176299!2d144.95829763129808!3d-37.79729069494329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642d4bb5eaf8b%3A0x462412e51f4a0e76!2sMelbourne+School+of+Design!5e0!3m2!1sen!2sau!4v1543205780465" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+

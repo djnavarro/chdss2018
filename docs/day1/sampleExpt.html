@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <title>Sample Experiment</title>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/jspsych.js"></script>
+    <script src="./js/plugins/jspsych-text.js"></script>
+    <script src="./js/plugins/jspsych-single-stim.js"></script>
+    <script src="./js/plugins/jspsych-survey-multi-choice.js"></script>
+	  <script src="./js/plugins/jspsych-button-response.js"></script>
+    <link href="./js/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+  </head>
+  
+  <body>
+    
+    <!-- Starting screen -->
+	  <div class="start" style="width: 1000px">
+		  <!-- Text box for the splash page -->
+		  <div class="start" style="text-align:left; border:0px solid; padding:10px; width:800px; float:right; font-size:90%">
+			  <p><b>"The Spheres of Sodor"</b> is a short psychological study investigating how people make decisions.</p>
+			  <!-- Next button for the splash page -->
+        <p align="center"> 
+        <input type="button" id="splashButton" class="start jspsych-btn" value="Start!" onclick="splashButtonClick()"> </p>
+		  </div>
+	  </div>
+	  
+	  <!-- Consent form -->
+	  <div class="consent" style="display:none; width:1000px">
+		  <!-- Text box for the splash page -->
+		  <div class="consent" style="text-align:left; border:0px solid; padding:10px;  width:800px; 
+		    font-size:90%; float:right">
+			<p align="center">Consent form page</p>
+			<p align="center">
+			<input type="button" id="consentButton" class="consent jspsych-btn" value="I agree" onclick="startExperiment()" >		        </div>
+      <br><br>
+	  </div>
+    
+  </body>
+  <script>
+  
+   // initialise variables //
+   var timeline=[];
+	 var instruction_check = {
+      type: "survey-multi-choice",
+      preamble: ["<p align='center'><b>Check your knowledge before you begin!</b></p>"],
+      questions: ["<b>Question 1</b>: Does the probe transmit data about any sphere it encounters?"],
+      options: [["Yes","No"]]
+	 }
+    
+    /** USEFUL FUNCTIONS **/
+    
+    // Function when you click on first start button
+    function splashButtonClick() {
+      setDisplay('start', 'none');
+      setDisplay('consent', '');
+    }
+    
+    // Function to change the display property of a set of objects
+      function setDisplay(theClass, theValue) {
+        var i, classElements = document.getElementsByClassName(theClass);
+        for (i = 0; i < classElements.length; i = i + 1) {
+            classElements[i].style.display = theValue;
+        }
+      }
+      
+    // start experiment
+    function startExperiment(){ 
+      setDisplay('consent','none');
+      jsPsych.init({
+        timeline: [instruction_check]
+      })
+    }
+  </script>
+
+</html>

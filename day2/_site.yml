@@ -1,0 +1,24 @@
+name: CHDSS2018
+output_dir: ../docs
+exclude:
+  - "README.*"
+  - header.html
+navbar:
+  title: CHDSS2018
+  left:
+  - text: Program
+    href: program.html
+  - text: Venue
+    href: venue.html
+  - text: Participants
+    href: participants.html
+  - text: Resources
+    href: resources.html
+  - text: CoC
+    href: coc.html
+  - text: FAQ
+    href: faq.html           
+output:
+  html_document:
+    lib_dir: libs
+    self_contained: no

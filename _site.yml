@@ -2,7 +2,8 @@ name: CHDSS2018
 output_dir: docs
 exclude:
   - "README.*"
-  - header.html
+  - "header.html"
+  - "day2"
 navbar:
   title: CHDSS2018
   left:

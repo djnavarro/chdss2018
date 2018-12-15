@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Danielle Navarro" />
+
+<meta name="date" content="2018-12-11" />
+
+<title></title>
+
+<script src="site_libs/jquery/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<script src="site_libs/navigation/tabsets.js"></script>
+<link href="site_libs/highlightjs/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+
+<!-- ###### start inserted header ##### -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115940772-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-115940772-1');
+</script>
+
+<!-- add the twitter card and open graph tags -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@djnavarro">
+<meta property="og:url" content="http://compcogscisydney.org/psyr/">
+<meta property="og:title" content="R for Psychological Science">
+<meta property="og:description" content="An introductory resource">
+<meta property="og:image" content="http://compcogscisydney.org/psyr/img/splash_turtle.png">
+
+<!-- ###### end inserted header ##### -->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="mystyle.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CHDSS2018</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="program.html">Program</a>
+</li>
+<li>
+  <a href="venue.html">Venue</a>
+</li>
+<li>
+  <a href="participants.html">Participants</a>
+</li>
+<li>
+  <a href="resources.html">Resources</a>
+</li>
+<li>
+  <a href="coc.html">CoC</a>
+</li>
+<li>
+  <a href="faq.html">FAQ</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore"><div class="jumbotron">
+<h1 class="title toc-ignore display-3">
+Data wrangling with dplyr
+</h1>
+</div></h1>
+<h4 class="author"><em>Danielle Navarro</em></h4>
+<h4 class="date"><em>11 December 2018</em></h4>
+
+</div>
+
+
+<div id="the-frames-data" class="section level2">
+<h2>The frames data</h2>
+<p>The frames data set comes from a simple experiment I ran a little while ago (it’s experiment two from this paper). What we were interested in was understanding how people use statistical information to guide inductive inferences. For example, suppose you observe a sample of “robins” that have “plaxium blood” (whatever that is). How likely is it that “sparrows” will possess plaxium blood? Or “cows”? Does it matter how many robins you have seen? Does it matter whether you specifically selected robins and they turned out to have plaxium blood (category sampling) as opposed to detecting animals with plaxium blood that then turned out to all be robins (property sampling)? In that paper we had a computational model of inductive reasoning that made specific predictions about how the sample size (number of robins) and sampling method (property or category) would inflence people’s judgments.</p>
+<p>In this particular experiment we didn’t show people animals (though we have done those too!) we just showed them small “alien rocks” called “sodor spheres”, and asked people to make guesses about new rocks of different sizes: test_loc values of 1 and 2 were very similar to the items they were shown during training, whereas value 7 was quite dissimilar. The number of training observations ranged from 2 (sample_size = “small”) to 12 (sample_size = “large”) and was varied within-subject. So everyone saw two observations, made some generalization judgments (response on a scale from 0 to 9), then saw more training observations and so on. Participants were randomly assigned to a “property” sampling condition or to a category sampling one. We also recorded age, gender, and assigned each person a unique id.</p>
+<p>The variable key: - id: the participant id number - gender: male or female - age: numeric, in years - condition: (between subject). category sampling = people were told observations were selected on the basis of their category membership (e.g., because it’s a small bird, or a small rock, or whatever) vs property sampling = people were told observations were selected because of a property they posses (e.g., it has plaxium blood, or a plaxium coating). - sample_size: (within subject) small, medium, large - indicating how many observations they’d been shown at this point in the experiment - n_obs: (within subject). same as “sample_size”, but it’s the actual number (2, 6 or 12) - test_item: (within subject). what stimulus are they now being shown? numeric: 1 to 7. this is ordinal (or really, quasi-interval) where items 1-2 are essentially identical to observations they’d seen before, and 3-7 become progressively less similar (e.g., bigger bird, bigger rock, whatever…) - response: (the outcome, within subject). the rating the person gave (0-9 scale) for “how likely is it that this new stimulus possesses the property (e.g., plaxium blood)?” where 0 = not at all, 9 = certain (or something like that) There’s quite a bit going on in the data since it’s a two within-subject and one between-subject manipulation</p>
+</div>
+<div id="getting-started" class="section level2">
+<h2>1. Getting started</h2>
+<p>Step 1 is making sure you have the packages:</p>
+<pre class="r"><code>library(here)
+library(tidyverse)
+library(janitor)
+library(skimr)</code></pre>
+<p>Step 2 is creating an RMarkdown document that will contain your analyses.</p>
+<p>Step 3 is loading the data.</p>
+<pre class="r"><code>data_location &lt;- here(&quot;analysis&quot;,&quot;data&quot;,&quot;frames_ex2.csv&quot;)
+data_location</code></pre>
+<pre><code>## [1] &quot;/Users/dan/GitHub/chdss2018/analysis/data/frames_ex2.csv&quot;</code></pre>
+<p>Then</p>
+<pre class="r"><code>frames &lt;- read_csv(file = data_location)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   id = col_integer(),
+##   gender = col_character(),
+##   age = col_integer(),
+##   condition = col_character(),
+##   sample_size = col_character(),
+##   n_obs = col_integer(),
+##   test_item = col_integer(),
+##   response = col_integer()
+## )</code></pre>
+<pre class="r"><code>frames</code></pre>
+<pre><code>## # A tibble: 4,725 x 8
+##       id gender   age condition sample_size n_obs test_item response
+##    &lt;int&gt; &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;       &lt;int&gt;     &lt;int&gt;    &lt;int&gt;
+##  1     1 male      36 category  small           2         1        8
+##  2     1 male      36 category  small           2         2        7
+##  3     1 male      36 category  small           2         3        6
+##  4     1 male      36 category  small           2         4        6
+##  5     1 male      36 category  small           2         5        5
+##  6     1 male      36 category  small           2         6        6
+##  7     1 male      36 category  small           2         7        3
+##  8     1 male      36 category  medium          6         1        9
+##  9     1 male      36 category  medium          6         2        7
+## 10     1 male      36 category  medium          6         3        5
+## # ... with 4,715 more rows</code></pre>
+<p>It’s not a bad idea to take a quick <code>glimpse()</code> at the data:</p>
+<pre class="r"><code>glimpse(frames)</code></pre>
+<pre><code>## Observations: 4,725
+## Variables: 8
+## $ id          &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
+## $ gender      &lt;chr&gt; &quot;male&quot;, &quot;male&quot;, &quot;male&quot;, &quot;male&quot;, &quot;male&quot;, &quot;male&quot;, &quot;m...
+## $ age         &lt;int&gt; 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36...
+## $ condition   &lt;chr&gt; &quot;category&quot;, &quot;category&quot;, &quot;category&quot;, &quot;category&quot;, &quot;c...
+## $ sample_size &lt;chr&gt; &quot;small&quot;, &quot;small&quot;, &quot;small&quot;, &quot;small&quot;, &quot;small&quot;, &quot;smal...
+## $ n_obs       &lt;int&gt; 2, 2, 2, 2, 2, 2, 2, 6, 6, 6, 6, 6, 6, 6, 12, 12, ...
+## $ test_item   &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3,...
+## $ response    &lt;int&gt; 8, 7, 6, 6, 5, 6, 3, 9, 7, 5, 6, 4, 4, 2, 8, 7, 6,...</code></pre>
+<p>I’m also a fan of the <code>skim()</code> function for getting descriptive statistics quickly:</p>
+<pre class="r"><code>skim(frames)</code></pre>
+<pre><code>## Skim summary statistics
+##  n obs: 4725 
+##  n variables: 8 
+## 
+## ── Variable type:character ────────────────────────────────────────────────────────────────────────────────────
+##     variable missing complete    n min max empty n_unique
+##    condition       0     4725 4725   8   8     0        2
+##       gender       0     4725 4725   4   6     0        2
+##  sample_size       0     4725 4725   5   6     0        3
+## 
+## ── Variable type:integer ──────────────────────────────────────────────────────────────────────────────────────
+##   variable missing complete    n   mean    sd p0 p25 p50 p75 p100     hist
+##        age       0     4725 4725  34.92 11.63 20  27  32  40   84 ▇▇▃▂▁▁▁▁
+##         id       0     4725 4725 113    64.96  1  57 113 169  225 ▇▇▇▇▇▇▇▇
+##      n_obs       0     4725 4725   6.67  4.11  2   2   6  12   12 ▇▁▁▇▁▁▁▇
+##   response       0     4725 4725   4.9   3.04  0   2   5   8    9 ▆▂▂▃▂▂▃▇
+##  test_item       0     4725 4725   4     2     1   2   4   6    7 ▇▇▇▇▁▇▇▇</code></pre>
+<p>(Side note: the histograms in skim are text-based and rely on unicode characters. In some cases Windows does weird things and doesn’t display them - we’ll talk about data vis later)s</p>
+<p>practical notes</p>
+<ul>
+<li>irl you’d hae to do a lot of ugly data cleaning to get to this point</li>
+<li>Mention that data vis is a later section</li>
+</ul>
+</div>
+<div id="basic-operations-with-dplyr" class="section level2">
+<h2>2. Basic operations with dplyr</h2>
+<div id="pipes" class="section level3">
+<h3>Pipes</h3>
+<p>Data wrangling in R used to be hard. Ever since the <code>tidyverse</code> family of packages appeared in a stable form, it’s become easy. However, it requires you to have a bit of a shift in mindset:</p>
+<pre class="r"><code>frames %&gt;% skim(.)</code></pre>
+<p>The key idea behind <code>%&gt;%</code> is a bit of “magic”, in which the command is reorganised so that the “thing” on the left (i.e., <code>frames</code>) gets inserted into the expression on the right, replacing the <code>.</code>). So when you type the command above, it gets reorganised into this…</p>
+<pre class="r"><code>skim(frames)</code></pre>
+<p>… and then this reorganised command is evaluated. Why is that useful? Well, imagine we have a series of operations we want to do, where the output of the first operation is fed (or “piped”) in as the input to the second, and so on. In piped code, it looks like this:</p>
+<pre class="r"><code>output &lt;- frames %&gt;% 
+  do_thing1(.) %&gt;%
+  do_thing2(.) %&gt;%
+  do_thing3(.) %&gt;%
+  do_thing4(.)</code></pre>
+<p>In traditional code, it would look like this:</p>
+<pre class="r"><code>output &lt;- do_thing4(
+  do_thing3(
+    do_thing2(
+      do_thing1(
+        frames
+      )
+    )
+  )
+)</code></pre>
+<p>which forces you to start reading in the middle and then upwards. It’s pretty uncomfortable to read as it is, and it gets <em>much</em> worse when each of your <code>do_thing</code> functions has additional arguments. So in practice we would write it like this,</p>
+<pre class="r"><code>a &lt;- do_thing1(frames)
+b &lt;- do_thing2(a)
+c &lt;- do_thing3(b)
+output &lt;- do_thing4(c)</code></pre>
+<p>which is a little nicer, but the <code>a</code>, <code>b</code> and <code>c</code> values are just dummy variables that we don’t actually want, so then you have to get rid of them. Piped code makes it much more readable, so from now on we’ll tend to work with pipes.</p>
+</div>
+<div id="group-summarise" class="section level3">
+<h3>Group, summarise</h3>
+<p>Averaging across subjects.</p>
+<pre class="r"><code>average_response &lt;- frames %&gt;%
+  group_by(test_item, sample_size, n_obs, condition) %&gt;%
+  summarise(response = mean(response))</code></pre>
+<p>Now let’s look</p>
+<pre class="r"><code>average_response</code></pre>
+<pre><code>## # A tibble: 42 x 5
+## # Groups:   test_item, sample_size, n_obs [?]
+##    test_item sample_size n_obs condition response
+##        &lt;int&gt; &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;
+##  1         1 large          12 category      7.60
+##  2         1 large          12 property      7.16
+##  3         1 medium          6 category      7.32
+##  4         1 medium          6 property      6.66
+##  5         1 small           2 category      6.07
+##  6         1 small           2 property      5.78
+##  7         2 large          12 category      7.51
+##  8         2 large          12 property      7.20
+##  9         2 medium          6 category      7.17
+## 10         2 medium          6 property      6.95
+## # ... with 32 more rows</code></pre>
+<p>What statistics can we calculate besides the mean?</p>
+<pre class="r"><code>frames %&gt;% 
+  group_by(test_item) %&gt;%
+  summarise(
+    mean_resp = mean(response),
+    sd_resp = sd(response),
+    count = n()
+  )</code></pre>
+<pre><code>## # A tibble: 7 x 4
+##   test_item mean_resp sd_resp count
+##       &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+## 1         1      6.77    2.56   675
+## 2         2      6.88    2.10   675
+## 3         3      5.71    2.41   675
+## 4         4      4.48    2.68   675
+## 5         5      3.76    2.81   675
+## 6         6      3.43    2.99   675
+## 7         7      3.26    3.11   675</code></pre>
+<ul>
+<li>There are a variety of shortcut functions in <code>dplyr</code> (e.g., <code>tally()</code> and <code>count()</code> make it a bit less tedious to construct frequency tables)</li>
+<li>If you ever need to extract a single variable (e.g., the way you would with the <code>$</code> operator, you can use the <code>pull()</code> function)</li>
+</ul>
+</div>
+</div>
+<div id="arrange-filter-select-mutate" class="section level2">
+<h2>Arrange, filter, select, mutate</h2>
+<p>What if we want to include only some cases (e.g., the small sample size)? The <code>filter()</code> command:</p>
+<pre class="r"><code>average_response %&gt;%
+  filter(sample_size == &quot;small&quot;)</code></pre>
+<pre><code>## # A tibble: 14 x 5
+## # Groups:   test_item, sample_size, n_obs [7]
+##    test_item sample_size n_obs condition response
+##        &lt;int&gt; &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;
+##  1         1 small           2 category      6.07
+##  2         1 small           2 property      5.78
+##  3         2 small           2 category      6.26
+##  4         2 small           2 property      6.21
+##  5         3 small           2 category      5.87
+##  6         3 small           2 property      5.24
+##  7         4 small           2 category      5.11
+##  8         4 small           2 property      4.68
+##  9         5 small           2 category      4.55
+## 10         5 small           2 property      3.99
+## 11         6 small           2 category      4.16
+## 12         6 small           2 property      3.68
+## 13         7 small           2 category      3.98
+## 14         7 small           2 property      3.67</code></pre>
+<p>Hm, this is nice, but I’d prefer to have it sorted by condition rather than by test item. The <code>arrange()</code> function will do that:</p>
+<pre class="r"><code>average_response %&gt;%
+  filter(sample_size == &quot;small&quot;) %&gt;%
+  arrange(condition)</code></pre>
+<pre><code>## # A tibble: 14 x 5
+## # Groups:   test_item, sample_size, n_obs [7]
+##    test_item sample_size n_obs condition response
+##        &lt;int&gt; &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;
+##  1         1 small           2 category      6.07
+##  2         2 small           2 category      6.26
+##  3         3 small           2 category      5.87
+##  4         4 small           2 category      5.11
+##  5         5 small           2 category      4.55
+##  6         6 small           2 category      4.16
+##  7         7 small           2 category      3.98
+##  8         1 small           2 property      5.78
+##  9         2 small           2 property      6.21
+## 10         3 small           2 property      5.24
+## 11         4 small           2 property      4.68
+## 12         5 small           2 property      3.99
+## 13         6 small           2 property      3.68
+## 14         7 small           2 property      3.67</code></pre>
+<p>Okay, but do we really need the sample size variables? Maybe I only want to <code>select()</code> the other three variables:</p>
+<pre class="r"><code>average_response %&gt;%
+  filter(sample_size == &quot;small&quot;) %&gt;%
+  arrange(condition) %&gt;%
+  select(test_item, condition, response)</code></pre>
+<pre><code>## Adding missing grouping variables: `sample_size`, `n_obs`</code></pre>
+<pre><code>## # A tibble: 14 x 5
+## # Groups:   test_item, sample_size, n_obs [7]
+##    sample_size n_obs test_item condition response
+##    &lt;chr&gt;       &lt;int&gt;     &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;
+##  1 small           2         1 category      6.07
+##  2 small           2         2 category      6.26
+##  3 small           2         3 category      5.87
+##  4 small           2         4 category      5.11
+##  5 small           2         5 category      4.55
+##  6 small           2         6 category      4.16
+##  7 small           2         7 category      3.98
+##  8 small           2         1 property      5.78
+##  9 small           2         2 property      6.21
+## 10 small           2         3 property      5.24
+## 11 small           2         4 property      4.68
+## 12 small           2         5 property      3.99
+## 13 small           2         6 property      3.68
+## 14 small           2         7 property      3.67</code></pre>
+<p>Wait why doesn’t that work? The <code>dplyr</code> package is pretty picky about grouping variables, and won’t let you drop them! Remember, to construct the <code>average_response</code> data set, we grouped the original <code>frames</code> data, and when we used <code>group_by()</code> to do this, R has retained some information about this grouping (hidden in an invisible attribute). So if you do want to get rid of this, you’ll need to <code>ungroup()</code> before you <code>select()</code>. So now this version does what we’re expecting:</p>
+<pre class="r"><code>average_response %&gt;%
+  filter(sample_size == &quot;small&quot;) %&gt;%
+  arrange(condition) %&gt;%
+  ungroup() %&gt;%
+  select(test_item, condition, response)</code></pre>
+<pre><code>## # A tibble: 14 x 3
+##    test_item condition response
+##        &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;
+##  1         1 category      6.07
+##  2         2 category      6.26
+##  3         3 category      5.87
+##  4         4 category      5.11
+##  5         5 category      4.55
+##  6         6 category      4.16
+##  7         7 category      3.98
+##  8         1 property      5.78
+##  9         2 property      6.21
+## 10         3 property      5.24
+## 11         4 property      4.68
+## 12         5 property      3.99
+## 13         6 property      3.68
+## 14         7 property      3.67</code></pre>
+<p>At this point, our “chain” of piped operations is getting quite long, and maybe we’d like to save the output to a new variable!</p>
+<pre class="r"><code>average_response_small &lt;- average_response %&gt;%
+  filter(sample_size == &quot;small&quot;) %&gt;%
+  arrange(condition) %&gt;%
+  ungroup() %&gt;%
+  select(test_item, condition, response)</code></pre>
+<p>The response data are on a 0 to 9 scale, but maybe it makes more sense to rescale so it to a “generalisation” value that ranges from 0 to 1. That’s a simple transformation (divide by 9), but how do we create a new variable inside the data frame? Enter <code>mutate()</code></p>
+<pre class="r"><code>average_response_small &lt;- average_response_small %&gt;%
+  mutate(generalisation = response/9)</code></pre>
+<p>Now:</p>
+<pre class="r"><code>average_response_small</code></pre>
+<pre><code>## # A tibble: 14 x 4
+##    test_item condition response generalisation
+##        &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;          &lt;dbl&gt;
+##  1         1 category      6.07          0.674
+##  2         2 category      6.26          0.696
+##  3         3 category      5.87          0.652
+##  4         4 category      5.11          0.568
+##  5         5 category      4.55          0.506
+##  6         6 category      4.16          0.462
+##  7         7 category      3.98          0.442
+##  8         1 property      5.78          0.643
+##  9         2 property      6.21          0.690
+## 10         3 property      5.24          0.583
+## 11         4 property      4.68          0.521
+## 12         5 property      3.99          0.443
+## 13         6 property      3.68          0.409
+## 14         7 property      3.67          0.407</code></pre>
+</div>
+<div id="gather-and-spread" class="section level2">
+<h2>Gather and spread</h2>
+<p>What if we want to have the two conditions as separate variables?</p>
+<pre class="r"><code>average_response_small %&gt;%
+  spread(key = condition, value = generalisation)</code></pre>
+<pre><code>## # A tibble: 14 x 4
+##    test_item response category property
+##        &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1         1     5.78   NA        0.643
+##  2         1     6.07    0.674   NA    
+##  3         2     6.21   NA        0.690
+##  4         2     6.26    0.696   NA    
+##  5         3     5.24   NA        0.583
+##  6         3     5.87    0.652   NA    
+##  7         4     4.68   NA        0.521
+##  8         4     5.11    0.568   NA    
+##  9         5     3.99   NA        0.443
+## 10         5     4.55    0.506   NA    
+## 11         6     3.68   NA        0.409
+## 12         6     4.16    0.462   NA    
+## 13         7     3.67   NA        0.407
+## 14         7     3.98    0.442   NA</code></pre>
+<p>Why did that not work? Remember we still have <code>response</code> in the data, and there’s a unique value of response for everything. Gr. Okay, so let’s select out that one before spreading…</p>
+<pre class="r"><code>wide_avrs &lt;- average_response_small %&gt;%
+  select(-response) %&gt;%
+  spread(key = condition, value = generalisation)
+
+wide_avrs</code></pre>
+<pre><code>## # A tibble: 7 x 3
+##   test_item category property
+##       &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1         1    0.674    0.643
+## 2         2    0.696    0.690
+## 3         3    0.652    0.583
+## 4         4    0.568    0.521
+## 5         5    0.506    0.443
+## 6         6    0.462    0.409
+## 7         7    0.442    0.407</code></pre>
+<p>Want to <code>gather()</code> it back into long form?</p>
+<pre class="r"><code>wide_avrs %&gt;% gather(key = &quot;condition&quot;, value = &quot;generalisation&quot;, category, property)</code></pre>
+<pre><code>## # A tibble: 14 x 3
+##    test_item condition generalisation
+##        &lt;int&gt; &lt;chr&gt;              &lt;dbl&gt;
+##  1         1 category           0.674
+##  2         2 category           0.696
+##  3         3 category           0.652
+##  4         4 category           0.568
+##  5         5 category           0.506
+##  6         6 category           0.462
+##  7         7 category           0.442
+##  8         1 property           0.643
+##  9         2 property           0.690
+## 10         3 property           0.583
+## 11         4 property           0.521
+## 12         5 property           0.443
+## 13         6 property           0.409
+## 14         7 property           0.407</code></pre>
+<p>Exercise. Try spreading and gathering by test item rather than condition</p>
+</div>
+<div id="getting-fancier" class="section level2">
+<h2>Getting fancier</h2>
+<pre class="r"><code>frames %&gt;% 
+  group_by(test_item, sample_size, condition) %&gt;%
+  summarise(response = mean(response)) %&gt;%
+  spread(key = sample_size, value = response)</code></pre>
+<pre><code>## # A tibble: 14 x 5
+## # Groups:   test_item [7]
+##    test_item condition large medium small
+##        &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+##  1         1 category   7.60   7.32  6.07
+##  2         1 property   7.16   6.66  5.78
+##  3         2 category   7.51   7.17  6.26
+##  4         2 property   7.20   6.95  6.21
+##  5         3 category   6.39   5.98  5.87
+##  6         3 property   5.23   5.49  5.24
+##  7         4 category   5.39   4.97  5.11
+##  8         4 property   3.07   3.56  4.68
+##  9         5 category   4.72   4.22  4.55
+## 10         5 property   2.26   2.75  3.99
+## 11         6 category   4.43   3.85  4.16
+## 12         6 property   1.91   2.50  3.68
+## 13         7 category   4.18   3.61  3.98
+## 14         7 property   1.90   2.19  3.67</code></pre>
+<p>Hm, those are ordered wrong. Why? Well, they’re alphabetical.</p>
+<pre class="r"><code>frames %&gt;% 
+  group_by(test_item, sample_size, condition) %&gt;%
+  summarise(response = mean(response)) %&gt;%
+  ungroup() %&gt;%
+  mutate(
+    sample_size = sample_size %&gt;%
+      as_factor() %&gt;%
+      fct_relevel(&quot;small&quot;,&quot;medium&quot;,&quot;large&quot;)
+  ) %&gt;%
+  spread(key = sample_size, value = response)</code></pre>
+<pre><code>## # A tibble: 14 x 5
+##    test_item condition small medium large
+##        &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+##  1         1 category   6.07   7.32  7.60
+##  2         1 property   5.78   6.66  7.16
+##  3         2 category   6.26   7.17  7.51
+##  4         2 property   6.21   6.95  7.20
+##  5         3 category   5.87   5.98  6.39
+##  6         3 property   5.24   5.49  5.23
+##  7         4 category   5.11   4.97  5.39
+##  8         4 property   4.68   3.56  3.07
+##  9         5 category   4.55   4.22  4.72
+## 10         5 property   3.99   2.75  2.26
+## 11         6 category   4.16   3.85  4.43
+## 12         6 property   3.68   2.50  1.91
+## 13         7 category   3.98   3.61  4.18
+## 14         7 property   3.67   2.19  1.90</code></pre>
+<p>What if we want to spread by two variables at once!!!</p>
+<pre class="r"><code>new_data &lt;- frames %&gt;% 
+  group_by(test_item, sample_size, condition) %&gt;%
+  summarise(response = mean(response)) %&gt;%
+  unite(col = &quot;cond_ss&quot;, condition, sample_size) </code></pre>
+<p>… then you would <code>spread()</code> using <code>cond_ss</code> as the <code>key</code>.</p>
+<p>Which brings us to a question. What if you get a data set where you have a variable like <code>cond_ss</code> that needs to be separated into two? Well…</p>
+<pre class="r"><code>new_data %&gt;% separate(col = cond_ss, into = c(&quot;condition&quot;, &quot;sample_size&quot;))</code></pre>
+<pre><code>## # A tibble: 42 x 4
+## # Groups:   test_item [7]
+##    test_item condition sample_size response
+##        &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;
+##  1         1 category  large           7.60
+##  2         1 property  large           7.16
+##  3         1 category  medium          7.32
+##  4         1 property  medium          6.66
+##  5         1 category  small           6.07
+##  6         1 property  small           5.78
+##  7         2 category  large           7.51
+##  8         2 property  large           7.20
+##  9         2 category  medium          7.17
+## 10         2 property  medium          6.95
+## # ... with 32 more rows</code></pre>
+</div>
+<div id="other-notes" class="section level2">
+<h2>Other notes?</h2>
+<ul>
+<li>The data that we were given has nice variable names. No spaces, no fancy characters, etc. It’s a pain to rename variables one at a time. Check out the <code>janitor</code> package (and the <code>clean_names()</code> function specifically)</li>
+<li>If you need to do text manipulation, the <code>stringr</code> package is your friend</li>
+<li>If you need to parse dates (pray you don’t because they suck), the <code>lubridate</code> package is the least painful way known</li>
+<li>Later on, if you find yourself writing lots of loops in your R code an they’re running really slowly, the <code>purrr</code> package will be your friend, but it’s not easy to learn so give it a bit of time.</li>
+<li>Say something about merging data with the various join functions!</li>
+<li>The RYouWithMe series on the RLadies-Sydney website covers similar territory to this (with different data) and has nice screencasts</li>
+<li>Add links to relevant sections in PSYR.</li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

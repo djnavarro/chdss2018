@@ -1,5 +1,5 @@
 name: CHDSS2018
-output_dir: ../docs
+output_dir: ../docs/day2
 exclude:
   - "README.*"
   - header.html

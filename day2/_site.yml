@@ -1,5 +1,5 @@
 name: CHDSS2018
-output_dir: ../docs/day2
+output_dir: _site
 exclude:
   - "README.*"
   - header.html
@@ -7,17 +7,17 @@ navbar:
   title: CHDSS2018
   left:
   - text: Program
-    href: program.html
+    href: ../program.html
   - text: Venue
-    href: venue.html
+    href: ../venue.html
   - text: Participants
-    href: participants.html
+    href: ../participants.html
   - text: Resources
-    href: resources.html
+    href: ../resources.html
   - text: CoC
-    href: coc.html
+    href: ../coc.html
   - text: FAQ
-    href: faq.html           
+    href: ../faq.html           
 output:
   html_document:
     lib_dir: libs

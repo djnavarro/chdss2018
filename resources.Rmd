@@ -15,42 +15,40 @@ rm(list=objects()) # start with a clean workspace
 ## Installing R and RStudio
 
 
-[Instructions for Windows](pdfs/installing-r-rstudio-windows.pdf)
-
-
-[Instructions for Mac](pdfs/installing-r-rstudio-mac.pdf)
+- [Instructions for Windows](day0/installing-r-rstudio-windows.pdf)
+- [Instructions for Mac](day0/installing-r-rstudio-mac.pdf)
 
 ## Programming in R
 
-Danielle Navarro's <A HREF= "https://compcogscisydney.org/psyr/"> R for Psychological Science</A> is the recommended resource for the summer school. The core toolkit from this resource will be covered in the R bootcamp on December 9 .
+Danielle Navarro's <a href="https://compcogscisydney.org/psyr/">R for Psychological Science</a> is the recommended resource for the summer school. The core toolkit from this resource will be covered in the R bootcamp on December 9.
 
 ## Resources for Day 0 (R boot camp)
 
-We'll use this [csv file](pdfs/toydata.csv) and this [Rdata file](pdfs/toydata.Rdata)
+- We'll use this [csv file](day0/toydata.csv) and this [Rdata file](day0/toydata.Rdata)
+- Slides in PDF form: [part 1](day0/introtoR1-handout.pdf), [part 2](day0/introtoR2-handout.pdf), [part 3](day0/introtoR3-handout.pdf)
+- Slides as Keynote presentations: [part 1](day0/introtoR1-handout.key), [part 2](day0/introtoR2-handout.key), [part 3](day0/introtoR3-handout.key)
 
-Boot camp slides are at the bottom of [this page](https://djnavarro.github.io/chdss2018/) 
 
 ## Resources for Day 1 (Experiments)
 
-Before the session on December 10 you'll need to have Python 2.7 and the Google Cloud SDK installed. Instructions are [here.](pdfs/python-appengine-installation.pdf)
-
-Please also download [this zipfile]( https://drive.google.com/file/d/1uMdM_prLZiF8iZe2NzcQYwrShh1YbCoG/view?usp=sharing) and have it on your laptop before December 10.  The zipfile contains code for the experiment that will be discussed on that day.
+- Before the session on December 10 you'll need to have Python 2.7 and the Google Cloud SDK installed. Instructions are [here](day1/python-appengine-installation.pdf)
+- Please also download [this zipfile]( https://drive.google.com/file/d/1uMdM_prLZiF8iZe2NzcQYwrShh1YbCoG/view?usp=sharing) and have it on your laptop before December 10.  The zipfile contains code for the experiment that will be discussed on that day.
 
 Other files for day 1:
-[demonstration.R](pdfs/demonstration.R),
-[temperature.html](pdfs/temperature.html),
-[sampleExpt.html](pdfs/sampleExpt.html),
-[JSON_parser_function.R](pdfs/JSON_parser_function.R)
+
+- [demonstration.R](day1/demonstration.R),
+- [temperature.html](day1/temperature.html),
+- [sampleExpt.html](day1/sampleExpt.html),
+- [JSON_parser_function.R](day1/JSON_parser_function.R)
 
 
 Slides for day 1:
-[slides 1](pdfs/1-replicability-handout.pdf),
-[slides 2](pdfs/2-workflow-and-experiment-design-handout.pdf),
-[slides 3](pdfs/3-coding-experiments-handout.pdf),
-[slides 4](pdfs/4-ethics-hosting-data-handout.pdf)
+[slides 1](day1/1-replicability-handout.pdf),
+[slides 2](day1/2-workflow-and-experiment-design-handout.pdf),
+[slides 3](day1/3-coding-experiments-handout.pdf),
+[slides 4](day1/4-ethics-hosting-data-handout.pdf)
 
-
-Note: the files provided above do not contain what you need to download the data; we had to modify them slightly to do that. Here is a new [backend.py file]( pdfs/backend.py) and a new [index.html file](pdfs/index.html); both of these are slight modifications of the existing ones so go ahead and copy over the ones we gave you with them. (Then type gcloud init and gcloud app deploy to make sure that the new version in the gloud uses them). As explained in the slides, you can now download data by going to your url and adding on /info at the end. This should automatically download a file called results.csv. (If you want to test this, remember to do the experiment at least one time, otherwise you'll have no data to download!) Once you have the results.csv file, you will need to parse it with the [read.R](pdfs/read.R) script which will turn it into a tidyverse-friendly csv format. Note also that your experiment is still up! If you want to delete it or take it down, that can be done from cloud.google.com. 
+Note: the files provided above do not contain what you need to download the data; we had to modify them slightly to do that. Here is a new [backend.py file](day1/backend.py) and a new [index.html file](day1/index.html); both of these are slight modifications of the existing ones so go ahead and copy over the ones we gave you with them. (Then type gcloud init and gcloud app deploy to make sure that the new version in the gloud uses them). As explained in the slides, you can now download data by going to your url and adding on /info at the end. This should automatically download a file called results.csv. (If you want to test this, remember to do the experiment at least one time, otherwise you'll have no data to download!) Once you have the results.csv file, you will need to parse it with the [read.R](day1/read.R) script which will turn it into a tidyverse-friendly csv format. Note also that your experiment is still up! If you want to delete it or take it down, that can be done from cloud.google.com. 
 
 ## Resources for Day 2 (Data analysis)
 
@@ -58,17 +56,17 @@ The goal in Day 2 is to cover topics relevant to data analysis with R. The cover
 
 Within each content section, there is a written tutorial linked to below and as well as the HTML slides that I'll be presenting from. Eventually the intention is to have the tutorials go into more detail on topics, but at the moment they're a bit hit and miss!
 
-- Brief introduction: [intro-slides.html](intro-slides.html)
-- Working with git and GitHub: [git.html](git.html), [git-slides.html](git-slides.html)
-- Working with R markdown and R projects: [projects.html](projects.html), [projects-slides.html](projects-slides.html)
-- Data wrangling in tidyverse: [wrangling.html](wrangling.html), [wrangling-slides.html](wrangling-slides.html)
-- Data visualisation in tidyverse: [visualisation.html](visualisation.html), [visualisation-slides.html](visualisation-slides.html)
-- Statistical modelling in R: [statistics.html](statistics.html), [statistics-slides.html](statistics-slides.html)
+- Brief introduction: [intro-slides.html](day2/intro-slides.html)
+- Working with git and GitHub: [git.html](day2/git.html), [git-slides.html](day2/git-slides.html)
+- Working with R markdown and R projects: [projects.html](day2/projects.html), [projects-slides.html](day2/projects-slides.html)
+- Data wrangling in tidyverse: [wrangling.html](day2/wrangling.html), [wrangling-slides.html](day2/wrangling-slides.html)
+- Data visualisation in tidyverse: [visualisation.html](day2/visualisation.html), [visualisation-slides.html](day2/visualisation-slides.html)
+- Statistical modelling in R: [statistics.html](day2/statistics.html), [statistics-slides.html](day2/statistics-slides.html)
 
 The interactive components to each section:
 
 - For the git and projects sections, the goal will be to create your own repository and initialise an RStudio project within it. The repository that I created is the [summerschool](https://github.com/djnavarro/summerschool) repo.
-- For the data wrangling section, there is a structured sequence of six exercises that you can work through in parallel with the session (the slides have explicit break points). Each exercise is an R Markdown file that you'll need to make changes to. You can download zip files with all [exercises](wrangling-exercises.zip) and [solutions](wrangling-solutions.zip). In addition to the [frames](analysis/data/frames_ex2.csv) data the exercises use the [tidy_users](analysis/data/tidy_users.csv) data and the [tidy_nails](analysis/data/tidy_nails.csv) data. 
+- For the data wrangling section, there is a structured sequence of six exercises that you can work through in parallel with the session (the slides have explicit break points). Each exercise is an R Markdown file that you'll need to make changes to. You can download zip files with all [exercises](day2/wrangling-exercises.zip) and [solutions](day2/wrangling-solutions.zip). In addition to the [frames](analysis/data/frames_ex2.csv) data the exercises use the [tidy_users](analysis/data/tidy_users.csv) data and the [tidy_nails](analysis/data/tidy_nails.csv) data. 
 - For the data visualisation, the DIY section is entirely freeform. The way this session will run is that I'll give a very brief lecture on the grammar of graphics package, and then you should feel free to explore ggplot to your hearts content!
 - For the statistical modelling section... oh, let's be honest. By this point in the day we'll all need a break so it's probably easiest to do this one lecture style!
 
@@ -76,16 +74,16 @@ The interactive components to each section:
 
 ## Resources for Day 3 (Models)
 
-Please install [JAGS]( http://mcmc-jags.sourceforge.net/) before December 12.
-Slides, exercises, handout and other resources are in the `day3_probmodels/` subfolder of the  [chdss2018]( https://github.com/cskemp/chdss2018 ) repository.
+- Please install [JAGS]( http://mcmc-jags.sourceforge.net/) before December 12.
+- Resources can be douwnloaded from [this zip file](day3/day3.zip)
 
 ## Resources for Day 4 (Experience sampling)
 
-[Slides](pdfs/experiencesamplingslides.pdf)
+- [Slides](day4/experiencesamplingslides.pdf)
 
 ## Recommended practices for computational projects
 
- <A HREF= "https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf">A guide to reproducible code in ecology and evolution</A> contains a lot of useful advice about folder organization, version control and other topics.
+ <a href="https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf">A guide to reproducible code in ecology and evolution</a> contains a lot of useful advice about folder organization, version control and other topics.
 
 ## An aside 
 

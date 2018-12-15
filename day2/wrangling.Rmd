@@ -1,5 +1,5 @@
 ---
-title: '<div class="jumbotron"><h1 class="title toc-ignore display-3">Data wrangling with dplyr</h1></div>'
+title: '<div class="jumbotron"><h1 class="title toc-ignore display-3">Day 2: Data wrangling with dplyr</h1></div>'
 author: "Danielle Navarro"
 date: "11 December 2018"
 output:

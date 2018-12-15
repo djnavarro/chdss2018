@@ -12,47 +12,58 @@ pagetitle: Resources
 ```{r,echo=FALSE}
 rm(list=objects()) # start with a clean workspace
 ```
-## Installing R and RStudio
+
+## {.tabset}
 
 
-- [Instructions for Windows](day0/installing-r-rstudio-windows.pdf)
-- [Instructions for Mac](day0/installing-r-rstudio-mac.pdf)
+### Day 0
 
-## Programming in R
+<br>
 
-Danielle Navarro's <a href="https://compcogscisydney.org/psyr/">R for Psychological Science</a> is the recommended resource for the summer school. The core toolkit from this resource will be covered in the R bootcamp on December 9.
+#### Content: R Bootcamp
+#### Instructors: Amy Perfors & Danielle Navarro
 
-## Resources for Day 0 (R boot camp)
+<br>
 
-- We'll use this [csv file](day0/toydata.csv) and this [Rdata file](day0/toydata.Rdata)
+The goal in Day 0 is to provide an "R Bootcamp", which provides a basic introduction to programming in R. The content of the bootcamp covers the *core toolkit* section of Danielle Navarro's 
+<a href="https://compcogscisydney.org/psyr/">R for Psychological Science</a>. Other resources for the day:
+
+- **Before the session**. Installing R and RStudio on [Windows](day0/installing-r-rstudio-windows.pdf) or [Mac](day0/installing-r-rstudio-mac.pdf)
+- We'll use the [toydata.csv](day0/toydata.csv) and [toydata.Rdata](day0/toydata.Rdata) files.
 - Slides in PDF form: [part 1](day0/introtoR1-handout.pdf), [part 2](day0/introtoR2-handout.pdf), [part 3](day0/introtoR3-handout.pdf)
 - Slides as Keynote presentations: [part 1](day0/introtoR1-handout.key), [part 2](day0/introtoR2-handout.key), [part 3](day0/introtoR3-handout.key)
 
 
-## Resources for Day 1 (Experiments)
+### Day 1
 
-- Before the session on December 10 you'll need to have Python 2.7 and the Google Cloud SDK installed. Instructions are [here](day1/python-appengine-installation.pdf)
-- Please also download [this zipfile]( https://drive.google.com/file/d/1uMdM_prLZiF8iZe2NzcQYwrShh1YbCoG/view?usp=sharing) and have it on your laptop before December 10.  The zipfile contains code for the experiment that will be discussed on that day.
+<br>
 
-Other files for day 1:
+#### Content: Online Experiments
+#### Instructor: Amy Perfors
 
-- [demonstration.R](day1/demonstration.R),
-- [temperature.html](day1/temperature.html),
-- [sampleExpt.html](day1/sampleExpt.html),
-- [JSON_parser_function.R](day1/JSON_parser_function.R)
+<br>
 
+The content in Day 1 provides a discussion of the replication crisis in psychology, and an overview of replication, powering studies and the use of pre-registration. It also discusses workflow and file organisation. The technical side covers how to code online experiments (using javascript, and the jsPsych library in particular), hosting the experiment as a web application using Google App Engine, and downloading data from the web application
 
-Slides for day 1:
-[slides 1](day1/1-replicability-handout.pdf),
-[slides 2](day1/2-workflow-and-experiment-design-handout.pdf),
-[slides 3](day1/3-coding-experiments-handout.pdf),
+- **Before the session**. Install Python 2.7 and the Google Cloud SDK. Instructions are [here](day1/python-appengine-installation.pdf). Please also download [this zipfile]( https://drive.google.com/file/d/1uMdM_prLZiF8iZe2NzcQYwrShh1YbCoG/view?usp=sharing) which contains code for the experiment that will be discussed on that day.
+- Scripts etc: [demonstration.R](day1/demonstration.R), [temperature.html](day1/temperature.html), [sampleExpt.html](day1/sampleExpt.html), [JSON_parser_function.R](day1/JSON_parser_function.R)
+- Slides: [slides 1](day1/1-replicability-handout.pdf), [slides 2](day1/2-workflow-and-experiment-design-handout.pdf), [slides 3](day1/3-coding-experiments-handout.pdf),
 [slides 4](day1/4-ethics-hosting-data-handout.pdf)
+- <a href="https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf">A guide to reproducible code in ecology and evolution</a> contains a lot of useful advice about folder organization, version control and other topics.
 
 Note: the files provided above do not contain what you need to download the data; we had to modify them slightly to do that. Here is a new [backend.py file](day1/backend.py) and a new [index.html file](day1/index.html); both of these are slight modifications of the existing ones so go ahead and copy over the ones we gave you with them. (Then type gcloud init and gcloud app deploy to make sure that the new version in the gloud uses them). As explained in the slides, you can now download data by going to your url and adding on /info at the end. This should automatically download a file called results.csv. (If you want to test this, remember to do the experiment at least one time, otherwise you'll have no data to download!) Once you have the results.csv file, you will need to parse it with the [read.R](day1/read.R) script which will turn it into a tidyverse-friendly csv format. Note also that your experiment is still up! If you want to delete it or take it down, that can be done from cloud.google.com. 
 
-## Resources for Day 2 (Data analysis)
 
-The goal in Day 2 is to cover topics relevant to data analysis with R. The coverage is somewhat eclectic: there are sections that discuss tools that will help you with your workflow (e.g., git, R Markdown, etc), sections that discuss how to manipulate and visualise data (e.g., tidyverse), and a section that discusses statistical modelling in R (e.g., linear models, mixed models). Given the breadth of coverage, we won't go into much detail on any topic. You should think of each section as an initial introduction to something that is itself a much larger topic.
+### Day 2
+
+<br>
+
+#### Content: Data analysis in R
+#### Instructor: Danielle Navarro
+
+<br>
+
+The goal in Day 2 is to cover topics relevant to **data analysis with R**. The coverage is somewhat eclectic: there are sections that discuss tools that will help you with your workflow (e.g., git, R Markdown, etc), sections that discuss how to manipulate and visualise data (e.g., tidyverse), and a section that discusses statistical modelling in R (e.g., linear models, mixed models). Given the breadth of coverage, we won't go into much detail on any topic. You should think of each section as an initial introduction to something that is itself a much larger topic.
 
 Within each content section, there is a written tutorial linked to below and as well as the HTML slides that I'll be presenting from. Eventually the intention is to have the tutorials go into more detail on topics, but at the moment they're a bit hit and miss!
 
@@ -70,22 +81,32 @@ The interactive components to each section:
 - For the data visualisation, the DIY section is entirely freeform. The way this session will run is that I'll give a very brief lecture on the grammar of graphics package, and then you should feel free to explore ggplot to your hearts content!
 - For the statistical modelling section... oh, let's be honest. By this point in the day we'll all need a break so it's probably easiest to do this one lecture style!
 
-**Before the session:** You'll need to have git installed on your computer. If you're using Windows you can install [Git for Windows](https://gitforwindows.org/). For Mac users, the easiest (but most wasteful) way to do it is to install Xcode from the App store. But that contains all the developer tools and it's 6Gb in size. Alternatively, it should be possible to install just the command line tools by following [these instructions](http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/).
+**Before the session**: You'll need to have git installed on your computer. If you're using Windows you can install [Git for Windows](https://gitforwindows.org/). For Mac users, the easiest (but most wasteful) way to do it is to install Xcode from the App store. But that contains all the developer tools and it's 6Gb in size. Alternatively, it should be possible to install just the command line tools by following [these instructions](http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/).
 
-## Resources for Day 3 (Models)
+### Day 3
+
+<br>
+
+#### Content: Probabilistic modelling 
+#### Instructor: Charles Kemp
+
+<br>
 
 - Please install [JAGS]( http://mcmc-jags.sourceforge.net/) before December 12.
-- Resources can be douwnloaded from [this zip file](day3/day3.zip)
+- Resources can be downloaded from [this zip file](day3/day3.zip)
 
-## Resources for Day 4 (Experience sampling)
+### Day 4
+
+<br>
+
+#### Content: Experience sampling
+#### Instructor: Simon Dennis
+
+<br>
 
 - [Slides](day4/experiencesamplingslides.pdf)
 
-## Recommended practices for computational projects
-
- <a href="https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf">A guide to reproducible code in ecology and evolution</a> contains a lot of useful advice about folder organization, version control and other topics.
-
-## An aside 
+### Other 
 
 One goal we had when putting all this together was to try to provide you with a sense of the extent to which the tools in this Summer School can be adapted to many different purposes. One hint to that is to look at how the resources for Day 2 have been constructed. 
 

@@ -13,15 +13,15 @@
 
 <title>Resources</title>
 
-<script src="site_libs/jquery/jquery.min.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap/shim/respond.min.js"></script>
-<script src="site_libs/navigation/tabsets.js"></script>
-<link href="site_libs/highlightjs/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <!-- ###### start inserted header ##### -->
 
@@ -242,44 +242,55 @@ Resources
 </div>
 
 
-<div id="installing-r-and-rstudio" class="section level2">
-<h2>Installing R and RStudio</h2>
-<ul>
-<li><a href="day0/installing-r-rstudio-windows.pdf">Instructions for Windows</a></li>
-<li><a href="day0/installing-r-rstudio-mac.pdf">Instructions for Mac</a></li>
-</ul>
+<div id="section" class="section level2 tabset">
+<h2></h2>
+<div id="day-0" class="section level3">
+<h3>Day 0</h3>
+<p><br></p>
+<div id="content-r-bootcamp" class="section level4">
+<h4>Content: R Bootcamp</h4>
 </div>
-<div id="programming-in-r" class="section level2">
-<h2>Programming in R</h2>
-<p>Danielle Navarro’s <a href="https://compcogscisydney.org/psyr/">R for Psychological Science</a> is the recommended resource for the summer school. The core toolkit from this resource will be covered in the R bootcamp on December 9.</p>
-</div>
-<div id="resources-for-day-0-r-boot-camp" class="section level2">
-<h2>Resources for Day 0 (R boot camp)</h2>
+<div id="instructors-amy-perfors-danielle-navarro" class="section level4">
+<h4>Instructors: Amy Perfors &amp; Danielle Navarro</h4>
+<p><br></p>
+<p>The goal in Day 0 is to provide an “R Bootcamp”, which provides a basic introduction to programming in R. The content of the bootcamp covers the <em>core toolkit</em> section of Danielle Navarro’s <a href="https://compcogscisydney.org/psyr/">R for Psychological Science</a>. Other resources for the day:</p>
 <ul>
-<li>We’ll use this <a href="day0/toydata.csv">csv file</a> and this <a href="day0/toydata.Rdata">Rdata file</a></li>
+<li><strong>Before the session</strong>. Installing R and RStudio on <a href="day0/installing-r-rstudio-windows.pdf">Windows</a> or <a href="day0/installing-r-rstudio-mac.pdf">Mac</a></li>
+<li>We’ll use the <a href="day0/toydata.csv">toydata.csv</a> and <a href="day0/toydata.Rdata">toydata.Rdata</a> files.</li>
 <li>Slides in PDF form: <a href="day0/introtoR1-handout.pdf">part 1</a>, <a href="day0/introtoR2-handout.pdf">part 2</a>, <a href="day0/introtoR3-handout.pdf">part 3</a></li>
 <li>Slides as Keynote presentations: <a href="day0/introtoR1-handout.key">part 1</a>, <a href="day0/introtoR2-handout.key">part 2</a>, <a href="day0/introtoR3-handout.key">part 3</a></li>
 </ul>
 </div>
-<div id="resources-for-day-1-experiments" class="section level2">
-<h2>Resources for Day 1 (Experiments)</h2>
+</div>
+<div id="day-1" class="section level3">
+<h3>Day 1</h3>
+<p><br></p>
+<div id="content-online-experiments" class="section level4">
+<h4>Content: Online Experiments</h4>
+</div>
+<div id="instructor-amy-perfors" class="section level4">
+<h4>Instructor: Amy Perfors</h4>
+<p><br></p>
+<p>The content in Day 1 provides a discussion of the replication crisis in psychology, and an overview of replication, powering studies and the use of pre-registration. It also discusses workflow and file organisation. The technical side covers how to code online experiments (using javascript, and the jsPsych library in particular), hosting the experiment as a web application using Google App Engine, and downloading data from the web application</p>
 <ul>
-<li>Before the session on December 10 you’ll need to have Python 2.7 and the Google Cloud SDK installed. Instructions are <a href="day1/python-appengine-installation.pdf">here</a></li>
-<li>Please also download <a href="https://drive.google.com/file/d/1uMdM_prLZiF8iZe2NzcQYwrShh1YbCoG/view?usp=sharing">this zipfile</a> and have it on your laptop before December 10. The zipfile contains code for the experiment that will be discussed on that day.</li>
+<li><strong>Before the session</strong>. Install Python 2.7 and the Google Cloud SDK. Instructions are <a href="day1/python-appengine-installation.pdf">here</a>. Please also download <a href="https://drive.google.com/file/d/1uMdM_prLZiF8iZe2NzcQYwrShh1YbCoG/view?usp=sharing">this zipfile</a> which contains code for the experiment that will be discussed on that day.</li>
+<li>Scripts etc: <a href="day1/demonstration.R">demonstration.R</a>, <a href="day1/temperature.html">temperature.html</a>, <a href="day1/sampleExpt.html">sampleExpt.html</a>, <a href="day1/JSON_parser_function.R">JSON_parser_function.R</a></li>
+<li>Slides: <a href="day1/1-replicability-handout.pdf">slides 1</a>, <a href="day1/2-workflow-and-experiment-design-handout.pdf">slides 2</a>, <a href="day1/3-coding-experiments-handout.pdf">slides 3</a>, <a href="day1/4-ethics-hosting-data-handout.pdf">slides 4</a></li>
+<li><a href="https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf">A guide to reproducible code in ecology and evolution</a> contains a lot of useful advice about folder organization, version control and other topics.</li>
 </ul>
-<p>Other files for day 1:</p>
-<ul>
-<li><a href="day1/demonstration.R">demonstration.R</a>,</li>
-<li><a href="day1/temperature.html">temperature.html</a>,</li>
-<li><a href="day1/sampleExpt.html">sampleExpt.html</a>,</li>
-<li><a href="day1/JSON_parser_function.R">JSON_parser_function.R</a></li>
-</ul>
-<p>Slides for day 1: <a href="day1/1-replicability-handout.pdf">slides 1</a>, <a href="day1/2-workflow-and-experiment-design-handout.pdf">slides 2</a>, <a href="day1/3-coding-experiments-handout.pdf">slides 3</a>, <a href="day1/4-ethics-hosting-data-handout.pdf">slides 4</a></p>
 <p>Note: the files provided above do not contain what you need to download the data; we had to modify them slightly to do that. Here is a new <a href="day1/backend.py">backend.py file</a> and a new <a href="day1/index.html">index.html file</a>; both of these are slight modifications of the existing ones so go ahead and copy over the ones we gave you with them. (Then type gcloud init and gcloud app deploy to make sure that the new version in the gloud uses them). As explained in the slides, you can now download data by going to your url and adding on /info at the end. This should automatically download a file called results.csv. (If you want to test this, remember to do the experiment at least one time, otherwise you’ll have no data to download!) Once you have the results.csv file, you will need to parse it with the <a href="day1/read.R">read.R</a> script which will turn it into a tidyverse-friendly csv format. Note also that your experiment is still up! If you want to delete it or take it down, that can be done from cloud.google.com.</p>
 </div>
-<div id="resources-for-day-2-data-analysis" class="section level2">
-<h2>Resources for Day 2 (Data analysis)</h2>
-<p>The goal in Day 2 is to cover topics relevant to data analysis with R. The coverage is somewhat eclectic: there are sections that discuss tools that will help you with your workflow (e.g., git, R Markdown, etc), sections that discuss how to manipulate and visualise data (e.g., tidyverse), and a section that discusses statistical modelling in R (e.g., linear models, mixed models). Given the breadth of coverage, we won’t go into much detail on any topic. You should think of each section as an initial introduction to something that is itself a much larger topic.</p>
+</div>
+<div id="day-2" class="section level3">
+<h3>Day 2</h3>
+<p><br></p>
+<div id="content-data-analysis-in-r" class="section level4">
+<h4>Content: Data analysis in R</h4>
+</div>
+<div id="instructor-danielle-navarro" class="section level4">
+<h4>Instructor: Danielle Navarro</h4>
+<p><br></p>
+<p>The goal in Day 2 is to cover topics relevant to <strong>data analysis with R</strong>. The coverage is somewhat eclectic: there are sections that discuss tools that will help you with your workflow (e.g., git, R Markdown, etc), sections that discuss how to manipulate and visualise data (e.g., tidyverse), and a section that discusses statistical modelling in R (e.g., linear models, mixed models). Given the breadth of coverage, we won’t go into much detail on any topic. You should think of each section as an initial introduction to something that is itself a much larger topic.</p>
 <p>Within each content section, there is a written tutorial linked to below and as well as the HTML slides that I’ll be presenting from. Eventually the intention is to have the tutorials go into more detail on topics, but at the moment they’re a bit hit and miss!</p>
 <ul>
 <li>Brief introduction: <a href="day2/intro-slides.html">intro-slides.html</a></li>
@@ -296,27 +307,40 @@ Resources
 <li>For the data visualisation, the DIY section is entirely freeform. The way this session will run is that I’ll give a very brief lecture on the grammar of graphics package, and then you should feel free to explore ggplot to your hearts content!</li>
 <li>For the statistical modelling section… oh, let’s be honest. By this point in the day we’ll all need a break so it’s probably easiest to do this one lecture style!</li>
 </ul>
-<p>**Before the <a href="session:**" class="uri">session:**</a> You’ll need to have git installed on your computer. If you’re using Windows you can install <a href="https://gitforwindows.org/">Git for Windows</a>. For Mac users, the easiest (but most wasteful) way to do it is to install Xcode from the App store. But that contains all the developer tools and it’s 6Gb in size. Alternatively, it should be possible to install just the command line tools by following <a href="http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/">these instructions</a>.</p>
+<p><strong>Before the session</strong>: You’ll need to have git installed on your computer. If you’re using Windows you can install <a href="https://gitforwindows.org/">Git for Windows</a>. For Mac users, the easiest (but most wasteful) way to do it is to install Xcode from the App store. But that contains all the developer tools and it’s 6Gb in size. Alternatively, it should be possible to install just the command line tools by following <a href="http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/">these instructions</a>.</p>
 </div>
-<div id="resources-for-day-3-models" class="section level2">
-<h2>Resources for Day 3 (Models)</h2>
+</div>
+<div id="day-3" class="section level3">
+<h3>Day 3</h3>
+<p><br></p>
+<div id="content-probabilistic-modelling" class="section level4">
+<h4>Content: Probabilistic modelling</h4>
+</div>
+<div id="instructor-charles-kemp" class="section level4">
+<h4>Instructor: Charles Kemp</h4>
+<p><br></p>
 <ul>
 <li>Please install <a href="http://mcmc-jags.sourceforge.net/">JAGS</a> before December 12.</li>
 <li>Resources can be douwnloaded from <a href="day3/day3.zip">this zip file</a></li>
 </ul>
 </div>
-<div id="resources-for-day-4-experience-sampling" class="section level2">
-<h2>Resources for Day 4 (Experience sampling)</h2>
+</div>
+<div id="day-4" class="section level3">
+<h3>Day 4</h3>
+<p><br></p>
+<div id="content-experience-sampling" class="section level4">
+<h4>Content: Experience sampling</h4>
+</div>
+<div id="instructor-simon-dennis" class="section level4">
+<h4>Instructor: Simon Dennis</h4>
+<p><br></p>
 <ul>
 <li><a href="day4/experiencesamplingslides.pdf">Slides</a></li>
 </ul>
 </div>
-<div id="recommended-practices-for-computational-projects" class="section level2">
-<h2>Recommended practices for computational projects</h2>
-<p><a href="https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf">A guide to reproducible code in ecology and evolution</a> contains a lot of useful advice about folder organization, version control and other topics.</p>
 </div>
-<div id="an-aside" class="section level2">
-<h2>An aside</h2>
+<div id="other" class="section level3">
+<h3>Other</h3>
 <p>One goal we had when putting all this together was to try to provide you with a sense of the extent to which the tools in this Summer School can be adapted to many different purposes. One hint to that is to look at how the resources for Day 2 have been constructed.</p>
 <ul>
 <li>Obviously, we use R for the analyses, for drawing the images, etc.</li>
@@ -327,6 +351,7 @@ Resources
 <li>So was animated GIF that we used to advertise: <a href="https://github.com/djnavarro/chdss-logo" class="uri">https://github.com/djnavarro/chdss-logo</a> (using an in-development package called <code>gganimate</code> that extends the functionality of <code>ggplot2</code> to allow animation)</li>
 </ul>
 <p>Once you start feeling comfortable in R, it’s remarkable what fun things you can find to do with it!</p>
+</div>
 </div>
 
 

@@ -204,37 +204,22 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="program.html">program</a>
+  <a href="program.html">Program</a>
 </li>
 <li>
-  <a href="venue.html">venue</a>
+  <a href="venue.html">Venue</a>
 </li>
 <li>
-  <a href="participants.html">participants</a>
+  <a href="participants.html">Participants</a>
 </li>
 <li>
-  <a href="resources.html">resources</a>
+  <a href="resources.html">Resources</a>
 </li>
 <li>
   <a href="coc.html">CoC</a>
 </li>
 <li>
   <a href="faq.html">FAQ</a>
-</li>
-<li>
-  <a href="git.html">Git</a>
-</li>
-<li>
-  <a href="projects.html">Projects</a>
-</li>
-<li>
-  <a href="wrangling.html">Wrangling</a>
-</li>
-<li>
-  <a href="visualisation.html">Visualisation</a>
-</li>
-<li>
-  <a href="statistics.html">Statistics</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -281,8 +266,24 @@ Resources
 </div>
 <div id="resources-for-day-2-data-analysis" class="section level2">
 <h2>Resources for Day 2 (Data analysis)</h2>
-<p>Before the session on December 11 you’ll need to have git installed on your computer. If you’re using Windows you can install <a href="https://gitforwindows.org/">Git for Windows</a>. For Mac users, the easiest (but most wasteful) way to do it is to install Xcode from the App store. But that contains all the developer tools and it’s 6Gb in size. Alternatively, it should be possible to install just the command line tools by following <a href="http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/">these instructions</a> but we haven’t tested them ourselves. For all other resources, see the Day 2 homepage:</p>
-<p><a href="https://djnavarro.github.io/chdss2018/" class="uri">https://djnavarro.github.io/chdss2018/</a></p>
+<p>The goal in Day 2 is to cover topics relevant to data analysis with R. The coverage is somewhat eclectic: there are sections that discuss tools that will help you with your workflow (e.g., git, R Markdown, etc), sections that discuss how to manipulate and visualise data (e.g., tidyverse), and a section that discusses statistical modelling in R (e.g., linear models, mixed models). Given the breadth of coverage, we won’t go into much detail on any topic. You should think of each section as an initial introduction to something that is itself a much larger topic.</p>
+<p>Within each content section, there is a written tutorial linked to below and as well as the HTML slides that I’ll be presenting from. Eventually the intention is to have the tutorials go into more detail on topics, but at the moment they’re a bit hit and miss!</p>
+<ul>
+<li>Brief introduction: <a href="intro-slides.html" class="uri">intro-slides.html</a></li>
+<li>Working with git and GitHub: <a href="git.html" class="uri">git.html</a>, <a href="git-slides.html" class="uri">git-slides.html</a></li>
+<li>Working with R markdown and R projects: <a href="projects.html" class="uri">projects.html</a>, <a href="projects-slides.html" class="uri">projects-slides.html</a></li>
+<li>Data wrangling in tidyverse: <a href="wrangling.html" class="uri">wrangling.html</a>, <a href="wrangling-slides.html" class="uri">wrangling-slides.html</a></li>
+<li>Data visualisation in tidyverse: <a href="visualisation.html" class="uri">visualisation.html</a>, <a href="visualisation-slides.html" class="uri">visualisation-slides.html</a></li>
+<li>Statistical modelling in R: <a href="statistics.html" class="uri">statistics.html</a>, <a href="statistics-slides.html" class="uri">statistics-slides.html</a></li>
+</ul>
+<p>The interactive components to each section:</p>
+<ul>
+<li>For the git and projects sections, the goal will be to create your own repository and initialise an RStudio project within it. The repository that I created is the <a href="https://github.com/djnavarro/summerschool">summerschool</a> repo.</li>
+<li>For the data wrangling section, there is a structured sequence of six exercises that you can work through in parallel with the session (the slides have explicit break points). Each exercise is an R Markdown file that you’ll need to make changes to. You can download zip files with all <a href="wrangling-exercises.zip">exercises</a> and <a href="wrangling-solutions.zip">solutions</a>. In addition to the <a href="analysis/data/frames_ex2.csv">frames</a> data the exercises use the <a href="analysis/data/tidy_users.csv">tidy_users</a> data and the <a href="analysis/data/tidy_nails.csv">tidy_nails</a> data.</li>
+<li>For the data visualisation, the DIY section is entirely freeform. The way this session will run is that I’ll give a very brief lecture on the grammar of graphics package, and then you should feel free to explore ggplot to your hearts content!</li>
+<li>For the statistical modelling section… oh, let’s be honest. By this point in the day we’ll all need a break so it’s probably easiest to do this one lecture style!</li>
+</ul>
+<p>**Before the <a href="session:**" class="uri">session:**</a> You’ll need to have git installed on your computer. If you’re using Windows you can install <a href="https://gitforwindows.org/">Git for Windows</a>. For Mac users, the easiest (but most wasteful) way to do it is to install Xcode from the App store. But that contains all the developer tools and it’s 6Gb in size. Alternatively, it should be possible to install just the command line tools by following <a href="http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/">these instructions</a>.</p>
 </div>
 <div id="resources-for-day-3-models" class="section level2">
 <h2>Resources for Day 3 (Models)</h2>
@@ -295,6 +296,19 @@ Resources
 <div id="recommended-practices-for-computational-projects" class="section level2">
 <h2>Recommended practices for computational projects</h2>
 <p><A HREF= "https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf">A guide to reproducible code in ecology and evolution</A> contains a lot of useful advice about folder organization, version control and other topics.</p>
+</div>
+<div id="an-aside" class="section level2">
+<h2>An aside</h2>
+<p>One goal we had when putting all this together was to try to provide you with a sense of the extent to which the tools in this Summer School can be adapted to many different purposes. One hint to that is to look at how the resources for Day 2 have been constructed.</p>
+<ul>
+<li>Obviously, we use R for the analyses, for drawing the images, etc.</li>
+<li>Everything is hosted on GitHub, <a href="https://github.com/djnavarro/chdss2018" class="uri">https://github.com/djnavarro/chdss2018</a></li>
+<li>The website and tutorials is written in R Markdown, and updates on GitHub are automatically made live on this site</li>
+<li>The slides are written using <code>xaringan</code>, an R package that provides an interface between R Markdown and some neat javascript libraries.</li>
+<li>The graphic for the t-shirt were generated in R: <a href="https://github.com/djnavarro/asciify" class="uri">https://github.com/djnavarro/asciify</a></li>
+<li>So was animated GIF that we used to advertise: <a href="https://github.com/djnavarro/chdss-logo" class="uri">https://github.com/djnavarro/chdss-logo</a> (using an in-development package called <code>gganimate</code> that extends the functionality of <code>ggplot2</code> to allow animation)</li>
+</ul>
+<p>Once you start feeling comfortable in R, it’s remarkable what fun things you can find to do with it!</p>
 </div>
 
 

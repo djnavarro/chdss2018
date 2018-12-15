@@ -13,6 +13,9 @@ pagetitle: Resources
 rm(list=objects()) # start with a clean workspace
 ```
 
+
+Resources associated with each day of the workshop. The content is organised slightly differently to how it was on the day (we've had a little more time to merge content), but the material itself is unchanged.
+
 ## {.tabset}
 
 

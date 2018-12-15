@@ -14,32 +14,32 @@ pagetitle: Program
 rm(list=objects()) # start with a clean workspace
 ```
 
-* Sunday, Dec 9: R Bootcamp
+* Sunday, Dec 9: [R Bootcamp](./resources.html#day-0)
     + 1 - 4:30. Afternoon session
 
-* Monday, Dec 10: Running experiments online
+* Monday, Dec 10: [Running experiments online](./resources.html#day-1)
     + 9:30 - 12:00. Morning session
     + 12:00 - 1:00. Lunch break
     + 1:00 - 4:30. Afternoon session
     + 5:30. Dinner reception in the foyer of the Melbourne School of Design
 
-* Tuesday, Dec 11: Data analysis
+* Tuesday, Dec 11: [Data analysis](./resources.html#day-2)
     + 9:30 - 12:00. Morning session
     + 12:00 - 1:00. Lunch break
     + 1:00 - 4:30. Afternoon session
     + 6:00. Drinks at [the Clyde Hotel]( https://www.theclydehotel.com.au/ ) (optional)
 
-* Wednesday, Dec 12: Probabilistic models
+* Wednesday, Dec 12: [Probabilistic models](./resources.html#day-3)
     + 9:30 - 12:00. Morning session
     + 12:00 - 1:00. Lunch break
     + 1:00 - 4:30. Afternoon session
 
-* Thursday, Dec 13: Experience sampling
+* Thursday, Dec 13: [Experience sampling](./resources.html#day-4)
     + 9:30 - 12:00. Morning session
     + 12:00 - 1:00. Lunch break
     + 1:00 - 4:30. Afternoon session
 
-* Friday, Dec 14: Complex human data case studies
+* Friday, Dec 14: **Complex human data case studies**
     + 9:30 - 9:55. Adam Osth
     + 9:55 - 10:20. Vanessa Ferdinand
     + 10:20 - 10:45. Josh Abbott

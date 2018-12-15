@@ -1,0 +1,1537 @@
+---
+title: "Statistical modelling"
+subtitle: "A grossly inadequate introduction"
+author: "<br><br>Danielle Navarro &nbsp;&nbsp;&nbsp;`r anicon::faa('twitter', animate='float', rtext=' @djnavarro')`"
+date: "https://djnavarro.github.io/chdss2018/<br><br>11 December 2018"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    chakra: "libs/remark-latest.min.js"    
+    css: ["kunoichi", "ninjutsu" , "assets/ninpo.css", "assets/danielle.css"]
+    self_contained: false
+    nature:
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE, message=FALSE}
+options(htmltools.dir.version = FALSE)
+library(here)
+library(tidyverse)
+library(lme4)
+frames <- read_csv(here("analysis","data","frames_ex2.csv"))
+
+library(knitr)
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+  lines <- options$output.lines
+  if (is.null(lines)) {
+    return(hook_output(x, options))  # pass to default hook
+  }
+  x <- unlist(strsplit(x, "\n"))
+  more <- "..."
+  if (length(lines)==1) {        # first n lines
+    if (length(x) > lines) {
+      # truncate the output, but add ....
+      x <- c(head(x, lines), more)
+    }
+  } else {
+    x <- c(more, x[lines], more)
+  }
+  # paste these lines together
+  x <- paste(c(x, ""), collapse = "\n")
+  hook_output(x, options)
+})
+```
+
+
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+tinyframes <- frames %>%
+  group_by(id, age, condition) %>%
+  summarise(
+    response = mean(response)
+    ) %>%
+  ungroup()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+
+# Simplified data set 
+
+- Average all responses by an individual
+- Ignores effect of number of observations
+- Each person provides one "average response"
+- Impoverished, but easy to analyse!
+
+
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+tinyframes <- frames %>%
+  group_by(id, age, condition) %>%
+  summarise(
+    response = mean(response)
+    ) %>%
+  ungroup()
+
+tinyframes #<<
+```
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r maketinyframes, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+tinyframes <- frames %>%
+  group_by(id, age, condition) %>%
+  summarise(
+    response = mean(response)
+    ) %>%
+  ungroup()
+
+tinyframes
+```
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r eval=FALSE, message = FALSE}
+tinyframes <- frames %>%
+  group_by(id, age, condition) %>%
+  summarise(
+    response = mean(response)
+    ) %>%
+  ungroup()
+
+tinyframes %>%
+  group_by(condition) %>%
+  summarise(
+    mean_resp = mean(response), #<<
+    sd_resp = sd(response), #<<
+    n = n() #<<
+  )
+```
+]]]
+]]
+--
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r summarisetinyfrmaes, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+tinyframes %>%
+  group_by(condition) %>%
+  summarise(
+    mean_resp = mean(response), 
+    sd_resp = sd(response),
+    n = n()
+  )
+```
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+tinyframes %>% 
+  ggplot(aes(
+    x = age, 
+    y = response, 
+    colour = condition)) + 
+  geom_smooth(method = "lm") + #<<
+  geom_point()
+```
+
+- Is this difference meaningful?
+- What tools do we use to assess it?
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r plottinyfrmaes, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+tinyframes %>% 
+  ggplot(aes(
+    x = age,  #<<
+    y = response, #<< 
+    colour = condition)) + #<< 
+  geom_smooth(method = "lm") + 
+  geom_point()
+```
+
+
+]]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+t.test(
+  formula = response ~ condition, 
+  data = tinyframes, 
+  var.equal = TRUE
+)
+```
+
+- The answer we were taught.
+    - H0: same mean
+    - H1: different mean
+    - etc, etc
+
+]]]
+]]
+--
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r ttest, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, highlight.output=5}
+t.test(
+  formula = response ~ condition, 
+  data = tinyframes, 
+  var.equal = TRUE
+)
+```
+
+- Yay the magic p<.05. Winning!
+
+]]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+t.test(
+  formula = response ~ condition, 
+  data = tinyframes, 
+  var.equal = TRUE
+)
+```
+
+- The answer we were taught.
+    - H0: same mean
+    - H1: different mean
+    - etc, etc
+
+]]]
+]]
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r ttest2, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, highlight.output=8}
+t.test(
+  formula = response ~ condition, 
+  data = tinyframes, 
+  var.equal = TRUE
+)
+```
+
+- Effect size? 
+    - I'm not a fan of "standardised" effect size
+    - 95% CI for the difference in raw scores...
+    - ...it's about 1 point on the 9 point scale
+    - divide by std. dev if you want Cohen's d
+    
+]]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Linear models]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.row.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+
+Linear models:
+
+$\mu_i = b_0 + b_1 X_1 + b_2 X_2 + ... + b_k X_k$ <br>
+$Y_i \sim \mbox{Normal}(\mu_i, \sigma)$
+
+
+]]]
+]]
+
+.row.bg-main3[.content.vtop.center[
+```{r, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, fig.width=5, fig.height=4}
+tinyframes %>% 
+  ggplot(aes(
+    x = age,  #<<
+    y = response, #<< 
+    colour = condition)) + #<< 
+  geom_smooth(method = "lm") + 
+  geom_point()
+```
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.row.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+Linear models in R:
+
+```{r, eval=FALSE, message = FALSE}
+mod1 <- lm(formula = response ~ 1, data = tinyframes) 
+mod2 <- lm(formula = response ~ condition, data = tinyframes)
+```
+]]]
+]]
+
+.row.bg-main3[.content.vtop.center[
+```{r, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, fig.width=5, fig.height=4}
+tinyframes %>% 
+  ggplot(aes(
+    x = age,  #<<
+    y = response, #<< 
+    colour = condition)) + #<< 
+  geom_smooth(method = "lm") + 
+  geom_point()
+```
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.row.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Inspecting linear models in R:
+
+```{r, eval=FALSE, message = FALSE}
+mod1 <- lm(formula = response ~ 1, data = tinyframes) 
+mod2 <- lm(formula = response ~ condition, data = tinyframes)
+mod2 
+```
+]]]
+]]
+--
+.row.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r lmdemo, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, highlight.output = 7}
+mod1 <- lm(formula = response ~ 1, data = tinyframes) 
+mod2 <- lm(formula = response ~ condition, data = tinyframes)
+mod2 #<<
+```
+
+- Hey those numbers look familiar
+- Relationship to t.test?
+
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.row.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+
+Comparing linear models with F-tests:
+```{r, eval=FALSE, message = FALSE}
+mod1 <- lm(formula = response ~ 1, data = tinyframes) 
+mod2 <- lm(formula = response ~ condition, data = tinyframes)
+anova(mod1, mod2) #<<
+```
+]]]
+]]
+--
+.row.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```{r lmanova, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, highlight.output = 7}
+mod1 <- lm(formula = response ~ 1, data = tinyframes) 
+mod2 <- lm(formula = response ~ condition, data = tinyframes)
+anova(mod1, mod2) 
+```
+]]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.row.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Comparing several linear models with F-tests:
+```{r, eval=FALSE, message = FALSE}
+mod1 <- lm(formula = response ~ 1, data = tinyframes) 
+mod2 <- lm(formula = response ~ condition, data = tinyframes)
+mod3 <- lm(formula = response ~ condition + age, data = tinyframes) #<<
+anova(mod1, mod2, mod3) #<<
+```
+]]]
+]]
+
+.row.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r anovalm2, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, highlight.output = 8:9}
+mod1 <- lm(formula = response ~ 1, data = tinyframes) 
+mod2 <- lm(formula = response ~ condition, data = tinyframes)
+mod3 <- lm(formula = response ~ condition + age, data = tinyframes)
+
+anova(mod1, mod2, mod3)
+```
+]]]
+]]
+
+---
+class: bg-main1 center middle hide-slide-number
+
+# Why do I care about F-tests again????
+<br><br>
+<img src="images/adaY.png" width="60%">
+
+
+---
+class: bg-main1 center middle 
+
+.pull.left[.pad1[.font2[
+# Eh. Let's skip the rant and jump to... TL;DR:
+
+What problem are you trying to solve?
+- Hypothesis testing vs estimation?
+- Bayesian inference vs frequentist?
+- Exploration vs confirmation?
+- Decision making vs learning?
+
+Different problems lead to different statistics<br>
+Orthodox null hypothesis tests are *specific* tools
+]]]
+
+---
+class: bg-main1 center middle 
+
+.pull.left[.pad1[.font2[
+# Eh. Let's skip the rant and jump to... TL;DR:
+
+What problem are you trying to solve?
+- .orange[Hypothesis testing] vs estimation?
+- Bayesian inference vs .orange[frequentist]?
+- Exploration vs .orange[confirmation]?
+- .orange[Decision making] vs learning?
+
+Different problems lead to different statistics<br>
+.orange[Orthodox null hypothesis tests] are *specific* tools
+]]]
+
+
+
+---
+class: bg-main1 center middle 
+
+.pull.left[.pad1[.font2[
+# Eh. Let's skip the rant and jump to... TL;DR:
+
+What problem are you trying to solve?
+- .blue[Hypothesis testing] vs estimation?
+- .blue[Bayesian inference] vs frequentist?
+- Exploration vs .blue[confirmation]?
+- Decision making vs learning.blue[???]
+
+Different problems lead to different statistics<br>
+.blue[Bayes factors] are *specific* tools
+]]]
+
+
+
+---
+class: bg-main1 center middle 
+
+.pull.left[.pad1[.font2[
+# Eh. Let's skip the rant and jump to... TL;DR:
+
+What problem are you trying to solve?
+- Hypothesis testing vs .yellow[estimation]?
+- .yellow[Bayesian inference] vs frequentist?
+- .yellow[Exploration] vs confirmation?
+- Decision making vs .yellow[learning]
+
+Most of .yellow[my modelling problems] are this!<br>
+:-)
+]]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.row.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Akaike Information Criterion?
+```{r, eval=FALSE, message = FALSE}
+mod1 <- lm(formula = response ~ 1, data = tinyframes) 
+mod2 <- lm(formula = response ~ condition, data = tinyframes)
+mod3 <- lm(formula = response ~ condition + age, data = tinyframes)
+AIC(mod1, mod2, mod3) #<<
+```
+]]]
+]]
+--
+.row.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r aiclm, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, highlight.output=3}
+mod1 <- lm(formula = response ~ 1, data = tinyframes) 
+mod2 <- lm(formula = response ~ condition, data = tinyframes)
+mod3 <- lm(formula = response ~ condition + age, data = tinyframes)
+
+AIC(mod1, mod2, mod3)
+```
+]]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main3
+
+.row.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Bayesian information criterion?
+```{r eval=FALSE, message = FALSE}
+mod1 <- lm(formula = response ~ 1, data = tinyframes) 
+mod2 <- lm(formula = response ~ condition, data = tinyframes)
+mod3 <- lm(formula = response ~ condition + age, data = tinyframes)
+BIC(mod1, mod2, mod3)#<<
+```
+]]]
+]]
+--
+.row.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r biclm, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, highlight.output=3}
+mod1 <- lm(formula = response ~ 1, data = tinyframes) 
+mod2 <- lm(formula = response ~ condition, data = tinyframes)
+mod3 <- lm(formula = response ~ condition + age, data = tinyframes)
+BIC(mod1, mod2, mod3)
+```
+]]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.row.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Bayes factors?
+```{r, eval=FALSE, message = FALSE}
+library(BayesFactor)
+tf <- as.data.frame(tinyframes)
+mod2b <- lmBF(formula = response ~ condition, data = tf)
+mod3b <- lmBF(formula = response ~ condition + age, data = tf)
+mod2b / mod3b #<<
+```
+]]]
+]]
+--
+.row.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r lmbf, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, highlight.output=3}
+library(BayesFactor)
+tf <- as.data.frame(tinyframes)
+mod2b <- lmBF(formula = response ~ condition, data = tf)
+mod3b <- lmBF(formula = response ~ condition + age, data = tf)
+mod2b / mod3b #<<
+```
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Linear mixed models 1]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE, highlight.output = 7:9}
+modestframes <- frames %>% 
+  group_by(
+    id, age, condition, n_obs) %>%
+  summarise(
+    response = mean(response)) %>%
+  ungroup()
+
+modestframes
+```
+
+- But what if I care about how people adjust their beliefs as more data arrive? <br><br>
+- If so, I don't want to collaps "n_obs", I want to analyse it
+
+]]]
+]]
+
+--
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r modestframes, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE,  highlight.output = 7:9}
+modestframes <- frames %>% 
+  group_by(
+    id, age, condition, n_obs) %>%
+  summarise(
+    response = mean(response)) %>%
+  ungroup()
+
+modestframes
+```
+]]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+whichids <- modestframes %>%
+  pull(id) %>%
+  unique() %>%
+  sample(size = 80)
+
+whichids
+```
+
+- Pick a random subset of 80 people...
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r showids, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+whichids <- modestframes %>%
+  pull(id) %>%
+  unique() %>%
+  sample(size = 80)
+  
+whichids
+```
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+whichids <- modestframes %>%
+  pull(id) %>%
+  unique() %>%
+  sample(size = 80)
+
+modestframes %>%
+  filter(id %in% whichids) %>%
+  ggplot(aes(
+    x = n_obs, y = response, 
+    colour = factor(id))) +
+  geom_point(
+    show.legend = FALSE,
+    size = 8) + 
+  geom_line(
+    show.legend = FALSE, 
+    alpha = .3) + 
+  facet_wrap(~ condition)
+```
+
+
+- ...and plot their responses
+]]]
+]]
+
+
+--
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r plotmodest, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+modestframes %>%
+  filter(id %in% whichids) %>%
+  ggplot(aes(
+    x = n_obs, y = response, 
+    colour = factor(id))) +
+  geom_point(
+    show.legend = FALSE,
+    size = 4) + 
+  geom_line(
+    show.legend = FALSE, 
+    lwd = 2,
+    alpha = .3) + 
+  facet_wrap(~ condition)
+```
+]]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Thoughts:
+- Systematic trend?
+- Not the same in each condition?
+- Not homogenous across people?
+
+<br><br><br><br>
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r plotmodest2, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+modestframes %>%
+  filter(id %in% whichids) %>%
+  ggplot(aes(
+    x = n_obs, y = response, 
+    colour = factor(id))) +
+  geom_point(
+    show.legend = FALSE,
+    size = 4) + 
+  geom_line(
+    show.legend = FALSE, 
+    lwd = 2,
+    alpha = .3) + 
+  facet_wrap(~ condition)
+```
+]]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Thoughts:
+- Systematic trend?
+- Not the same in each condition?
+- Not homogenous across people?
+
+Tools?
+- Repeated measures ANOVA?
+- MANOVA?
+- .orange[Linear mixed model]
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r plotmodest3, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+modestframes %>%
+  filter(id %in% whichids) %>%
+  ggplot(aes(
+    x = n_obs, y = response, 
+    colour = factor(id))) +
+  geom_point(
+    show.legend = FALSE,
+    size = 4) + 
+  geom_line(
+    show.legend = FALSE, 
+    lwd = 2,
+    alpha = .3) + 
+  facet_wrap(~ condition)
+```
+]]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.row.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Repeated measures ANOVA as a mixed model:
+```{r, eval=FALSE, message = FALSE}
+modest1 <- lmer(formula = response ~ 1 + (1|id), data = modestframes)
+modest2 <- lmer(formula = response ~ condition + n_obs + (1|id), data = modestframes)
+
+anova(modest1, modest2)
+```
+]]]
+]]
+--
+.row.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r anovamodest, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+modest1 <- lmer(formula = response ~ 1 + (1|id), data = modestframes)
+modest2 <- lmer(formula = response ~ condition + n_obs + (1|id), data = modestframes)
+
+anova(modest1, modest2)
+```
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+But RM-ANOVA is absurd!!!
+
+Traditional RM-ANOVA allows:
+- random effect for intercept
+- fixed effects 
+
+It doesn't do:
+- random slopes of conditions
+- so you have to believe all these lines are "really" the same slope...
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r plotmodest4, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+modestframes %>%
+  filter(id %in% whichids) %>%
+  ggplot(aes(
+    x = n_obs, y = response, 
+    colour = factor(id))) +
+  geom_point(
+    show.legend = FALSE,
+    size = 4) + 
+  geom_line(
+    show.legend = FALSE, 
+    lwd = 2,
+    alpha = .3) + 
+  facet_wrap(~ condition)
+```
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.row.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+modest1 <- lmer(formula = response ~ 1 + (1|id), data = modestframes)
+modest2 <- lmer(formula = response ~ condition + n_obs + (1|id), data = modestframes)
+modest3 <- lmer(formula = response ~ condition + n_obs + (1 + n_obs|id), data = modestframes) #<<
+
+anova(modest1, modest2, modest3)
+```
+]]]
+]]
+
+--
+.row.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, highlight.output = c(5,9)}
+modest3 <- lmer(formula = response ~ condition + n_obs + (1 + n_obs|id), data = modestframes)
+anova(modest1, modest2, modest3)
+```
+]]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+summary(modest3)
+```
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r summarymodest, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, output.lines=1:10, highlight.output = 6}
+summary(modest3)
+```
+
+
+- Terminology:
+    - ML: Maximum likelihood
+    - REML: Restricted maximum likelihood
+- What's the difference?
+    - ML: Fit everything at once
+    - REML: Fit fixed first, then fit random
+]]]
+
+
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+summary(modest3)
+```
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r summarymodestA, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, output.lines=1:10, highlight.output = 9:10}
+summary(modest3)
+```
+
+
+- This is pointless
+- Yes, it's **very** important to look at residuals
+- But this summary is unreadable
+- Just plot them (coming soon!)
+]]]
+
+
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+summary(modest3)
+```
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r summarymodest3, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, output.lines=11:23, highlight.output=11:13}
+summary(modest3)
+```
+
+- Estimated average effect of condition is about .7?
+- Estimated average effect of n_obs exists, but is small?
+- Don't forget: this is raw scale (condition: 0-1, n_obs: 2-12)
+
+]]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+summary(modest3)
+```
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r summarymodest3b, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, output.lines=11:23, highlight.output=4:5}
+summary(modest3)
+```
+
+- Random effects (presumed normal, mean zero)
+- Random effects look quite variable, so take care
+- Looks like slope & intercept are correlated (grossly typical)
+
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-30 bg-main1
+
+.row.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+modestframes$modelfit <- predict(modest3)
+modestframes$resid <- residuals(modest3)
+modestframes
+```
+]]]
+]]
+
+--
+.row.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r predictme, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+modestframes$modelfit <- predict(modest3)
+modestframes$resid <- residuals(modest3)
+modestframes
+```
+]]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+modestframes %>% 
+  ggplot(aes(
+    x = modelfit, #<<
+    y = response)) + #<<
+  geom_point() 
+```
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r plotmodest1, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+modestframes %>% 
+  ggplot(aes(x = response, y = modelfit)) + 
+  geom_point()
+```
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+modestframes %>% 
+  ggplot(aes(
+    x = response, 
+    y = modelfit)) + 
+  geom_point() + 
+  facet_grid( #<<
+    condition ~ n_obs) + #<<
+  geom_abline(
+    intercept = 0, 
+    slope = 1)
+```
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r anothervis, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+modestframes %>% 
+  ggplot(aes(y = modelfit, x = response)) + 
+  geom_point() + 
+  facet_grid(condition ~ n_obs) + 
+  geom_abline(intercept = 0, slope = 1)
+```
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+modestframes %>% 
+  ggplot(aes(
+    x = response, #<< 
+    y = resid)) + #<<
+  geom_point() + 
+  facet_grid(
+    condition ~ n_obs) + 
+  geom_hline(
+    yintercept = 0)
+```
+
+A systematic misfit?
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r anothervis2, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+modestframes %>% 
+  ggplot(aes(y = resid, x = response)) + 
+  geom_point() + 
+  facet_grid(condition ~ n_obs) + 
+  geom_hline(yintercept = 0)
+```
+]]]
+]]
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+modestframes %>%
+  filter(id %in% whichids) %>%
+  ggplot(aes(
+    x = n_obs, y = modelfit, #<<
+    colour = factor(id))) +
+  geom_point(
+    show.legend = FALSE,
+    size = 4) + 
+  geom_line(
+    show.legend = FALSE, 
+    lwd = 2,
+    alpha = .3) + 
+  facet_wrap(~ condition)
+```
+
+But it's a little closer!
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r mfplot, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+modestframes %>%
+  filter(id %in% whichids) %>%
+  ggplot(aes(
+    x = n_obs, y = modelfit, #<<
+    colour = factor(id))) +
+  geom_point(
+    show.legend = FALSE,
+    size = 4) + 
+  geom_line(
+    show.legend = FALSE, 
+    lwd = 2,
+    alpha = .3) + 
+  facet_wrap(~ condition)
+
+```
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Linear mixed models 2]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+whichids <- modestframes %>%
+  pull(id) %>%
+  unique() %>%
+  sample(size = 20)
+
+frames %>%
+  filter(id %in% whichids) %>%
+  ggplot(aes(
+    x = test_item, 
+    y = response, 
+    shape = condition, 
+    colour = factor(n_obs))) +
+  geom_point(size = 2) + 
+  geom_line() + 
+  facet_wrap(~ id)
+```
+
+Okay, let's tackle the full data set
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r dispframes, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+whichids <- modestframes %>%
+  pull(id) %>%
+  unique() %>%
+  sample(size = 20)
+
+frames %>%
+  filter(id %in% whichids) %>%
+  ggplot(aes(
+    x = test_item, 
+    y = response, 
+    shape = condition, 
+    colour = factor(n_obs))) +
+  geom_point(size = 2) + 
+  geom_line() + 
+  facet_wrap(~ id)
+```
+]]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.row.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Let's start with two sensible models:
+
+```{r, eval=FALSE, message = FALSE}
+linframes1 <- lmer(formula = response ~ condition + n_obs + (1 + n_obs|id), data = frames)
+linframes2 <- lmer(formula = response ~ condition + test_item + (1 + test_item + n_obs|id), 
+                   data = frames)
+
+anova(linframes1, linframes2)
+```
+]]]
+]]
+
+--
+.row[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r lmer1, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, highlight.output=7}
+linframes1 <- lmer(formula = response ~ condition + n_obs + (1 + n_obs|id), data = frames)
+linframes2 <- lmer(formula = response ~ condition + test_item + (1 + test_item + n_obs|id), data = frames)
+
+anova(linframes1, linframes2)
+```
+]]]
+]]
+
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+# store model predictions
+linframes <- frames
+linframes$modelfit <-
+  predict(linframes2)
+linframes$resid <- 
+  residuals(linframes2)
+
+# plot
+linframes %>%
+  filter(id %in% whichids) %>%
+  ggplot(aes(
+    x = test_item, y = response, #<<
+    shape = condition, 
+    colour = factor(n_obs))) +
+  geom_point(size = 2) + 
+  geom_line(
+    aes(y = modelfit)) + #<<
+  facet_wrap(~ id)
+```
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r plotlmer, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+linframes <- frames
+linframes$modelfit <- predict(
+  linframes2)
+linframes$resid <- residuals(
+  linframes2)
+
+linframes %>%
+  filter(id %in% whichids) %>%
+  ggplot(aes(
+    x = test_item, y = response, 
+    shape = condition, 
+    colour = factor(n_obs))) +
+  geom_point(size = 2) + 
+  geom_line(
+    aes(y = modelfit)) + 
+  facet_wrap(~ id)
+```
+]]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+linframes %>%
+  ggplot(aes(
+    x = response, #<< 
+    y = resid)) + #<<
+  geom_point() + 
+  facet_grid(
+    condition ~ n_obs) + 
+  geom_hline(
+    yintercept = 0)
+```
+
+A systematic misfit? STILL?
+]]]
+]]
+
+--
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```{r, eval=TRUE, message = FALSE, echo=FALSE}
+linframes %>%
+  ggplot(aes(
+    x = response, #<< 
+    y = resid)) + #<<
+  geom_point() + 
+  facet_grid(
+    condition ~ n_obs) + 
+  geom_hline(
+    yintercept = 0)
+```
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-30 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+linframes %>%
+  ggplot(aes(
+    x = response, 
+    y = resid)) + 
+  geom_point() + 
+  facet_grid(
+    n_obs ~ test_item) + #<<
+  geom_hline(
+    yintercept = 0)
+```
+
+A systematic misfit? STILL?
+]]]
+]]
+
+--
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+```{r, eval=TRUE, message = FALSE, echo=FALSE}
+linframes %>%
+  ggplot(aes(
+    x = response, #<< 
+    y = resid)) + #<<
+  geom_point() + 
+  facet_grid(
+    n_obs ~ test_item) + 
+  geom_hline(
+    yintercept = 0)
+```
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Generalised linear mixed models]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle
+
+# Yeah, maybe not today...
+
+<br>
+<img src="images/glmer.png", width="80%">
+<br>
+
+(GLMMs allow you to fit more complicated models that can capture the nonlinearities that are causing the systematic misfits. It is briefly discussed in [the tutorial](statistics.html))
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle
+
+.pad1[.font2[
+[Between the devil and the deep blue sea](https://link.springer.com/article/10.1007/s42113-018-0019-z)
+
+.pull.left[
+- .orange[Mice & tigers]. All models are *systematically* wrong. But when are they useful?
+- .orange[Hindsight bias]. Model fitting is not prediction, exploration is not confirmation
+- .orange[Psychometric fallacy]. Statistical modelling is not theory development...
+]
+]]
+
+
+<!-- DONE -->
+---
+
+class: bg-main3 middle center
+
+## thank you!
+
+<img src="images/bridge-of-eels.gif" width="70%">
+

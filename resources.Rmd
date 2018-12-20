@@ -111,7 +111,16 @@ The interactive components to each section:
 
 ### Other 
 
-One goal we had when putting all this together was to try to provide you with a sense of the extent to which the tools in this Summer School can be adapted to many different purposes. One hint to that is to look at how the resources for Day 2 have been constructed. 
+
+Some additional online resources that you may find useful
+
+- [A guide to reproducible code in ecology and evolution](https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf) contains a lot of useful advice about folder organization, version control and other topics.
+- [Happy git and github for the useR](http://happygitwithr.com/) provides a good overview of how to use Git and GitHub in conjunction with an R-based workflow.
+- [R for psychological science](https://compcogscisydney.org/psyr/) covers the contents of the bootcamp and a few other topics
+- [R for data science](https://r4ds.had.co.nz/) provides a deeper coverage of data analysis using R, aimed primarily at data scientists
+- [Machine learning: A probabilistic perspective](https://www.cs.ubc.ca/~murphyk/MLbook/) is intended primarily for computer scientists, but many ideas it covers are relevant for probabilistic modeling in cognitive science
+
+Additionally... one goal we had when putting all this together was to try to provide you with a sense of the extent to which the tools in this Summer School can be adapted to many different purposes. One hint to that is to look at how the resources for Day 2 have been constructed. 
 
 - Obviously, we use R for the analyses, for drawing the images, etc.
 - Everything is hosted on GitHub, https://github.com/djnavarro/chdss2018

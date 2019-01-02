@@ -244,7 +244,8 @@ tidy_nails</code></pre>
 <pre class="r"><code>long_nails &lt;- tidy_nails %&gt;%
   gather( YOUR-CODE-HERE )  %&gt;% 
   arrange( YOUR-CODE-HERE )</code></pre>
-<pre><code>## Error in arrange_impl(.data, dots): Evaluation error: object &#39;YOUR&#39; not found.</code></pre>
+<pre><code>## Error: Must supply a symbol or a string as argument
+## [90mCall `rlang::last_error()` to see a backtrace[39m</code></pre>
 <pre class="r"><code>print(long_nails)</code></pre>
 <pre><code>## # A tibble: 204 x 6
 ##     year state   region population measure     count
